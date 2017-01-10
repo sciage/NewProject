@@ -1,0 +1,2 @@
+include ':app', ':materialanimatedswitch', ':audioLib'
+include ':licenseLib'

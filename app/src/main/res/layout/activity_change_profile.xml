@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:mtf_openKeyboardOnFocus="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:background="#4644aa"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_toolbar"
+            android:background="#5c6bc0"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_header_banner">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/changeimage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/intruder_shanky"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#aa000000"
+            android:layout_alignTop="@id/changeimage"
+            android:layout_alignBottom="@id/changeimage"
+            android:layout_alignStart="@id/changeimage"
+            android:layout_alignLeft="@id/changeimage"
+            android:layout_alignEnd="@id/changeimage"
+            android:layout_alignRight="@id/changeimage"
+            android:id="@+id/activity_profilechange_avatarProgressFrame"
+            android:clickable="true">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateOnly="true"/>
+        </FrameLayout>
+
+        </RelativeLayout>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="20dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/ic_navigation"
+            app:mtf_backgroundColor="@color/colorAccent"
+            app:mtf_openKeyboardOnFocus="false">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_profile_username"
+                android:hint="Email"
+                android:maxLines="1"
+                android:textSize="15sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="20dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/ic_navigation"
+            app:mtf_backgroundColor="@color/colorAccent"
+            app:mtf_openKeyboardOnFocus="false">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_profile_age"
+                android:hint="Age"
+                android:maxLines="1"
+                android:textSize="15sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="20dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/ic_navigation"
+            app:mtf_backgroundColor="@color/colorAccent"
+            app:mtf_openKeyboardOnFocus="false">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_profile_gender"
+                android:hint="Gender"
+                android:maxLines="1"
+                android:textSize="15sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="20dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/ic_navigation"
+            app:mtf_backgroundColor="@color/colorAccent"
+            app:mtf_openKeyboardOnFocus="false">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_profile_location"
+                android:hint="Location"
+                android:maxLines="1"
+                android:textSize="15sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <com.github.florent37.materialtextfield.MaterialTextField
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="20dp"
+            app:mtf_cardCollapsedHeight="2dp"
+            app:mtf_hasFocus="false"
+            app:mtf_image="@drawable/ic_navigation"
+            app:mtf_backgroundColor="@color/colorAccent"
+            app:mtf_openKeyboardOnFocus="false">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_profile_aboutme"
+                android:hint="About me"
+                android:maxLines="1"
+                android:textSize="15sp" />
+
+        </com.github.florent37.materialtextfield.MaterialTextField>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+
+    </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/include_main_nav_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
