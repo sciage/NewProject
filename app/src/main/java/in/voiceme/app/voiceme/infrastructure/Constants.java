@@ -28,4 +28,7 @@ public interface Constants {
     String SECOND_PROFILE_ID = "SECOND_PROFILE_ID";
 
     String SENT_CONTACT = "SENT_CONTACT";
+
+    String ADD = "add";
+    String REMOVE = "remove";
 }

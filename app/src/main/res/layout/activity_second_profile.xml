@@ -71,6 +71,7 @@
                 android:layout_below="@+id/second_about"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
+                android:id="@+id/second_profile_follow_me"
                 android:layout_toRightOf="@+id/second_image"
                 android:background="@drawable/border"
                 android:gravity="center"

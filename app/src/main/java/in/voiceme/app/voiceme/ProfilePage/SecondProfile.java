@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -16,6 +17,7 @@ import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class SecondProfile extends BaseActivity implements View.OnClickListener {
@@ -26,6 +28,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView total_posts_counter;
     private TextView followers;
     private TextView following;
+    private TextView followMe;
 
     private TextView followersCount;
     private TextView followingCount;
@@ -34,6 +37,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView gender;
     private TextView location;
     private String profileUserId;
+    private Boolean isFollow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         about = (TextView) findViewById(R.id.second_about);
         total_posts = (TextView) findViewById(R.id.second_user_profile_textview);
         total_posts_counter = (TextView) findViewById(R.id.second_total_posts_counter);
+        followMe = (TextView) findViewById(R.id.second_profile_follow_me);
 
         followersCount = (TextView) findViewById(R.id.second_action_followers);
         followingCount = (TextView) findViewById(R.id.second_action_following);
@@ -72,6 +77,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         total_posts.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
 
+        followMe.setOnClickListener(this);
+
 
         //   if (isProgressBarVisible)
         //     setProgressBarVisible(true);
@@ -90,6 +97,22 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             startActivity(new Intent(this, FollowersActivity.class));
         } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following) {
             startActivity(new Intent(this, FollowingActivity.class));
+        } else if (viewId == R.id.second_profile_follow_me){
+            if (isFollow){
+                try {
+                    addFollower(profileUserId, Constants.REMOVE);
+                    followMe.setText("Follow");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (!isFollow){
+                try {
+                    removeFollower(profileUserId, Constants.ADD);
+                    followMe.setText("Following");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -115,6 +138,30 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         return false;
     }
 
+    private void addFollower(String secondUserId, String addOrRemove) throws Exception {
+        application.getWebService()
+                .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<Response>() {
+                    @Override
+                    public void onNext(Response response) {
+                        Toast.makeText(SecondProfile.this, "Response from server: " + response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void removeFollower(String secondUserId, String addOrRemove) throws Exception {
+        application.getWebService()
+                .addFollower(secondUserId, MySharedPreferences.getUserId(preferences), addOrRemove)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<Response>() {
+                    @Override
+                    public void onNext(Response response) {
+                        Toast.makeText(SecondProfile.this, "Response from server: " + response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     private void getData(String secondUserId) throws Exception {
         application.getWebService()
                 .getOtherUserProfile(secondUserId, MySharedPreferences.getUserId(preferences))
@@ -123,6 +170,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onNext(ProfileUserList response) {
                         secondProfileData(response);
+                        Toast.makeText(SecondProfile.this, "Value of follow" + response.getFollower().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -136,6 +184,14 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         age.setText(response.getData().getUserDateOfBirth());
         gender.setText(response.getData().getGender());
         location.setText(response.getData().getLocation());
+        if (response.getFollower()){
+            isFollow = true;
+            followMe.setText("Following");
+        } else {
+            followMe.setText("Follow");
+            isFollow = false;
+        }
+
     }
 
     @Override
