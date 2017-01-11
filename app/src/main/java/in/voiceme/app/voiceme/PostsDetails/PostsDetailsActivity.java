@@ -239,10 +239,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 hug_counter.setText(myList.get(0).getHug());
                 post_listen.setText(myList.get(0).getListen());
 
-
-
-
-
         play_button.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
     }
 
