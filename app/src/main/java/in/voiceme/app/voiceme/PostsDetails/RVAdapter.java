@@ -19,7 +19,6 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     public List<UserListModel> dataSet;
-    List<Person> persons;
 
     public RVAdapter(List<UserListModel> persons) {
         this.dataSet = persons;

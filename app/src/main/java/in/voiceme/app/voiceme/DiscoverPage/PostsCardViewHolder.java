@@ -24,39 +24,39 @@ import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE
 
 public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnLikeListener {
     //Imageview for avatar and play pause button
-    public ImageView user_avatar;
-    public ImageView play_button;
+    protected ImageView user_avatar;
+    protected ImageView play_button;
 
     //username, feeling and category
-    public TextView user_name;
-    public TextView isPost;
-    public TextView feeling;
-    public TextView category;
+    protected TextView user_name;
+    protected TextView isPost;
+    protected TextView feeling;
+    protected TextView category;
 
     //post data
-    public TextView timeStamp;
-    public TextView postMessage;
-    public TextView postReadMore;
-    public TextView post_audio_duration;
+    protected TextView timeStamp;
+    protected TextView postMessage;
+    protected TextView postReadMore;
+    protected TextView post_audio_duration;
 
     //counter numbers
-    public TextView like_counter;
-    public TextView hug_counter;
-    public TextView same_counter;
-    public TextView post_comments;
-    public TextView post_listen;
+    protected TextView like_counter;
+    protected TextView hug_counter;
+    protected TextView same_counter;
+    protected TextView post_comments;
+    protected TextView post_listen;
 
     //emoji for like, hug and same above
-    public ImageView likeCounterImage;
-    public ImageView hugCounterImage;
-    public ImageView sameCounterImage;
-    public ImageView commentCounterImage;
-    public ImageView listenCounterImage;
+    protected ImageView likeCounterImage;
+    protected ImageView hugCounterImage;
+    protected ImageView sameCounterImage;
+    protected ImageView commentCounterImage;
+    protected ImageView listenCounterImage;
 
     //animated buttons
-    public LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
+    protected LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
 
-    public View parent_row;
+    protected View parent_row;
 
     protected PostsModel dataItem;
 

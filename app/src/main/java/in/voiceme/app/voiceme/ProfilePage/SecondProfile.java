@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView total_posts_counter;
     private TextView followers;
     private TextView following;
-    private TextView followMe;
+    private Button followMe;
 
     private TextView followersCount;
     private TextView followingCount;
@@ -57,7 +58,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         about = (TextView) findViewById(R.id.second_about);
         total_posts = (TextView) findViewById(R.id.second_user_profile_textview);
         total_posts_counter = (TextView) findViewById(R.id.second_total_posts_counter);
-        followMe = (TextView) findViewById(R.id.second_profile_follow_me);
+        followMe = (Button) findViewById(R.id.second_profile_follow_me);
 
         followersCount = (TextView) findViewById(R.id.second_action_followers);
         followingCount = (TextView) findViewById(R.id.second_action_following);

@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.List;
-
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
@@ -17,7 +15,6 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class UserSameCounterActivity extends BaseActivity {
     private static final int REQUEST_VIEW_MESSAGE = 1;
-    private List<Person> persons;
     private RecyclerView rv;
     private String likeCounter;
 

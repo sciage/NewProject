@@ -30,14 +30,10 @@ public class PostsModel implements Parcelable {
     private String audioDuration;
     @SerializedName("audio_file_link")
     private String audioFileLink;
-    @SerializedName("user_nic_name")
-    private String userNicName;
-    @SerializedName("avatar_pics")
-    private String avatarPics;
-    @SerializedName("emotions")
-    private String emotions;
-    @SerializedName("category")
-    private String category;
+    @SerializedName("user_nic_name") private String userNicName;
+    @SerializedName("avatar_pics") private String avatarPics;
+    @SerializedName("emotions") private String emotions;
+    @SerializedName("category") private String category;
     @SerializedName("likes")
     private String likes;
     @SerializedName("same")

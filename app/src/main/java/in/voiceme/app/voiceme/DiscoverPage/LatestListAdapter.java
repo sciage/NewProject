@@ -230,11 +230,9 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         protected void cardBackground(View view) {
-            if (processLoggedState(view
-            ))
+            if (processLoggedState(view))
                 return;
             Intent intent = new Intent(view.getContext(), PostsDetailsActivity.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.POST_BACKGROUND, dataItem.getIdPosts());
             view.getContext().startActivity(intent);
         }

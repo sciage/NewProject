@@ -36,6 +36,9 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getTrending(@Query("trending") String booleann);
 
+    @GET("posts.php")
+    Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann);
+
     @FormUrlEncoded
     @POST("likes.php")
     Observable<LikesResponse> likes(@Field("user_id") String userId,
