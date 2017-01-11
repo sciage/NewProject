@@ -99,17 +99,19 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following) {
             startActivity(new Intent(this, FollowingActivity.class));
         } else if (viewId == R.id.second_profile_follow_me){
-            if (isFollow){
+            if (isFollow == true){
                 try {
-                    addFollower(profileUserId, Constants.REMOVE);
+                    removeFollower(profileUserId, Constants.REMOVE);
                     followMe.setText("Follow");
+                    isFollow = false;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (!isFollow){
+            } else{
                 try {
-                    removeFollower(profileUserId, Constants.ADD);
+                    addFollower(profileUserId, Constants.ADD);
                     followMe.setText("Following");
+                    isFollow = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -171,7 +173,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void onNext(ProfileUserList response) {
                         secondProfileData(response);
-                        Toast.makeText(SecondProfile.this, "Value of follow" + response.getFollower().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SecondProfile.this, "Value of follow " + response.getFollower().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -186,11 +188,11 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         gender.setText(response.getData().getGender());
         location.setText(response.getData().getLocation());
         if (response.getFollower()){
+            isFollow = false;
+            followMe.setText("Follow");
+        } else {
             isFollow = true;
             followMe.setText("Following");
-        } else {
-            followMe.setText("Follow");
-            isFollow = false;
         }
 
     }

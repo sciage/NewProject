@@ -218,6 +218,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
                     public void onNext(List<PostsModel> response) {
+                        String name = response.get(0).getIdUserName();
                         Toast.makeText(PostsDetailsActivity.this, "response for details", Toast.LENGTH_SHORT).show();
                         showRecycleWithDataFilled(response);
                     }
@@ -227,39 +228,18 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
 
-        for(int i = 0; i < myList.size(); i++) {
-            if (i==1){
-                String text = myList.get(i).getUserNicName();
-                user_name.setText(text);
-            } else if (i == 2){
-                String text = "time";
-                timeStamp.setText(text);
-            } else if (i == 3){
-                String text = String.valueOf(myList.get(i).getTextStatus());
-                postMessage.setText(text);
-            } else if (i == 8){
-                String text = String.valueOf(myList.get(i).getEmotions());
-                feeling.setText(text);
-            }else if (i == 9){
-                String text = String.valueOf(myList.get(i).getCategory());
-                category.setText(text);
-            }else if (i == 14){
-                String text = String.valueOf(myList.get(i).getComments());
-                post_comments.setText(text);
-            }else if (i == 10){
-                String text = String.valueOf(myList.get(i).getLikes());
-                like_counter.setText(text);
-            }else if (i == 11){
-                String text = String.valueOf(myList.get(i).getSame());
-                same_counter.setText(text);
-            }else if (i == 12){
-                String text = String.valueOf(myList.get(i).getHug());
-                hug_counter.setText(text);
-            }else if (i == 13){
-                String text = String.valueOf(myList.get(i).getListen());
-                post_listen.setText(text);
-            }
-        }
+                user_name.setText(myList.get(0).getUserNicName());
+                timeStamp.setText(myList.get(0).getPostTime());
+                postMessage.setText(myList.get(0).getTextStatus());
+                feeling.setText(myList.get(0).getEmotions());
+                category.setText(myList.get(0).getCategory());
+                post_comments.setText(myList.get(0).getComments());
+                like_counter.setText(myList.get(0).getLikes());
+                same_counter.setText(myList.get(0).getSame());
+                hug_counter.setText(myList.get(0).getHug());
+                post_listen.setText(myList.get(0).getListen());
+
+
 
 
 
