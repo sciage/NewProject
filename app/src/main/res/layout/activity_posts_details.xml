@@ -8,10 +8,9 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <include
             layout="@layout/include_toolbar"
@@ -22,6 +21,7 @@
         <RelativeLayout
             android:id="@+id/detail_list_item_post_background"
             android:layout_width="match_parent"
+            android:layout_below="@+id/include_toolbar"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -295,10 +295,11 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_below="@+id/detail_list_item_post_background"
+            android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <android.support.v7.widget.RecyclerView
@@ -308,45 +309,46 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
                 android:background="@android:color/transparent" />
-            <LinearLayout
-                android:id="@+id/detail_ll_menu_tab"
-                android:layout_below="@+id/detail_rv_messages"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="5">
-
-                <EditText
-                    android:id="@+id/detail_et_message"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="4dp"
-                    android:layout_weight="4"
-                    android:background="@android:color/white"
-                    android:hint="Say something..."
-                    android:padding="4dp" />
-
-                <ImageButton
-                    android:id="@+id/detail_btn_send_message"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="4dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:src="@android:drawable/ic_dialog_email" />
-            </LinearLayout>
 
         </RelativeLayout>
 
         </ScrollView>
 
+        <LinearLayout
+            android:id="@+id/detail_ll_menu_tab"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <EditText
+                android:id="@+id/detail_et_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dp"
+                android:layout_weight="4"
+                android:background="@android:color/white"
+                android:hint="Say something..."
+                android:padding="4dp" />
+
+            <ImageButton
+                android:id="@+id/detail_btn_send_message"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_dialog_email" />
+        </LinearLayout>
 
 
 
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
 
     <include layout="@layout/include_main_nav_drawer" />
