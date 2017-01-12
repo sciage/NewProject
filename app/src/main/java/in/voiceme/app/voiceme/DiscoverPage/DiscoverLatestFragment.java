@@ -17,6 +17,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
@@ -81,7 +82,7 @@ public class DiscoverLatestFragment extends BaseFragment implements WasLoggedInI
 
     private void getData() throws Exception {
         application.getWebService()
-                .getLatestFeed()
+                .getLatestFeed(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

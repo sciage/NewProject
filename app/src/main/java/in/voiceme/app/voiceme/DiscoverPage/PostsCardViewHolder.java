@@ -257,6 +257,26 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                     .into(user_avatar);
         }
 
+        if (dataItem.getUserLike()){
+            likeButtonMain.setLiked(true);
+        } else {
+            likeButtonMain.setLiked(false);
+        }
+
+
+        if (dataItem.getUserHuge()){
+            HugButtonMain.setLiked(true);
+        } else {
+            HugButtonMain.setLiked(false);
+        }
+
+
+        if (dataItem.getUserSame()){
+            SameButtonMain.setLiked(true);
+        } else {
+            SameButtonMain.setLiked(false);
+        }
+
         play_button.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
     }
 

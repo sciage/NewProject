@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.services;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
@@ -18,32 +19,25 @@ public class PostsModel implements Parcelable {
             return new PostsModel[size];
         }
     };
-    @SerializedName("id_posts")
-    private String idPosts;
-    @SerializedName("id_user_name")
-    private String idUserName;
-    @SerializedName("post_time")
-    private String postTime;
-    @SerializedName("text_status")
-    private String textStatus;
-    @SerializedName("audio_duration")
-    private String audioDuration;
-    @SerializedName("audio_file_link")
-    private String audioFileLink;
-    @SerializedName("user_nic_name") private String userNicName;
-    @SerializedName("avatar_pics") private String avatarPics;
-    @SerializedName("emotions") private String emotions;
-    @SerializedName("category") private String category;
-    @SerializedName("likes")
-    private String likes;
-    @SerializedName("same")
-    private String same;
-    @SerializedName("hug")
-    private String hug;
-    @SerializedName("listen")
-    private String listen;
-    @SerializedName("comments")
-    private String comments;
+    @SerializedName("id_posts") @Expose private String idPosts;
+    @SerializedName("id_user_name") @Expose private String idUserName;
+    @SerializedName("post_time") @Expose private String postTime;
+    @SerializedName("text_status") @Expose private String textStatus;
+    @SerializedName("audio_duration") @Expose private String audioDuration;
+    @SerializedName("audio_file_link") @Expose private String audioFileLink;
+    @SerializedName("user_nic_name") @Expose private String userNicName;
+    @SerializedName("avatar_pics") @Expose private String avatarPics;
+    @SerializedName("emotions") @Expose private String emotions;
+    @SerializedName("category") @Expose private String category;
+    @SerializedName("likes") @Expose private String likes;
+    @SerializedName("same") @Expose private String same;
+    @SerializedName("hug") @Expose private String hug;
+    @SerializedName("listen") @Expose private String listen;
+    @SerializedName("comments") @Expose private String comments;
+    @SerializedName("user_like") @Expose private Boolean userLike;
+    @SerializedName("user_Same") @Expose private Boolean userSame;
+    @SerializedName("user_Huge") @Expose private Boolean userHuge;
+    @SerializedName("user_Listen") @Expose private Boolean userListen;
 
     private PostsModel(Parcel in) {
         idPosts = in.readString();
@@ -166,6 +160,22 @@ public class PostsModel implements Parcelable {
      */
     public String getComments() {
         return comments;
+    }
+
+    public Boolean getUserLike() {
+        return userLike;
+    }
+
+    public Boolean getUserSame() {
+        return userSame;
+    }
+
+    public Boolean getUserHuge() {
+        return userHuge;
+    }
+
+    public Boolean getUserListen() {
+        return userListen;
     }
 
     @Override

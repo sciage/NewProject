@@ -16,6 +16,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
@@ -94,7 +95,7 @@ public class UserCategoryActivity extends BaseActivity {
 
     private void getData() throws Exception {
         ((VoicemeApplication) getApplication()).getWebService()
-                .getCategoryPosts(currentCategoryID)
+                .getCategoryPosts(currentCategoryID, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

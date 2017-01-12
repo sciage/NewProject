@@ -16,6 +16,7 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
@@ -95,7 +96,7 @@ public class UserFeelingActivity extends BaseActivity {
 
     private void getData() throws Exception {
         application.getWebService()
-                .getEmotionPosts(feelingID)
+                .getEmotionPosts(feelingID, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

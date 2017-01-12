@@ -24,17 +24,20 @@ import rx.Observable;
 
 public interface WebService {
     @GET("posts.php")
-    Observable<List<PostsModel>> getLatestFeed();
+    Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID);
 
     // Todo donot know about this call
     @GET("posts.php")
-    Observable<List<PostsModel>> getFollowers(@Query("follower") String user_id);
+    Observable<List<PostsModel>> getFollowers(@Query("user_id") String userID,
+                                              @Query("follower") String user_id);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getPopulars(@Query("popular") String booleann);
+    Observable<List<PostsModel>> getPopulars(@Query("user_id") String userID,
+                                             @Query("popular") String booleann);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getTrending(@Query("trending") String booleann);
+    Observable<List<PostsModel>> getTrending(@Query("user_id") String userID,
+                                             @Query("trending") String booleann);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann);
@@ -78,10 +81,12 @@ public interface WebService {
     );
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id);
+    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
+                                                 @Query("user_id") String userID);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id);
+    Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id,
+                                                  @Query("user_id") String userID);
 
     @GET("get_likers.php")
     Observable<UserSuperList> getInteractionPosts(

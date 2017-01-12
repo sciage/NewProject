@@ -17,6 +17,7 @@ import java.util.List;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
@@ -76,7 +77,7 @@ public class DiscoverTrendingFragment extends BaseFragment {
 
     private void getData() throws Exception {
         ((VoicemeApplication) getActivity().getApplication()).getWebService()
-                .getTrending("true")
+                .getTrending(MySharedPreferences.getUserId(preferences),"true")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
