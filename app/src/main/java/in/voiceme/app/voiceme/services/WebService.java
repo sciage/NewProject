@@ -143,5 +143,20 @@ public interface WebService {
     @POST("audio_upload/index.php")
     Observable<String> uploadFile(@Part MultipartBody.Part file);
 
+    @GET("delete_likers.php")
+    Observable<Response> deleteLikers(
+            @Query("id_posts") String idPost,
+            @Query("id_user_name") String idUsername);
+
+    @GET("delete_hug.php")
+    Observable<Response> deleteSame(
+            @Query("id_posts") String idPost,
+            @Query("id_user_name") String idUsername);
+
+    @GET("delete_same.php")
+    Observable<Response> deleteHug(
+            @Query("id_posts") String idPost,
+            @Query("id_user_name") String idUsername);
+
 
 }

@@ -321,6 +321,12 @@ public class UserCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void unLiked(LikeButton likeButton) {
+            processLoggedState(likeButton);
+
+            int likeCounter = Integer.parseInt(dataItem.getLikes());
+            int hugCounter = Integer.parseInt(dataItem.getHug());
+            int sameCounter = Integer.parseInt(dataItem.getSame());
+
             if (doDislike)
                 return;
             try {
@@ -334,13 +340,20 @@ public class UserCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (likeButton == likeButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked unlike button");
+                --likeCounter;
+                like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             } else if (likeButton == HugButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked unhug button");
+                --hugCounter;
+                hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+                sendUnHugToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             } else if (likeButton == SameButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked unsame button");
+                --sameCounter;
+                same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+                sendUnSameToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             }
         }
+
 
         @Override
         public boolean processLoggedState(View viewPrm) {

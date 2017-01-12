@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
@@ -62,5 +63,11 @@ public class VoicemeApplication extends Application {
 
     public WebService getWebService() {
         return webService;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
