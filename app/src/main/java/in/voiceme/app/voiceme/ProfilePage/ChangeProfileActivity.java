@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.login.LoginResponse;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -35,6 +37,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private EditText userAge;
     private EditText userGender;
     private EditText userLocation;
+    private Button submitButton;
 
     private ImageView avatarView;
     private View avatarProgressFrame;
@@ -47,6 +50,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         getSupportActionBar().setTitle("Home");
         setNavDrawer(new MainNavDrawer(this));
 
+        submitButton = (Button) findViewById(R.id.button_audio_status);
         username = (EditText) findViewById(R.id.edittext_profile_username);
         aboutme = (EditText) findViewById(R.id.edittext_profile_aboutme);
         userAge = (EditText) findViewById(R.id.edittext_profile_age);
@@ -58,6 +62,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         tempOutputFile = new File(getExternalCacheDir(), "temp-image.jpg");
 
         avatarView.setOnClickListener(this);
+        submitButton.setOnClickListener(this);
 
         try {
             getData();
@@ -147,8 +152,30 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (viewId == R.id.changeimage) {
             changeAvatar();
+        } else if (viewId == R.id.button_audio_status){
+            try {
+                submitData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private void submitData() throws Exception {
+        application.getWebService()
+                .login(username.getText().toString(), MySharedPreferences.getEmail(preferences),
+                        userLocation.getText().toString(), userAge.getText().toString(),
+                        MySharedPreferences.getSocialID(preferences),
+                        Uri.parse("http://www.google.com"), "")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<LoginResponse>() {
+                    @Override
+                    public void onNext(LoginResponse response) {
+                        Toast.makeText(ChangeProfileActivity.this, "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     private void getData() throws Exception {
         application.getWebService()

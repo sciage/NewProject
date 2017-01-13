@@ -308,6 +308,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:background="@android:color/transparent" />
 
         </RelativeLayout>
@@ -329,6 +330,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
                 android:layout_weight="4"
+                android:focusable="false"
                 android:background="@android:color/white"
                 android:hint="Say something..."
                 android:padding="4dp" />

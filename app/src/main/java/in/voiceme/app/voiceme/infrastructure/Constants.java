@@ -10,6 +10,11 @@ public interface Constants {
     String GOOGLE_LOGIN = "accounts.google.com";
     String FACEBOOK_LOGIN = "graph.facebook.com";
 
+    String EMAIL = "EMAIL";
+    String SOCIAL_ID = "SOCIAL_ID";
+    String IMAGE_URL = "IMAGE_URL";
+    String USERNAME = "USERNAME";
+
     String PREF_FILE = "prefs.xml";
     String CONSTANT_PREF_FILE = "constant_prefs.xml";
 

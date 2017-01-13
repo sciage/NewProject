@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +20,17 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
+import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
+
+import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
 
 public class PostsDetailsActivity extends BaseActivity implements View.OnClickListener, OnLikeListener {
 
@@ -101,7 +106,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
         //Imageview for avatar and play pause button
-        user_avatar = (ImageView) findViewById(R.id.detail_list_item_posts_avatar);
+        user_avatar = (ImageView) findViewById(detail_list_item_posts_avatar);
         play_button = (ImageView) findViewById(R.id.detail_list_item_posts_play_button);
 
         //username, feeling and category
@@ -199,19 +204,55 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         processLoggedState(view);
         if (view.getId() == R.id.detail_btn_send_message) {
             sendMessage();
+        } else if (view.getId() == R.id.detail_list_item_post_userNickName ||
+                   view.getId() == R.id.detail_list_item_posts_avatar){
+            Intent intent = new Intent(this, SecondProfile.class);
+            Toast.makeText(view.getContext(), "Post ID is " + myList.get(0).getIdUserName(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.SECOND_PROFILE_ID, myList.get(0).getIdUserName());
+            startActivity(intent);
+        } else if (view.getId() == R.id.detail_list_item_posts_feeling){
+            Intent intent = new Intent(this, UserFeelingActivity.class);
+            intent.putExtra(Constants.EMOTION, myList.get(0).getEmotions());
+            startActivity(intent);
+        } else if (view.getId() == R.id.detail_list_item_posts_category){
+            Intent intent = new Intent(this, UserCategoryActivity.class);
+            intent.putExtra(Constants.CATEGORY, myList.get(0).getCategory());
+            startActivity(intent);
+        } else if (view.getId() == R.id.detail_post_likes_counter){
+
+                Intent intent = new Intent(this, UserLikeCounterActivity.class);
+                Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
+                intent.putExtra(Constants.LIKE_FEELING, myList.get(0).getIdPosts());
+                startActivity(intent);
+        } else if(view.getId() == R.id.detail_post_hugs_counter){
+            Intent intent = new Intent(this, UserHugCounterActivity.class);
+            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.HUG_FEELING, myList.get(0).getIdPosts());
+            startActivity(intent);
+        } else if(view.getId() == R.id.detail_post_same_counter){
+            Intent intent = new Intent(this, UserSameCounterActivity.class);
+            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.SAME_FEELING, myList.get(0).getIdPosts());
+            startActivity(intent);
+
+        } else if(view.getId() == R.id.detail_post_listen_counter){
+            Intent intent = new Intent(this, UserListenCounterActivity.class);
+            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.LISTEN_FEELING, myList.get(0).getIdPosts());
+            startActivity(intent);
         }
     }
 
+
     void sendMessage() {
         String message = mMessageEditText.getText().toString();
-        String imageUri = "https://pp.vk.me/c631524/v631524029/453fe/YONZuru763Q.jpg";
-        String userName = "@user_name2133";
 
         if (!TextUtils.isEmpty(message)) {
             mMessageEditText.setText("");
-            mMessageAdapter.addMessage(new MessageItem(message, imageUri, userName));
+            // Todo post comment on server
+            mMessageAdapter.addMessage(new MessageItem(message, MySharedPreferences.getImageUrl(preferences), MySharedPreferences.getUsername(preferences)));
         } else {
-            mMessageAdapter.addMessage(new MessageItem("AAA???777??/A", "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQmNCk7L76tvylZw_VPB3oYMHUDejqnl4TvgpGhpB4qEJdu1oDh", "SlowPoke"));
+            Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();
         }
     }
 

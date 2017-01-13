@@ -230,6 +230,9 @@ public class RegisterActivity extends BaseActivity
 
     private void UserData(LoginResponse response) {
         MySharedPreferences.registerUserId(preferences, response.info.id);
+        MySharedPreferences.registerEmail(preferences, response.info.email);
+        MySharedPreferences.registerSocialID(preferences, response.info.userId);
+
         Timber.d("the user ID is " + response.info.id);
 
         Timber.e("Successfully entered the value inside SharedPreferences");

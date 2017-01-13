@@ -1,24 +1,15 @@
 package in.voiceme.app.voiceme.userpost;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
-import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 
@@ -41,10 +32,8 @@ import timber.log.Timber;
 
 public class AudioStatus extends BaseActivity {
     private static final int REQUEST_RECORD_AUDIO = 0;
-    private static final String AUDIO_FILE_PATH =
-            Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.wav";
-    private static final String CONVERTED_AUDIO_FILE_PATH =
-            Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.mp3";
+    private static final String AUDIO_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.wav";
+ //   private static final String CONVERTED_AUDIO_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.mp3";
     private TextView textView_category;
     private TextView textView_feeling;
     private TextView textView_status;
@@ -53,11 +42,10 @@ public class AudioStatus extends BaseActivity {
     private String category;
     private String feeling;
     private String textStatus;
-    private FFmpeg ffmpeg;
+  //  private FFmpeg ffmpeg;
     private ProgressDialog progressDialog;
     private int audioDuration;
-    private String convertAudioCommand = "-y -i " + AUDIO_FILE_PATH +
-            " -ar 44100 -ac 2 -ab 64k -f mp3 " + CONVERTED_AUDIO_FILE_PATH;
+  //  private String convertAudioCommand = "-y -i " + AUDIO_FILE_PATH + " -ar 44100 -ac 2 -ab 64k -f mp3 " + CONVERTED_AUDIO_FILE_PATH;
 
 
     @Override
@@ -72,7 +60,7 @@ public class AudioStatus extends BaseActivity {
         textView_status = (TextView) findViewById(R.id.textView_status);
         post_status = (Button) findViewById(R.id.button_post_audio_status);
 
-        ffmpeg = FFmpeg.getInstance(this);
+     //   ffmpeg = FFmpeg.getInstance(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(null);
 
@@ -107,16 +95,16 @@ public class AudioStatus extends BaseActivity {
                 if (category == null || feeling == null || textStatus == null) {
                     Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
                 }
-                uploadFile(Uri.parse(CONVERTED_AUDIO_FILE_PATH));
+                uploadFile(Uri.parse(AUDIO_FILE_PATH));
                 // network call from retrofit
 
             }
         });
 
-        loadFFMpegBinary();
+        // loadFFMpegBinary();
     }
 
-    private void loadFFMpegBinary() {
+  /*  private void loadFFMpegBinary() {
         try {
             ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
                 @Override
@@ -129,7 +117,9 @@ public class AudioStatus extends BaseActivity {
         }
     }
 
-    private void showUnsupportedExceptionDialog() {
+    */
+
+   /* private void showUnsupportedExceptionDialog() {
         new AlertDialog.Builder(AudioStatus.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.device_not_supported))
@@ -145,8 +135,9 @@ public class AudioStatus extends BaseActivity {
                 .show();
 
     }
+    */
 
-    private void execFFmpegBinary(final String[] command) {
+   /* private void execFFmpegBinary(final String[] command) {
         try {
             ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
                 @Override
@@ -183,7 +174,7 @@ public class AudioStatus extends BaseActivity {
         } catch (FFmpegCommandAlreadyRunningException e) {
             // do nothing for now
         }
-    }
+    } */
 
 
     @Override
@@ -195,9 +186,9 @@ public class AudioStatus extends BaseActivity {
                 //    Toast.makeText(this, AUDIO_FILE_PATH, Toast.LENGTH_SHORT).show();
                 //     Timber.e("file location" + AUDIO_FILE_PATH);
 
-                getAudioFileDuration(AUDIO_FILE_PATH);
-                String[] command = convertAudioCommand.split(" ");
-                execFFmpegBinary(command);
+              //  getAudioFileDuration(AUDIO_FILE_PATH);
+              //  String[] command = convertAudioCommand.split(" ");
+              //  execFFmpegBinary(command);
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
@@ -224,14 +215,14 @@ public class AudioStatus extends BaseActivity {
         }
     }
 
-    private void getAudioFileDuration(String audioFilePath) {
+ /*   private void getAudioFileDuration(String audioFilePath) {
         Uri uri = Uri.parse(audioFilePath);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(AudioStatus.this, uri);
         String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
         int millSecond = Integer.parseInt(durationStr);
         audioDuration = millSecond;
-    }
+    } */
 
     public void recordAudio(View v) {
         AndroidAudioRecorder.with(this)
@@ -243,7 +234,7 @@ public class AudioStatus extends BaseActivity {
                 // Optional
                 .setSource(AudioSource.MIC)
                 .setChannel(AudioChannel.STEREO)
-                .setSampleRate(AudioSampleRate.HZ_48000)
+                .setSampleRate(AudioSampleRate.HZ_8000)
                 .setAutoStart(false)
                 .setKeepDisplayOn(true)
 
