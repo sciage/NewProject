@@ -346,15 +346,15 @@ public class PopularListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (likeButton == likeButtonMain) {
                 --likeCounter;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
             } else if (likeButton == HugButtonMain) {
                 --hugCounter;
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
-                sendUnHugToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             } else if (likeButton == SameButtonMain) {
                 --sameCounter;
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
-                sendUnSameToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
         }
 

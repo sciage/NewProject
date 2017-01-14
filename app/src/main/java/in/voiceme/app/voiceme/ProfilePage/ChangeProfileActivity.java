@@ -26,6 +26,7 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginResponse;
+import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -154,7 +155,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             changeAvatar();
         } else if (viewId == R.id.button_audio_status){
             try {
-                submitData();
+              //  submitData();
+                sendData();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,15 +165,21 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void submitData() throws Exception {
         application.getWebService()
-                .login(username.getText().toString(), MySharedPreferences.getEmail(preferences),
+                .login("", MySharedPreferences.getEmail(preferences),
                         userLocation.getText().toString(), userAge.getText().toString(),
                         MySharedPreferences.getSocialID(preferences),
-                        Uri.parse("http://www.google.com"), "")
+                        Uri.parse("http://www.google.com"), "male",
+                        aboutme.getText().toString(), username.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
+
                         Toast.makeText(ChangeProfileActivity.this, "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
+                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
+                        //Todo add network call for uploading image file
+                        startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
+
                     }
                 });
     }
@@ -187,6 +195,21 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);
+                    }
+                });
+    }
+
+    private void sendData() throws Exception {
+        application.getWebService()
+                .getResponse("senderid@1_contactId@21_postId@1_click@3")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<Response>() {
+                    @Override
+                    public void onNext(Response response) {
+                        Timber.e("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        Timber.e("Message from server" + response.getMsg());
                     }
                 });
     }

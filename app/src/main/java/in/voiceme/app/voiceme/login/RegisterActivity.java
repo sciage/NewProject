@@ -217,7 +217,7 @@ public class RegisterActivity extends BaseActivity
 
     private void getData(String name, String identityID, String email, Uri profile) throws Exception {
         application.getWebService()
-                .login(name, email, "", "", identityID, profile, "")
+                .login(name, email, "", "", identityID, profile, "gender", "about me of the user", "timeUserNickname")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override

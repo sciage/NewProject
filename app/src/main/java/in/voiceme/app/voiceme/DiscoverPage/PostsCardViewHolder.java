@@ -18,13 +18,17 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
-import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
 public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnLikeListener {
+    protected int likeCounter;
+    protected int hugCounter;
+    protected int sameCounter;
+
     //Imageview for avatar and play pause button
+
     protected ImageView user_avatar;
     protected ImageView play_button;
 
@@ -298,44 +302,16 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 });
     }
 
-    protected void sendUnlikeToServer(final VoicemeApplication application) {
+    protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
         String userId = MySharedPreferences.getUserId(preferences);
         String postId = dataItem.getIdPosts();
-        application.getWebService().deleteLikers(postId, userId)
+        application.getWebService().unlikes(userId, postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<Response>() {
+                .subscribe(new BaseSubscriber<LikesResponse>() {
                     @Override
-                    public void onNext(Response likesResponse) {
-                        Toast.makeText(application, likesResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    protected void sendUnHugToServer(final VoicemeApplication application) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-        String userId = MySharedPreferences.getUserId(preferences);
-        String postId = dataItem.getIdPosts();
-        application.getWebService().deleteHug(postId, userId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<Response>() {
-                    @Override
-                    public void onNext(Response likesResponse) {
-                        Toast.makeText(application, likesResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    protected void sendUnSameToServer(final VoicemeApplication application) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
-        String userId = MySharedPreferences.getUserId(preferences);
-        String postId = dataItem.getIdPosts();
-        application.getWebService().deleteSame(postId, userId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<Response>() {
-                    @Override
-                    public void onNext(Response likesResponse) {
-                        Toast.makeText(application, likesResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                    public void onNext(LikesResponse likesResponse) {
+                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edittext_profile_username"
-                android:hint="Email"
+                android:hint="UserNickName"
                 android:maxLines="1"
                 android:textSize="15sp" />
 
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edittext_profile_age"
-                android:hint="Age"
+                android:hint="Age (YYYY-M-D)"
                 android:maxLines="1"
                 android:textSize="15sp" />
 

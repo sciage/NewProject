@@ -277,9 +277,9 @@ public class UserFeelingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void liked(LikeButton likeButton) {
             processLoggedState(likeButton);
 
-            int likeCounter = Integer.parseInt(dataItem.getLikes());
-            int hugCounter = Integer.parseInt(dataItem.getHug());
-            int sameCounter = Integer.parseInt(dataItem.getSame());
+            likeCounter = Integer.parseInt(like_counter.getText().toString());
+            hugCounter = Integer.parseInt(hug_counter.getText().toString());
+            sameCounter = Integer.parseInt(same_counter.getText().toString());
             try {
                 if (myClickListener != null) {
                     myClickListener.onLikeUnlikeClick(dataItem, likeButton);
@@ -323,9 +323,9 @@ public class UserFeelingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public void unLiked(LikeButton likeButton) {
             processLoggedState(likeButton);
 
-            int likeCounter = Integer.parseInt(dataItem.getLikes());
-            int hugCounter = Integer.parseInt(dataItem.getHug());
-            int sameCounter = Integer.parseInt(dataItem.getSame());
+            likeCounter = Integer.parseInt(like_counter.getText().toString());
+            hugCounter = Integer.parseInt(hug_counter.getText().toString());
+            sameCounter = Integer.parseInt(same_counter.getText().toString());
 
             if (doDislike)
                 return;
@@ -342,15 +342,15 @@ public class UserFeelingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (likeButton == likeButtonMain) {
                 --likeCounter;
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 1, 1, "clicked unlike button");
             } else if (likeButton == HugButtonMain) {
                 --hugCounter;
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
-                sendUnHugToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 1, 1, "clicked unlike button");
             } else if (likeButton == SameButtonMain) {
                 --sameCounter;
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
-                sendUnSameToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 1, 0, 1, "clicked unlike button");
             }
         }
 

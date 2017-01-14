@@ -51,12 +51,14 @@ public interface WebService {
                                     @Field("same") int same,
                                     @Field("listen") int listen);
 
-    @GET("unlikes.php")
-    Observable<LikesResponse> unlikes(@Query("user_id") int userId, @Query("post_id") String postId,
-                                      @Query("like") int like,
-                                      @Query("hug") int hug,
-                                      @Query("same") int same,
-                                      @Query("listen") int listen);
+    @FormUrlEncoded
+    @POST("unlike.php")
+    Observable<LikesResponse> unlikes(@Field("user_id") String userId,
+                                      @Field("post_id") String postId,
+                                      @Field("like") int like,
+                                      @Field("hug") int hug,
+                                      @Field("same") int same,
+                                      @Field("audio") int listen);
 
     @FormUrlEncoded
     @POST("login_new.php")
@@ -67,7 +69,10 @@ public interface WebService {
             @Field("dob") String dateOfBirth,
             @Field("user_id") String userId,
             @Field("profile") Uri profile,
-            @Field("gender") String gender
+            @Field("gender") String gender,
+            @Field("about_me") String aboutme,
+            @Field("user_nick_name") String userNickName
+
     );
 
     @FormUrlEncoded
@@ -140,20 +145,11 @@ public interface WebService {
     @POST("audio_upload/index.php")
     Observable<String> uploadFile(@Part MultipartBody.Part file);
 
-    @GET("delete_likers.php")
-    Observable<Response> deleteLikers(
-            @Query("id_posts") String idPost,
-            @Query("id_user_name") String idUsername);
 
-    @GET("delete_hug.php")
-    Observable<Response> deleteSame(
-            @Query("id_posts") String idPost,
-            @Query("id_user_name") String idUsername);
-
-    @GET("delete_same.php")
-    Observable<Response> deleteHug(
-            @Query("id_posts") String idPost,
-            @Query("id_user_name") String idUsername);
+    @GET("http://voicemepush-env.us-west-2.elasticbeanstalk.com/fcm")
+    Observable<Response> getResponse(
+            @Query("dataMsg") String dataMessage
+            );
 
 
 }
