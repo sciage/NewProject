@@ -125,13 +125,10 @@ public interface WebService {
     @GET("follower.php")
     Observable<FollowerUserList> getUserFollowing(@Query("feeling_id") String feeling_id);
 
-
-    // Todo show complete User Profile Details
     @GET("get_user.php")
     Observable<ProfileUserList> getUserProfile(
             @Query("user_id") String user_id);
 
-    // Todo show complete User Profile Details
     @GET("get_user.php")
     Observable<ProfileUserList> getOtherUserProfile(
             @Query("user_id") String user_id,
