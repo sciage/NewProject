@@ -124,11 +124,11 @@ public interface WebService {
 
     // Todo get list of users who follow the user. meaning I am following these users
     @GET("follower.php")
-    Observable<FollowerUserList> getUserFollow(@Query("feeling_id") String feeling_id);
+    Observable<FollowerUserList> getUserFollow(@Query("user_id") String user_id);
 
     // Todo get list of users who the user follows. meaning users following me
     @GET("follower.php")
-    Observable<FollowerUserList> getUserFollowing(@Query("feeling_id") String feeling_id);
+    Observable<FollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 
     @GET("get_user.php")
     Observable<ProfileUserList> getUserProfile(

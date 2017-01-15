@@ -11,12 +11,8 @@ import java.util.List;
 
 public class FollowerUserList {
 
-    @SerializedName("status")
-    @Expose
-    private Integer status;
-    @SerializedName("data")
-    @Expose
-    private List<FollowerUserModel> follower = null;
+    @SerializedName("status") @Expose private Integer status;
+    @SerializedName("data") @Expose private List<FollowerUserModel> follower = null;
 
     public Integer getStatus() {
         return status;

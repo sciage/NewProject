@@ -24,15 +24,9 @@ public class FollowerUserModel implements Parcelable {
         }
     };
 
-    @SerializedName("id_user_name")
-    @Expose
-    private String idUserName;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("avatar_pics")
-    @Expose
-    private String avatarPics;
+    @SerializedName("id_user_name") @Expose private String idUserName;
+    @SerializedName("name") @Expose private String name;
+    @SerializedName("avatar_pics") @Expose private String avatarPics;
 
     protected FollowerUserModel(Parcel in) {
         idUserName = in.readString();

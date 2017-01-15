@@ -9,11 +9,10 @@ import android.widget.Toast;
 import java.util.List;
 
 import in.voiceme.app.voiceme.PostsDetails.Person;
-import in.voiceme.app.voiceme.PostsDetails.RVAdapter;
-import in.voiceme.app.voiceme.PostsDetails.UserSuperList;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -48,18 +47,18 @@ public class FollowingActivity extends BaseActivity {
 
         //Todo work on followers user ID
         application.getWebService()
-                .getInteractionPosts("1")
+                .getUserFollowing(MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<UserSuperList>() {
+                .subscribe(new BaseSubscriber<FollowerUserList>() {
                     @Override
-                    public void onNext(UserSuperList response) {
+                    public void onNext(FollowerUserList response) {
                         showRecycleWithDataFilled(response);
                     }
                 });
     }
 
-    private void showRecycleWithDataFilled(final UserSuperList myList) {
-        RVAdapter adapter = new RVAdapter(myList.getLikes());
+    private void showRecycleWithDataFilled(final FollowerUserList myList) {
+        FollowerDataAdapter adapter = new FollowerDataAdapter(myList.getFollower());
         rv.setAdapter(adapter);
     }
 
