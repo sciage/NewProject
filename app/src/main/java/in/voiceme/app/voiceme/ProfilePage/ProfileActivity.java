@@ -12,6 +12,7 @@ import android.widget.TextView;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
@@ -85,11 +86,17 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         int viewId = view.getId();
 
         if (viewId == R.id.user_profile_textview) {
-            startActivity(new Intent(this, TotalPostsActivity.class));
+            Intent intent = new Intent(this, TotalPostsActivity.class);
+            intent.putExtra(Constants.TOTAL_POST, MySharedPreferences.getUserId(preferences));
+            startActivity(intent);
         } else if (viewId == R.id.profile_followers || viewId == R.id.action_followers) {
-            startActivity(new Intent(this, FollowersActivity.class));
+            Intent intent = new Intent(this, FollowersActivity.class);
+            intent.putExtra(Constants.USER_FOLLOW, MySharedPreferences.getUserId(preferences));
+            startActivity(intent);
         } else if (viewId == R.id.profile_following || viewId == R.id.action_following) {
-            startActivity(new Intent(this, FollowingActivity.class));
+            Intent intent = new Intent(this, FollowingActivity.class);
+            intent.putExtra(Constants.USER_FOLLOWING, MySharedPreferences.getUserId(preferences));
+            startActivity(intent);
         }
 
     }

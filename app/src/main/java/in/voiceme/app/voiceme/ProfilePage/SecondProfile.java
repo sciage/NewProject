@@ -93,15 +93,16 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         int viewId = view.getId();
 
         if (viewId == R.id.second_user_profile_textview) {
-            startActivity(new Intent(this, TotalPostsActivity.class));
-        } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers) {
-            Intent intent = new Intent(this, SecondProfileFollowersActivity.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, profileUserId);
+            Intent intent = new Intent(this, TotalPostsActivity.class);
+            intent.putExtra(Constants.TOTAL_POST, profileUserId);
             startActivity(intent);
-
+        } else if (viewId == R.id.second_profile_followers || viewId == R.id.second_action_followers) {
+            Intent intent = new Intent(this, FollowersActivity.class);
+            intent.putExtra(Constants.USER_FOLLOW, profileUserId);
+            startActivity(intent);
         } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following) {
-            Intent intent = new Intent(this, SecondProfileFollowingActivity.class);
-            intent.putExtra(Constants.SECOND_PROFILE_ID, profileUserId);
+            Intent intent = new Intent(this, FollowingActivity.class);
+            intent.putExtra(Constants.USER_FOLLOWING, profileUserId);
             startActivity(intent);
 
         } else if (viewId == R.id.second_profile_follow_me){

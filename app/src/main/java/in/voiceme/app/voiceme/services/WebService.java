@@ -42,6 +42,12 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann);
 
+    @GET("posts.php")
+    Observable<List<PostsModel>> getSingleUserPosts(@Query("id_user") String id_user);
+
+
+
+
     @FormUrlEncoded
     @POST("likes.php")
     Observable<LikesResponse> likes(@Field("user_id") String userId,
@@ -112,7 +118,6 @@ public interface WebService {
             @Field("contacts") String contacts
     );
 
-    // Todo adding follower mobile left. Action = add or Action = remove
     @FormUrlEncoded
     @POST("follower.php")
     Observable<Response> addFollower(
@@ -122,11 +127,9 @@ public interface WebService {
     );
 
 
-    // Todo get list of users who follow the user. meaning I am following these users
     @GET("follower.php")
     Observable<FollowerUserList> getUserFollow(@Query("user_id") String user_id);
 
-    // Todo get list of users who the user follows. meaning users following me
     @GET("follower.php")
     Observable<FollowerUserList> getUserFollowing(@Query("follower_id") String feeling_id);
 

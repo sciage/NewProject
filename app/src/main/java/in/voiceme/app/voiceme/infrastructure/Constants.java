@@ -32,6 +32,10 @@ public interface Constants {
     String POST_BACKGROUND = "POST_BACKGROUND";
     String SECOND_PROFILE_ID = "SECOND_PROFILE_ID";
 
+    String USER_FOLLOW = "USER_FOLLOW";
+    String USER_FOLLOWING = "USER_FOLLOWING";
+    String TOTAL_POST = "TOTAL_POST";
+
     String SENT_CONTACT = "SENT_CONTACT";
 
     String ADD = "add";

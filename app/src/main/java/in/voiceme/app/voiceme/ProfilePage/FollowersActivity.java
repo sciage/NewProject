@@ -6,25 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.List;
-
-import in.voiceme.app.voiceme.PostsDetails.Person;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.l;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class FollowersActivity extends BaseActivity {
-    private static final int REQUEST_VIEW_MESSAGE = 1;
-    private List<Person> persons;
     private RecyclerView rv;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers);
+        userId = getIntent().getStringExtra(Constants.USER_FOLLOW);
+
         getSupportActionBar().setTitle("Hugs LoginUser");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -47,7 +45,7 @@ public class FollowersActivity extends BaseActivity {
 
         //Todo work on followers user ID
         application.getWebService()
-                .getUserFollow(MySharedPreferences.getUserId(preferences))
+                .getUserFollow(userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<FollowerUserList>() {
                     @Override
