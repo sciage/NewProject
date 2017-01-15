@@ -38,7 +38,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     private TextView gender;
     private TextView location;
     private String profileUserId;
-    private Boolean isFollow;
+    protected Boolean currentFollowing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +99,11 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         } else if (viewId == R.id.second_profile_following || viewId == R.id.second_action_following) {
             startActivity(new Intent(this, FollowingActivity.class));
         } else if (viewId == R.id.second_profile_follow_me){
-            if (isFollow == true){
+            if (currentFollowing){
                 try {
                     removeFollower(profileUserId, Constants.REMOVE);
                     followMe.setText("Follow");
-                    isFollow = false;
+                    currentFollowing = false;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -111,7 +111,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 try {
                     addFollower(profileUserId, Constants.ADD);
                     followMe.setText("Following");
-                    isFollow = true;
+                    currentFollowing = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -172,6 +172,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
                 .subscribe(new BaseSubscriber<ProfileUserList>() {
                     @Override
                     public void onNext(ProfileUserList response) {
+                        currentFollowing = response.getFollower();
                         secondProfileData(response);
                         Toast.makeText(SecondProfile.this, "Value of follow " + response.getFollower().toString(), Toast.LENGTH_SHORT).show();
                     }
@@ -188,11 +189,9 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         gender.setText(response.getData().getGender());
         location.setText(response.getData().getLocation());
         if (response.getFollower()){
-            isFollow = false;
-            followMe.setText("Follow");
-        } else {
-            isFollow = true;
             followMe.setText("Following");
+        } else {
+            followMe.setText("Follow");
         }
 
     }

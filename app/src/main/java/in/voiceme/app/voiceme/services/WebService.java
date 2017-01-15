@@ -137,7 +137,7 @@ public interface WebService {
     @GET("get_user.php")
     Observable<ProfileUserList> getOtherUserProfile(
             @Query("user_id") String user_id,
-            @Query("follower") String follower);
+            @Query("follow_id") String follower);
 
 
     @Headers("Accept: multipart/form-data")
