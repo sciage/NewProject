@@ -10,10 +10,12 @@
     <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:name=".infrastructure.VoicemeApplication"
@@ -140,7 +142,9 @@
         <activity android:name=".contactPage.ContactsActivity" />
         <activity android:name=".ProfilePage.ChangeProfileActivity" />
         <activity android:name=".contactPage.ContactListActivity" />
-        <activity android:name=".ProfilePage.SecondProfile"></activity>
+        <activity android:name=".ProfilePage.SecondProfile" />
+        <activity android:name=".ProfilePage.SecondProfileFollowersActivity" />
+        <activity android:name=".ProfilePage.SecondProfileFollowingActivity"></activity>
     </application>
 
 </manifest>
