@@ -146,7 +146,7 @@ public interface WebService {
     Observable<String> uploadFile(@Part MultipartBody.Part file);
 
 
-    @GET("http://voicemepush-env.us-west-2.elasticbeanstalk.com/fcm")
+    @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
     Observable<Response> getResponse(
             @Query("dataMsg") String dataMessage
             );

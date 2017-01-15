@@ -43,7 +43,6 @@ public class SecondProfileFollowingActivity extends BaseActivity {
 
     private void initializeData() {
 
-        //Todo work on followers user ID
         application.getWebService()
                 .getUserFollowing(profileUserId)
                 .observeOn(AndroidSchedulers.mainThread())

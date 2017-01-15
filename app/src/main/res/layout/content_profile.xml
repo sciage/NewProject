@@ -84,20 +84,6 @@
                 android:text="UI/UX Desig"
                 android:textColor="#aaffffff" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/about"
-                android:layout_marginLeft="28dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/image"
-                android:background="@drawable/border"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="FOLLOW ME"
-                android:textColor="#ccffffff" />
-
 
 
             <LinearLayout

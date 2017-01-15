@@ -201,7 +201,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void sendData() throws Exception {
         application.getWebService()
-                .getResponse("senderid@1_contactId@21_postId@1_click@3")
+                .getResponse("senderid@1_contactId@1_postId@1_click@3")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<Response>() {
                     @Override
