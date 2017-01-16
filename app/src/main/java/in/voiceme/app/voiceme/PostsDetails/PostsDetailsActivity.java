@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,11 +28,14 @@ import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
+import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
 public class PostsDetailsActivity extends BaseActivity implements View.OnClickListener, OnLikeListener {
 
@@ -72,6 +77,11 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private ImageView sameCounterImage;
     private ImageView commentCounterImage;
     private ImageView listenCounterImage;
+
+    private int likeCounter;
+    private int hugCounter;
+    private int sameCounter;
+
 
     //animated buttons
     private LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
@@ -285,6 +295,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 hug_counter.setText(myList.get(0).getHug());
                 post_listen.setText(myList.get(0).getListen());
 
+        likeCounter = Integer.parseInt(myList.get(0).getLikes());
+        hugCounter = Integer.parseInt(myList.get(0).getHug());
+        sameCounter = Integer.parseInt(myList.get(0).getSame());
+
         if (!myList.get(0).getAvatarPics().equals("")) {
             Picasso.with(this)
                     .load(myList.get(0).getAvatarPics())
@@ -297,26 +311,9 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public boolean processLoggedState(View viewPrm) {
-        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
-            l.a(666);
-            if (!viewPrm.getClass().getCanonicalName().contains(("LikeButton")))
-                Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
-            else
-                doDislike = true;
-            return true;
-        }
-        return false;
-
-    }
-
-    @Override
     public void liked(LikeButton likeButton) {
         processLoggedState(likeButton);
 
-        int likeCounter = Integer.parseInt(myList.get(0).getLikes());
-        int hugCounter = Integer.parseInt(myList.get(0).getHug());
-        int sameCounter = Integer.parseInt(myList.get(0).getSame());
         try {
             if (myClickListener != null) {
                 myClickListener.onLikeUnlikeClick(myList.get(0), likeButton);
@@ -344,39 +341,86 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (likeButton == likeButtonMain) {
             likeCounter++;
             like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-         //   sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
+            sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
         } else if (likeButton == HugButtonMain) {
             hugCounter++;
             hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
-       //     sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
+            sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
         } else if (likeButton == SameButtonMain) {
             sameCounter++;
             same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
-         //   sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
+            sendLikeToServer(application, 0, 0, 1, 0, "clicked same button");
         }
     }
 
     @Override
     public void unLiked(LikeButton likeButton) {
+        processLoggedState(likeButton);
+
         if (doDislike)
             return;
-     /*       try {
-                if (myClickListener != null) {
-                    myClickListener.onLikeUnlikeClick(dataItem, likeButton);
-                } else {
-                    Toast.makeText(likeButton.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
-                }
-            } catch (NullPointerException e) {
-                Toast.makeText(likeButton.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
+        try {
+            if (myClickListener != null) {
+                return;
+            } else {
+                Toast.makeText(likeButton.getContext(), "Click Event Null", Toast.LENGTH_SHORT).show();
             }
+        } catch (NullPointerException e) {
+            Toast.makeText(likeButton.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
+        }
 
-            if (likeButton == likeButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked unlike button");
-            } else if (likeButton == HugButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked unhug button");
-            } else if (likeButton == SameButtonMain) {
-                sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked unsame button");
-            } */
+        if (likeButton == likeButtonMain) {
+            likeCounter--;
+            like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+            // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
+            sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
+        } else if (likeButton == HugButtonMain) {
+            hugCounter--;
+            hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            sendUnlikeToServer(application, 1, 0, 1, 1, "clicked unlike button");
+        } else if (likeButton == SameButtonMain) {
+            sameCounter--;
+            same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            sendUnlikeToServer(application, 1, 1, 0, 1, "clicked unlike button");
+        }
+    }
+
+    protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
+        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        application.getWebService().likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<LikesResponse>() {
+                    @Override
+                    public void onNext(LikesResponse likesResponse) {
+                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
+        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+        application.getWebService().unlikes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<LikesResponse>() {
+                    @Override
+                    public void onNext(LikesResponse likesResponse) {
+                        Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public boolean processLoggedState(View viewPrm) {
+        if (this.mBaseLoginClass.isDemoMode(viewPrm)) {
+            l.a(666);
+            if (!viewPrm.getClass().getCanonicalName().contains(("LikeButton")))
+                Toast.makeText(viewPrm.getContext(), "You aren't logged in", Toast.LENGTH_SHORT).show();
+            else
+                doDislike = true;
+            return true;
+        }
+        return false;
+
     }
 
 }

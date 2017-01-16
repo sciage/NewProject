@@ -25,14 +25,14 @@ public class UserListModel extends AbstractResponse implements Parcelable {
         }
     };
 
-    @SerializedName("name")
-    private String name;
-    @SerializedName("avatar")
-    private String avatar;
+    @SerializedName("name") private String name;
+    @SerializedName("avatar") private String avatar;
+    @SerializedName("id_user_name") private String idUserName;
 
     protected UserListModel(Parcel in) {
         name = in.readString();
         avatar = in.readString();
+        idUserName = in.readString();
     }
 
     public String getName() {
@@ -43,10 +43,15 @@ public class UserListModel extends AbstractResponse implements Parcelable {
         return avatar;
     }
 
+    public String getIdUserName() {
+        return idUserName;
+    }
+
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
         parcel.writeString(avatar);
+        parcel.writeString(idUserName);
     }
 
     @Override

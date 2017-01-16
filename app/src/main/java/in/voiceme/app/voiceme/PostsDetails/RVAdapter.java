@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import in.voiceme.app.voiceme.ProfilePage.SecondProfile;
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.infrastructure.Constants;
 
 /**
  * Created by Harish on 9/1/2016.
@@ -164,13 +167,19 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         @Override
-        protected void userNameClicked(View v) {
-            Toast.makeText(v.getContext(), "User name Clicked", Toast.LENGTH_SHORT).show();
+        protected void userNameClicked(View view) {
+            Intent intent = new Intent(view.getContext(), SecondProfile.class);
+            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+            view.getContext().startActivity(intent);
         }
 
         @Override
-        protected void userProfileClicked(View v) {
-            Toast.makeText(v.getContext(), "User Profile Clicked", Toast.LENGTH_SHORT).show();
+        protected void userProfileClicked(View view) {
+            Intent intent = new Intent(view.getContext(), SecondProfile.class);
+            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
+            view.getContext().startActivity(intent);
         }
 
     }
