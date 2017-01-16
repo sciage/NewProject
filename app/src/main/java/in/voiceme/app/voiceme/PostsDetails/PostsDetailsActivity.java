@@ -258,7 +258,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     private void getData(String postId) throws Exception {
         application.getWebService()
-                .getSinglePost(postId)
+                .getSinglePost(postId, MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

@@ -76,7 +76,7 @@ public class ActivityYourFeedFragment extends BaseFragment {
 
     private void getData() throws Exception {
         ((VoicemeApplication) getActivity().getApplication()).getWebService()
-                .getPopulars(MySharedPreferences.getUserId(preferences),"true")
+                .getUserFollowerPost(MySharedPreferences.getUserId(preferences), MySharedPreferences.getUserId(preferences))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

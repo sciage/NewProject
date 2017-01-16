@@ -62,7 +62,7 @@ public class TotalPostsActivity extends BaseActivity {
 
     private void getData() throws Exception {
         ((VoicemeApplication) getApplication()).getWebService()
-                .getSingleUserPosts(userId)
+                .getSingleUserPosts(userId, userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override

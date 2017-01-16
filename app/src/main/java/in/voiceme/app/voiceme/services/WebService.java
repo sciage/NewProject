@@ -40,12 +40,31 @@ public interface WebService {
                                              @Query("trending") String booleann);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann);
+    Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann,
+                                               @Query("user_id") String user_id);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getSingleUserPosts(@Query("id_user") String id_user);
+    Observable<List<PostsModel>> getSingleUserPosts(@Query("id_user") String id_user,
+                                                    @Query("user_id") String user_id);
+
+    @GET("posts.php")
+    Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
+                                                     @Query("user_id") String user_id);
+
+    @GET("posts.php")
+    Observable<List<PostsModel>> getActivityPosts(@Query("id_user") String id_user,
+                                                  @Query("filtered") String filtered,
+                                                  @Query("user_id") String user_id);
 
 
+
+    @GET("posts.php")
+    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
+                                                 @Query("user_id") String userID);
+
+    @GET("posts.php")
+    Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id,
+                                                  @Query("user_id") String userID);
 
 
     @FormUrlEncoded
@@ -91,13 +110,7 @@ public interface WebService {
             @Field("audio") String audio
     );
 
-    @GET("posts.php")
-    Observable<List<PostsModel>> getEmotionPosts(@Query("feeling_id") String feeling_id,
-                                                 @Query("user_id") String userID);
 
-    @GET("posts.php")
-    Observable<List<PostsModel>> getCategoryPosts(@Query("category_id") String category_id,
-                                                  @Query("user_id") String userID);
 
     @GET("get_likers.php")
     Observable<UserSuperList> getInteractionPosts(
