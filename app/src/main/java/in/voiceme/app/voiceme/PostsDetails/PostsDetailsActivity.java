@@ -1,8 +1,6 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,10 +30,10 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
-import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
 public class PostsDetailsActivity extends BaseActivity implements View.OnClickListener, OnLikeListener {
 
@@ -258,12 +256,32 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         String message = mMessageEditText.getText().toString();
 
         if (!TextUtils.isEmpty(message)) {
-            mMessageEditText.setText("");
             // Todo post comment on server
-            mMessageAdapter.addMessage(new MessageItem(message, MySharedPreferences.getImageUrl(preferences), MySharedPreferences.getUsername(preferences)));
+
+            try {
+                postComment(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mMessageAdapter.addMessage(new MessageItem(message,
+                    MySharedPreferences.getImageUrl(preferences),
+                    MySharedPreferences.getUsername(preferences)));
+            mMessageEditText.setText("");
         } else {
             Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void postComment(String message) throws Exception {
+        application.getWebService()
+                .sendComment(MySharedPreferences.getUserId(preferences), postId, message)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<Response>() {
+                    @Override
+                    public void onNext(Response response) {
+                        Toast.makeText(PostsDetailsActivity.this, "Response for posting comments " + response.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getData(String postId) throws Exception {
@@ -275,6 +293,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     public void onNext(List<PostsModel> response) {
                         String name = response.get(0).getIdUserName();
                         Toast.makeText(PostsDetailsActivity.this, "response for details", Toast.LENGTH_SHORT).show();
+
                         showRecycleWithDataFilled(response);
                     }
                 });
@@ -284,6 +303,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
 
         this.myList = myList;
+
                 user_name.setText(myList.get(0).getUserNicName());
                 timeStamp.setText(myList.get(0).getPostTime());
                 postMessage.setText(myList.get(0).getTextStatus());
@@ -305,6 +325,28 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     .resize(75, 75)
                     .centerInside()
                     .into(user_avatar);
+        }
+
+        if (myList.get(0).getUserLike() != null){
+            if (myList.get(0).getUserLike()){
+                likeButtonMain.setLiked(true);
+            } else {
+                likeButtonMain.setLiked(false);
+            }
+
+
+            if (myList.get(0).getUserHuge()){
+                HugButtonMain.setLiked(true);
+            } else {
+                HugButtonMain.setLiked(false);
+            }
+
+
+            if (myList.get(0).getUserSame()){
+                SameButtonMain.setLiked(true);
+            } else {
+                SameButtonMain.setLiked(false);
+            }
         }
 
         play_button.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
@@ -372,7 +414,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (likeButton == likeButtonMain) {
             likeCounter--;
             like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
-            // sendUnlikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext());
             sendUnlikeToServer(application, 0, 1, 1, 1, "clicked unlike button");
         } else if (likeButton == HugButtonMain) {
             hugCounter--;
@@ -386,7 +427,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
         application.getWebService().likes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LikesResponse>() {
@@ -398,7 +438,6 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     protected void sendUnlikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
-        SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
         application.getWebService().unlikes(MySharedPreferences.getUserId(preferences), postId, like, hug, same, listen)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LikesResponse>() {

@@ -264,7 +264,7 @@ public class AudioStatus extends BaseActivity {
                         @Override
                         public void onNext(String response) {
                             Timber.d("file url" + response);
-                            Toast.makeText(AudioStatus.this, "file url" + response, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AudioStatus.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setAudioFileUrl(response);
 
                         }
@@ -273,7 +273,7 @@ public class AudioStatus extends BaseActivity {
                         public void onCompleted() {
                             progressDialog.dismiss();
 
-                            postStatus();
+                       //     postStatus();
                         }
                     });
         } catch (Exception e) {

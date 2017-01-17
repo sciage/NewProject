@@ -167,5 +167,12 @@ public interface WebService {
             @Query("dataMsg") String dataMessage
             );
 
+    @FormUrlEncoded
+    @POST("postComments.php")
+    Observable<Response> sendComment(
+            @Field("id_user_name") String user_id,
+            @Field("id_posts") String id_posts,
+            @Field("message") String message
+    );
 
 }

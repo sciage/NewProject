@@ -106,7 +106,8 @@ dependencies {
     compile('com.digits.sdk.android:digits:2.0.4@aar') {
         transitive = true;
     }
-   // compile 'com.writingminds:FFmpegAndroid:0.3.2' library to compress audio
+    // compile 'com.writingminds:FFmpegAndroid:0.3.2' library to compress audio
+    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
