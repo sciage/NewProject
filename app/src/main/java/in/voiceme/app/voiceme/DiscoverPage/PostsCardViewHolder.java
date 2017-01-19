@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.DiscoverPage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected int hugCounter;
     protected int sameCounter;
 
+    protected MediaPlayer player;
     //Imageview for avatar and play pause button
 
     protected ImageView user_avatar;
@@ -139,6 +141,12 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 listenCounterClicked(v);
             }
         });
+        play_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playButton(view);
+            }
+        });
 
         category.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +214,10 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     }
 
     protected void secondUserProfileClicked(View view){
+
+    }
+
+    protected void playButton(View view){
 
     }
 

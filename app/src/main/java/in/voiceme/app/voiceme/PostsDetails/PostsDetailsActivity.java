@@ -182,7 +182,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(this, "post is not null: " + postId, Toast.LENGTH_SHORT).show();
             }
             getData(postId);
-            getComments();
+            getComments(postId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -272,7 +272,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    private void getComments() throws Exception {
+    private void getComments(String postId) throws Exception {
         application.getWebService()
                 .getUserComments(postId)
                 .observeOn(AndroidSchedulers.mainThread())

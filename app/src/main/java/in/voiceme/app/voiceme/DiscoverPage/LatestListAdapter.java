@@ -206,11 +206,17 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
+
+
         protected void secondUserProfileClicked(View view){
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
             Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
+        }
+
+        protected void playButton(View view){
+
         }
 
         @Override

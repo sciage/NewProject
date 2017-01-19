@@ -33,7 +33,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         mContext = context;
         mInsertMessageListener = insertMessageListener;
         this.mMessageList = mMessageList;
-        this.mMessageList = new ArrayList<>();
     }
 
     @Override
@@ -53,7 +52,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemCount() {
-        return mMessageList.size();
+        if (mMessageList == null){
+            return 0;
+        } else {
+            return mMessageList.size();
+        }
+
     }
 
     public void addMessage(UserCommentModel messageItem) {

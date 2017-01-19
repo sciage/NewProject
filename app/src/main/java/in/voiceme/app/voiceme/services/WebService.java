@@ -57,6 +57,10 @@ public interface WebService {
                                                   @Query("filtered") String filtered,
                                                   @Query("user_id") String user_id);
 
+    @GET("get_comments.php")
+    Observable<List<UserCommentModel>> getUserComments(
+            @Query("id_posts") String id_posts);
+
 
 
     @GET("posts.php")
@@ -156,9 +160,7 @@ public interface WebService {
             @Query("user_id") String user_id,
             @Query("follow_id") String follower);
 
-    @GET("get_comments.php")
-    Observable<List<UserCommentModel>> getUserComments(
-            @Query("id_posts") String id_posts);
+
 
 
     @Headers("Accept: multipart/form-data")
