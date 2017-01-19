@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import java.util.List;
 
+import in.voiceme.app.voiceme.PostsDetails.UserCommentModel;
 import in.voiceme.app.voiceme.PostsDetails.UserSuperList;
 import in.voiceme.app.voiceme.ProfilePage.FollowerUserList;
 import in.voiceme.app.voiceme.ProfilePage.ProfileUserList;
@@ -154,6 +155,10 @@ public interface WebService {
     Observable<ProfileUserList> getOtherUserProfile(
             @Query("user_id") String user_id,
             @Query("follow_id") String follower);
+
+    @GET("get_comments.php")
+    Observable<List<UserCommentModel>> getUserComments(
+            @Query("id_posts") String id_posts);
 
 
     @Headers("Accept: multipart/form-data")

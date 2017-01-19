@@ -2,6 +2,7 @@ package in.voiceme.app.voiceme.ProfilePage;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -124,13 +125,14 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 }
                 startCropActivity(outputFile);
 
-            } else if (requestCode == UCrop.REQUEST_CROP) {
-                avatarView.setImageResource(0);
+            } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
 
-                avatarView.setImageURI(Uri.fromFile(tempOutputFile));
 
 
                 Timber.e(String.valueOf(Uri.fromFile(tempOutputFile)));
+                avatarView.setImageResource(0);
+
+                avatarView.setImageURI(Uri.fromFile(tempOutputFile));
                 Toast.makeText(this, String.valueOf(Uri.fromFile(tempOutputFile)), Toast.LENGTH_SHORT).show();
 
                 // avatarProgressFrame.setVisibility(View.VISIBLE);
@@ -140,9 +142,19 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    private UCrop advancedConfig(@NonNull UCrop uCrop) {
+        UCrop.Options options = new UCrop.Options();
+
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        options.setCompressionQuality(50);
+        return uCrop.withOptions(options);
+    }
+
     private void startCropActivity(@NonNull Uri uri) {
 
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(tempOutputFile));
+
+        uCrop = advancedConfig(uCrop);
         uCrop.start(ChangeProfileActivity.this);
     }
 

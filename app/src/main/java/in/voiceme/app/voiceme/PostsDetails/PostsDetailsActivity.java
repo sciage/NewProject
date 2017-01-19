@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private LinearLayoutManager mLinearLayoutManager;
     private String postId;
     private List<PostsModel> myList;
+    List<UserCommentModel> myCommentList;
     private static LikeUnlikeClickListener myClickListener;
 
     private boolean doDislike;
@@ -148,17 +150,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         HugButtonMain = (LikeButton) findViewById(R.id.detail_list_item_hug_button);
         SameButtonMain = (LikeButton) findViewById(R.id.detail_list_item_same_button);
 
-
-
-
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mMessageEditText = (EditText) findViewById(R.id.detail_et_message);
         mSendMessageImageButton = (ImageButton) findViewById(R.id.detail_btn_send_message);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.detail_rv_messages);
-
-        initRecyclerView();
 
         mSendMessageImageButton.setOnClickListener(this);
         //OnClickListeners
@@ -185,14 +182,17 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(this, "post is not null: " + postId, Toast.LENGTH_SHORT).show();
             }
             getData(postId);
+            getComments();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        initRecyclerView();
+
     }
 
     private void initRecyclerView() {
-        mMessageAdapter = new MessageAdapter(PostsDetailsActivity.this, mInsertMessageListener);
+        mMessageAdapter = new MessageAdapter(PostsDetailsActivity.this, myCommentList, mInsertMessageListener);
 
         mLinearLayoutManager = new LinearLayoutManager(PostsDetailsActivity.this) {
             @Override
@@ -263,7 +263,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mMessageAdapter.addMessage(new MessageItem(message,
+            mMessageAdapter.addMessage(new UserCommentModel(message,
                     MySharedPreferences.getImageUrl(preferences),
                     MySharedPreferences.getUsername(preferences)));
             mMessageEditText.setText("");
@@ -271,6 +271,26 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             Toast.makeText(this, "You have not entered anything", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void getComments() throws Exception {
+        application.getWebService()
+                .getUserComments(postId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<List<UserCommentModel>>() {
+                    @Override
+                    public void onNext(List<UserCommentModel> response) {
+                        Log.e("RESPONSE:::", "Size===" + response.size());
+                        showComments(response);
+                    }
+                });
+    }
+
+    private void showComments(final List<UserCommentModel> myList) {
+        this.myCommentList = myList;
+        mMessageAdapter = new MessageAdapter(this, myList, mInsertMessageListener);
+        mMessageRecyclerView.setAdapter(mMessageAdapter);
+    }
+
 
     private void postComment(String message) throws Exception {
         application.getWebService()

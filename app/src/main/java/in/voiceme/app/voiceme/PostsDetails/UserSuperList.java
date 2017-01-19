@@ -11,18 +11,10 @@ import java.util.List;
 
 public class UserSuperList {
 
-    @SerializedName("likes")
-    @Expose
-    private List<UserListModel> likes = null;
-    @SerializedName("same")
-    @Expose
-    private List<UserListModel> same = null;
-    @SerializedName("hug")
-    @Expose
-    private List<UserListModel> hug = null;
-    @SerializedName("listen")
-    @Expose
-    private List<UserListModel> listen = null;
+    @SerializedName("likes") @Expose private List<UserListModel> likes = null;
+    @SerializedName("same") @Expose private List<UserListModel> same = null;
+    @SerializedName("hug") @Expose private List<UserListModel> hug = null;
+    @SerializedName("listen") @Expose private List<UserListModel> listen = null;
 
     public List<UserListModel> getLikes() {
         return likes;

@@ -26,13 +26,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     private final Context mContext;
     private InsertMessageListener mInsertMessageListener;
-    private List<MessageItem> mMessageList;
+    private List<UserCommentModel> mMessageList;
     private List<MessageViewHolder> mMessageHolderList = new ArrayList<>();
 
-    public MessageAdapter(Context context, InsertMessageListener insertMessageListener) {
+    public MessageAdapter(Context context, List<UserCommentModel> mMessageList,  InsertMessageListener insertMessageListener) {
         mContext = context;
         mInsertMessageListener = insertMessageListener;
-        mMessageList = new ArrayList<>();
+        this.mMessageList = mMessageList;
+        this.mMessageList = new ArrayList<>();
     }
 
     @Override
@@ -55,7 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         return mMessageList.size();
     }
 
-    public void addMessage(MessageItem messageItem) {
+    public void addMessage(UserCommentModel messageItem) {
         mMessageList.add(messageItem);
 
         int position = mMessageList.size() - 1;
@@ -126,13 +127,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mFadeOutAnimation.setAnimationListener(mFadeOutAnimationListener);
         }
 
-        public void onBind(int position, MessageItem messageItem) {
+        public void onBind(int position, UserCommentModel messageItem) {
             mPosition = position;
             mHolderView.setAlpha(ALPHA_VISIBLE);
             isVisible = true;
 
-            String message = messageItem.getMessage();
-            String imageUri = messageItem.getImageUri();
+            String message = messageItem.getComment();
+            String imageUri = messageItem.getAvatar();
             String userName = messageItem.getUserName();
 
             messageCard.setText(message);
