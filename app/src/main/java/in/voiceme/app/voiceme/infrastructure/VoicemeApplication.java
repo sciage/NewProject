@@ -12,6 +12,8 @@ import in.voiceme.app.voiceme.Module;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -22,6 +24,7 @@ public class VoicemeApplication extends Application {
     private static Bus bus;
     private static Context context;
     private WebService webService;
+    private VoicemeApplication instance;
 
     public VoicemeApplication() {
         bus = new Bus();
@@ -42,6 +45,7 @@ public class VoicemeApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         //Fabric.with(this, new Crashlytics());
         auth = new Auth(this);
         FacebookSdk.sdkInitialize(this);
@@ -59,6 +63,8 @@ public class VoicemeApplication extends Application {
          *Creates a periodic job to refresh token
          */
         JobManager.create(this).addJobCreator(new RefreshTokenJobCreator());
+
+        initDatabase();
     }
 
     public WebService getWebService() {
@@ -69,5 +75,15 @@ public class VoicemeApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    private void initDatabase() {
+
+        Realm.init(instance);
+
+        RealmConfiguration realmConfiguration =
+                new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 }

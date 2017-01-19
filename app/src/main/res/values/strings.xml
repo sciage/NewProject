@@ -59,4 +59,6 @@
     <string name="title_activity_login_user_details">LoginUserDetails</string>
     <string name="try_it">Try it as Demo</string>
 
+    <string name="time_stamp">%1$s</string>
+
 </resources>

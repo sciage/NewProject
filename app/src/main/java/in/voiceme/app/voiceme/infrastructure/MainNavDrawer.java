@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.DiscoverPage.DiscoverActivity;
-import in.voiceme.app.voiceme.NotificationsPage.HomeActivity;
+import in.voiceme.app.voiceme.NotificationsPage.NotificationsActivity;
 import in.voiceme.app.voiceme.ProfilePage.ProfileActivity;
 import in.voiceme.app.voiceme.ProfilePage.User;
 import in.voiceme.app.voiceme.R;
@@ -30,7 +30,7 @@ public class MainNavDrawer extends NavDrawer implements WasLoggedInInterface {
         super(activity);
 
         addItem(new ActivityNavDrawerItem(ProfileActivity.class, "Profile", null, R.mipmap.ic_action_unread, R.id.include_main_nav_drawer_topItems));
-        addItem(new ActivityNavDrawerItem(HomeActivity.class, "Notification", null, R.mipmap.ic_action_send_now, R.id.include_main_nav_drawer_topItems));
+        addItem(new ActivityNavDrawerItem(NotificationsActivity.class, "Notification", null, R.mipmap.ic_action_send_now, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(MainActivity.class, "Activity", null, R.mipmap.ic_action_group, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(DiscoverActivity.class, "Discover", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));
         addItem(new ActivityNavDrawerItem(ContactsActivity.class, "Contacts", null, R.mipmap.ic_action_person, R.id.include_main_nav_drawer_topItems));

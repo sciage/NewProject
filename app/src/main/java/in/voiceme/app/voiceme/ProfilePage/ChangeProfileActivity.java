@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +30,11 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginResponse;
-import in.voiceme.app.voiceme.userpost.Response;
+import in.voiceme.app.voiceme.utils.ActivityUtils;
+import in.voiceme.app.voiceme.utils.ContactsHelper;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -58,6 +64,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         userAge = (EditText) findViewById(R.id.edittext_profile_age);
         userGender = (EditText) findViewById(R.id.edittext_profile_gender);
         userLocation = (EditText) findViewById(R.id.edittext_profile_location);
+        Button sendFollowNotification = (Button) findViewById(R.id.button_send_follow_notification);
+        Button sendLikeNotification = (Button) findViewById(R.id.button_send_like_notification);
+        Button readContacts = (Button) findViewById(R.id.button_read_contacts);
 
         avatarView = (ImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
@@ -65,6 +74,9 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
+        sendLikeNotification.setOnClickListener(this);
+        sendFollowNotification.setOnClickListener(this);
+        readContacts.setOnClickListener(this);
 
         try {
             getData();
@@ -72,17 +84,18 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             e.printStackTrace();
         }
         avatarProgressFrame.setVisibility(View.GONE);
-
     }
 
     private void changeAvatar() {
         List<Intent> otherImageCaptureIntent = new ArrayList<>();
-        List<ResolveInfo> otherImageCaptureActivities = getPackageManager()
-                .queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0); // finding all intents in apps which can handle capture image
+        List<ResolveInfo> otherImageCaptureActivities =
+                getPackageManager().queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                        0); // finding all intents in apps which can handle capture image
         // loop through all these intents and for each of these activities we need to store an intent
         for (ResolveInfo info : otherImageCaptureActivities) { // Resolve info represents an activity on the system that does our work
             Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            captureIntent.setClassName(info.activityInfo.packageName, info.activityInfo.name); // declaring explicitly the class where we will go
+            captureIntent.setClassName(info.activityInfo.packageName,
+                    info.activityInfo.name); // declaring explicitly the class where we will go
             // where the picture activity dump the image
             captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempOutputFile));
             otherImageCaptureIntent.add(captureIntent);
@@ -95,8 +108,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         selectImageIntent.setType("image/*");
 
         Intent chooser = Intent.createChooser(selectImageIntent, "Choose Avatar");
-        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS,
-                otherImageCaptureIntent.toArray(new Parcelable[otherImageCaptureActivities.size()]));  // add 2nd para as intent of parcelables.
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, otherImageCaptureIntent.toArray(
+                new Parcelable[otherImageCaptureActivities.size()]));  // add 2nd para as intent of parcelables.
 
         startActivityForResult(chooser, REQUEST_SELECT_IMAGE);
     }
@@ -113,7 +126,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 Uri outputFile;
                 Uri tempFileUri = Uri.fromFile(tempOutputFile);
                 // if statement will detect if the user selected an image from the device or took an image
-                if (data != null && (data.getAction() == null || !data.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
+                if (data != null && (data.getAction() == null || !data.getAction()
+                        .equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
                     //then it means user selected an image off the device
                     // so we can get the Uri of that image using data.getData
                     outputFile = data.getData();
@@ -124,7 +138,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                     // Now we need to do the crop
                 }
                 startCropActivity(outputFile);
-
             } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
 
 
@@ -138,7 +151,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 // avatarProgressFrame.setVisibility(View.VISIBLE);
                 // bus.post(new Account.ChangeAvatarRequest(Uri.fromFile(tempOutputFile)));
             }
-
         }
     }
 
@@ -158,6 +170,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         uCrop.start(ChangeProfileActivity.this);
     }
 
+
     @Override
     public void onClick(View view) {
         processLoggedState(view);
@@ -165,37 +178,99 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (viewId == R.id.changeimage) {
             changeAvatar();
-        } else if (viewId == R.id.button_audio_status){
+        } else if (viewId == R.id.button_audio_status) {
             try {
-              //  submitData();
+                //  submitData();
                 sendData();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        } else if (viewId == R.id.button_send_follow_notification) {
+
+            sendFollowNotification();
+        } else if (viewId == R.id.button_send_like_notification) {
+
+            sendLikeNotification();
+        } else if (viewId == R.id.button_read_contacts) {
+            readContacts();
+        }
+    }
+
+    private void readContacts() {
+        if (ActivityUtils.isContactsPermission(this)) {
+            getContacts();
+        }
+    }
+
+    private void getContacts() {
+
+        ProgressDialog dialog = new ProgressDialog(ChangeProfileActivity.this);
+        dialog.setCancelable(true);
+        dialog.setMessage("Reading contacts..");
+        dialog.show();
+
+        Observable.fromCallable(
+                () -> ContactsHelper.readContacts(ChangeProfileActivity.this.getContentResolver()))
+                .doOnError(throwable -> Timber.d(throwable.getMessage()))
+                .onErrorResumeNext(throwable -> {
+                    Timber.d(throwable.getMessage());
+                    return Observable.empty();
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(contacts -> {
+                    dialog.dismiss();
+                    showContactsCompletedDialog(contacts);
+                    Timber.d("comma separated contacts array %s", contacts);
+                });
+    }
+
+    private void showContactsCompletedDialog(ArrayList<String> contacts) {
+        new AlertDialog.Builder(ChangeProfileActivity.this).setTitle("Contacts sync complete")
+                .setCancelable(false)
+                .setMessage("Read " + contacts.size() + " contacts from phone-book")
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel())
+                .setNegativeButton("SHOW CONTACTS", (dialogInterface, i) -> {
+                    Intent intent = new Intent(ChangeProfileActivity.this, ContactsActivity.class);
+                    intent.putStringArrayListExtra("contacts", contacts);
+                    startActivity(intent);
+                    dialogInterface.dismiss();
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == getResources().getInteger(R.integer.contacts_request)) {
+                getContacts();
             }
         }
     }
 
     private void submitData() throws Exception {
         application.getWebService()
-                .login("", MySharedPreferences.getEmail(preferences),
-                        userLocation.getText().toString(), userAge.getText().toString(),
-                        MySharedPreferences.getSocialID(preferences),
-                        Uri.parse("http://www.google.com"), "male",
-                        aboutme.getText().toString(), username.getText().toString())
+                .login("", MySharedPreferences.getEmail(preferences), userLocation.getText().toString(),
+                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
+                        Uri.parse("http://www.google.com"), "male", aboutme.getText().toString(),
+                        username.getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
                     public void onNext(LoginResponse response) {
 
-                        Toast.makeText(ChangeProfileActivity.this, "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangeProfileActivity.this,
+                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getText().toString());
                         //Todo add network call for uploading image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
-
                     }
                 });
     }
-
 
     private void getData() throws Exception {
         application.getWebService()
@@ -213,19 +288,48 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void sendData() throws Exception {
         application.getWebService()
-                .getResponse("senderid@1_contactId@1_postId@1_click@3")
+                .getResponse("senderid@1_contactId@21_postId@1_click@3")
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<Response>() {
+                .subscribe(new BaseSubscriber<String>() {
                     @Override
-                    public void onNext(Response response) {
-                        Timber.e("Got user details");
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                        Timber.e("Message from server" + response.getMsg());
+                        Timber.d("Message from server" + response);
                     }
                 });
     }
 
+    private void sendFollowNotification() {
+        application.getWebService()
+                .sendFollowNotification("senderid@1_contactId@21_follow@1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                       //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                       // Timber.d("Message from server" + response);
+                    }
+                });
+    }
+
+    private void sendLikeNotification() {
+        application.getWebService()
+                .sendLikeNotification("senderid@1_contactId@21_postId@1_click@1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                       //  Timber.d("Message from server" + response);
+                    }
+                });
+    }
 
     private void profileData(ProfileUserList response) {
         username.setText(response.getData().getUserNickName());
@@ -243,6 +347,5 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             return true;
         }
         return false;
-
     }
 }

@@ -181,10 +181,35 @@
             android:layout_height="120dp" />
 
         <Button
+            android:id="@+id/button_audio_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_audio_status"
             android:text="Submit"/>
+
+        <Button
+            android:id="@+id/button_send_follow_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Follow"/>
+
+        <Button
+            android:id="@+id/button_send_like_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Like"/>
+
+        <Button
+            android:id="@+id/button_read_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Read contacts"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
 
         <View
             android:layout_width="match_parent"

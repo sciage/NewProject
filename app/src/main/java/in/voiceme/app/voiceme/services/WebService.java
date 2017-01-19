@@ -170,9 +170,19 @@ public interface WebService {
 
 
     @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
-    Observable<Response> getResponse(
+    Observable<String> getResponse(
             @Query("dataMsg") String dataMessage
-            );
+    );
+
+    @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
+    Observable<String> sendLikeNotification(
+            @Query("dataMsg") String dataMessage
+    );
+
+    @GET("http://voiceme.us-east-1.elasticbeanstalk.com/fcm")
+    Observable<String> sendFollowNotification(
+            @Query("dataMsg") String dataMessage
+    );
 
     @FormUrlEncoded
     @POST("postComments.php")
