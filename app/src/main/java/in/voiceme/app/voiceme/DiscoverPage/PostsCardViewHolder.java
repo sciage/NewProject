@@ -20,6 +20,7 @@ import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -324,6 +325,21 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                     @Override
                     public void onNext(LikesResponse likesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    protected void sendLikeNotification(final VoicemeApplication application, String likeUrl) {
+        application.getWebService()
+                .sendLikeNotification(likeUrl)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        //  Timber.d("Message from server" + response);
                     }
                 });
     }
