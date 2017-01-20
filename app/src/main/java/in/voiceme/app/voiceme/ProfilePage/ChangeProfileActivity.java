@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.contactPage.AddContactResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
@@ -220,10 +221,36 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contacts -> {
                     dialog.dismiss();
-                    showContactsCompletedDialog(contacts);
-                    Timber.d("comma separated contacts array %s", contacts);
+                    contacts.remove(0);
+                    contacts.remove(contacts.size() - 1);
+                    try {
+                       sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                   // showContactsCompletedDialog(contacts);
+                    Timber.d("comma separated contacts array %s", contacts.toString().replace("[", "").replace("]", ""));
                 });
     }
+
+
+
+    private void sendAllContacts(String contacts) throws Exception {
+        application.getWebService()
+                .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<AddContactResponse>() {
+                    @Override
+                    public void onNext(AddContactResponse response) {
+                        Timber.e("Got user details " + response.getInsertedRows().toString());
+                        //     followers.setText(String.valueOf(response.size()));
+                     //   profileData(response);
+
+                    }
+                });
+    }
+
+
 
     private void showContactsCompletedDialog(ArrayList<String> contacts) {
         new AlertDialog.Builder(ChangeProfileActivity.this).setTitle("Contacts sync complete")
@@ -239,6 +266,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,

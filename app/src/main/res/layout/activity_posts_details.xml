@@ -23,6 +23,7 @@
             android:id="@+id/detail_list_item_post_background"
             android:layout_width="match_parent"
             android:layout_below="@+id/include_toolbar"
+            android:focusable="true"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -301,12 +302,13 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
             android:layout_weight="1">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/detail_rv_messages"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
@@ -328,7 +330,6 @@
                 android:id="@+id/detail_et_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:windowSoftInputMode="stateHidden"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
                 android:layout_weight="4"

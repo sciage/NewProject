@@ -9,9 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class AddContactResponse {
 
-    @SerializedName("inserted_rows")
-    @Expose
-    private Integer insertedRows;
+    @SerializedName("inserted_rows") @Expose private Integer insertedRows;
 
     public Integer getInsertedRows() {
         return insertedRows;

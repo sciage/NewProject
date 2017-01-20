@@ -202,7 +202,8 @@ public class RegisterActivity extends BaseActivity
             }
 
             try {
-                getData(result.getSignInAccount().getDisplayName(), result.getSignInAccount().getId(), result.getSignInAccount().getEmail(), result.getSignInAccount().getPhotoUrl());
+                getData(result.getSignInAccount().getDisplayName(), result.getSignInAccount().getId(),
+                        result.getSignInAccount().getEmail(), result.getSignInAccount().getPhotoUrl());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -217,7 +218,7 @@ public class RegisterActivity extends BaseActivity
 
     private void getData(String name, String identityID, String email, Uri profile) throws Exception {
         application.getWebService()
-                .login(name, email, "", "", identityID, profile, "gender", "about me of the user", "timeUserNickname")
+                .login(name, email, "", "", identityID, profile, "gender", "", "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
