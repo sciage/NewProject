@@ -100,12 +100,12 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         } else if (view.getId() == R.id.enter_contacts_main_page){
 
-            if (application.getAuth().getUser().isPhoneNumber() && application.getAuth().getUser().isAllContacts()){
+        //    if (application.getAuth().getUser().isPhoneNumber() && application.getAuth().getUser().isAllContacts()){
                 enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
                 startActivity(new Intent(this, ContactListActivity.class));
                 finish();
                 return;
-            }
+        //    }
 
         }
     }

@@ -57,6 +57,11 @@ public interface WebService {
                                                   @Query("filtered") String filtered,
                                                   @Query("user_id") String user_id);
 
+    @GET("posts.php")
+    Observable<List<PostsModel>> getContactPosts(@Query("id_user_name") String id_user_name,
+                                                  @Query("user_id") String user_id,
+                                                  @Query("contacts") String contacts);
+
     @GET("get_comments.php")
     Observable<List<UserCommentModel>> getUserComments(
             @Query("id_posts") String id_posts);

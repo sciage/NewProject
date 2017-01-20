@@ -30,6 +30,7 @@
 
         <activity
             android:name=".ActivityPage.MainActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -53,50 +54,63 @@
 
         <activity
             android:name=".login.LoginActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DiscoverPage.DiscoverActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.RegisterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ProfilePage.ProfileActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NotificationsPage.NotificationsActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".infrastructure.AuthenticationActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userpost.TextStatus"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_text_status"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".userpost.AudioStatus"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_audio_status"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PostsDetails.UserLikeCounterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_feeling_details"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PostsDetails.UserHugCounterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_user_hug_counter"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PostsDetails.UserSameCounterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_user_same_counter"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PostsDetails.UserListenCounterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_user_listen_counter"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".PostsDetails.UserFeelingActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_user_feeling"
             android:theme="@style/AppTheme" />
         <activity
@@ -114,6 +128,7 @@
 
         <activity
             android:name=".login.LoginUserDetails"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_login_user_details"
             android:theme="@style/AppTheme" />
 
@@ -129,18 +144,30 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".userpost.CategoryActivity" />
-        <activity android:name=".userpost.FeelingActivity" />
-        <activity android:name=".userpost.StatusActivity" />
-        <activity android:name=".PostsDetails.UserCategoryActivity" />
-        <activity android:name=".ProfilePage.TotalPostsActivity" />
-        <activity android:name=".ProfilePage.FollowersActivity" />
-        <activity android:name=".ProfilePage.FollowingActivity" />
-        <activity android:name=".PostsDetails.PostsDetailsActivity" />
-        <activity android:name=".contactPage.ContactsActivity" />
-        <activity android:name=".ProfilePage.ChangeProfileActivity" />
-        <activity android:name=".contactPage.ContactListActivity" />
-        <activity android:name=".ProfilePage.SecondProfile" />
+        <activity android:name=".userpost.CategoryActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".userpost.FeelingActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".userpost.StatusActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".PostsDetails.UserCategoryActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ProfilePage.TotalPostsActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ProfilePage.FollowersActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ProfilePage.FollowingActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".PostsDetails.PostsDetailsActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".contactPage.ContactsActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ProfilePage.ChangeProfileActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".contactPage.ContactListActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ProfilePage.SecondProfile"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
