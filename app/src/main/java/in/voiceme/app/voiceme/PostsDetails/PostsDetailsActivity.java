@@ -33,6 +33,7 @@ import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
 import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 import static in.voiceme.app.voiceme.R.id.detail_list_item_posts_avatar;
 
@@ -260,6 +261,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
             try {
                 postComment(message);
+                String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
+                       /* "dataItem.getIdUserName()" */ + "_postId" + postId  + "_click" + "5";
+                sendLikeNotification(application, sendLike);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -403,15 +408,29 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (likeButton == likeButtonMain) {
             likeCounter++;
             like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
+
+            String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
+                       /* "dataItem.getIdUserName()" */ + "_postId" + postId  + "_click" + "1";
+
+
+
             sendLikeToServer(application, 1, 0, 0, 0, "clicked like button");
+            sendLikeNotification(application, sendLike);
         } else if (likeButton == HugButtonMain) {
             hugCounter++;
             hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
+            String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
+                       /* "dataItem.getIdUserName()" */ + "_postId" + postId  + "_click" + "2";
+
             sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
+            sendLikeNotification(application, sendLike);
         } else if (likeButton == SameButtonMain) {
             sameCounter++;
             same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
+            String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + "21"
+                       /* "dataItem.getIdUserName()" */ + "_postId" + postId  + "_click" + "3";
             sendLikeToServer(application, 0, 0, 1, 0, "clicked same button");
+            sendLikeNotification(application, sendLike);
         }
     }
 
@@ -453,6 +472,21 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(LikesResponse likesResponse) {
                         Toast.makeText(application, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    protected void sendLikeNotification(final VoicemeApplication application, String likeUrl) {
+        application.getWebService()
+                .sendLikeNotification(likeUrl)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        //  Timber.d("Message from server" + response);
                     }
                 });
     }

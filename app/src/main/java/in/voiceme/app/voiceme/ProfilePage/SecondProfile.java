@@ -20,6 +20,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.userpost.Response;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class SecondProfile extends BaseActivity implements View.OnClickListener {
 
@@ -109,6 +110,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             if (currentFollowing){
                 try {
                     removeFollower(profileUserId, Constants.REMOVE);
+                    sendUnFollowNotification();
                     followMe.setText("Follow");
                     currentFollowing = false;
                 } catch (Exception e) {
@@ -117,6 +119,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             } else{
                 try {
                     addFollower(profileUserId, Constants.ADD);
+                    sendFollowNotification();
+                    // follow
                     followMe.setText("Following");
                     currentFollowing = true;
                 } catch (Exception e) {
@@ -125,6 +129,36 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             }
         }
 
+    }
+
+    private void sendFollowNotification() {
+        application.getWebService()
+                .sendFollowNotification("senderid@1_contactId@21_follow@1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        // Timber.d("Message from server" + response);
+                    }
+                });
+    }
+
+    private void sendUnFollowNotification() {
+        application.getWebService()
+                .sendFollowNotification("senderid@1_contactId@21_follow@1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<String>() {
+                    @Override
+                    public void onNext(String response) {
+                        Timber.d("Got user details");
+                        //     followers.setText(String.valueOf(response.size()));
+                        //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+                        // Timber.d("Message from server" + response);
+                    }
+                });
     }
 
 

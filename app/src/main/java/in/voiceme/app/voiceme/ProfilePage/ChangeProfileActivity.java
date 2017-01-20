@@ -171,17 +171,10 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             changeAvatar();
         } else if (viewId == R.id.button_audio_status) {
             try {
-                //  submitData();
-                sendData();
+                  submitData();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (viewId == R.id.button_send_follow_notification) {
-
-            sendFollowNotification();
-        } else if (viewId == R.id.button_send_like_notification) {
-
-            sendLikeNotification();
         }
     }
 
@@ -215,51 +208,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         Timber.e("Got user details");
                         //     followers.setText(String.valueOf(response.size()));
                         profileData(response);
-                    }
-                });
-    }
-
-    private void sendData() throws Exception {
-        application.getWebService()
-                .getResponse("senderid@1_contactId@21_postId@1_click@3")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Got user details");
-                        //     followers.setText(String.valueOf(response.size()));
-                        Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                        Timber.d("Message from server" + response);
-                    }
-                });
-    }
-
-    private void sendFollowNotification() {
-        application.getWebService()
-                .sendFollowNotification("senderid@1_contactId@21_follow@1")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Got user details");
-                        //     followers.setText(String.valueOf(response.size()));
-                       //  Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                       // Timber.d("Message from server" + response);
-                    }
-                });
-    }
-
-    private void sendLikeNotification() {
-        application.getWebService()
-                .sendLikeNotification("senderid@1_contactId@21_postId@1_click@1")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<String>() {
-                    @Override
-                    public void onNext(String response) {
-                        Timber.d("Got user details");
-                        //     followers.setText(String.valueOf(response.size()));
-                        // Toast.makeText(ChangeProfileActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                       //  Timber.d("Message from server" + response);
                     }
                 });
     }
