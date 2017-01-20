@@ -141,7 +141,6 @@
         <activity android:name=".ProfilePage.ChangeProfileActivity" />
         <activity android:name=".contactPage.ContactListActivity" />
         <activity android:name=".ProfilePage.SecondProfile" />
-        <activity android:name=".ProfilePage.ContactsActivity"></activity>
     </application>
 
 </manifest>

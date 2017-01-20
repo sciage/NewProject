@@ -1,8 +1,6 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,18 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.contactPage.AddContactResponse;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginResponse;
-import in.voiceme.app.voiceme.utils.ActivityUtils;
-import in.voiceme.app.voiceme.utils.ContactsHelper;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
@@ -67,7 +59,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         userLocation = (EditText) findViewById(R.id.edittext_profile_location);
         Button sendFollowNotification = (Button) findViewById(R.id.button_send_follow_notification);
         Button sendLikeNotification = (Button) findViewById(R.id.button_send_like_notification);
-        Button readContacts = (Button) findViewById(R.id.button_read_contacts);
 
         avatarView = (ImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
@@ -77,7 +68,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         submitButton.setOnClickListener(this);
         sendLikeNotification.setOnClickListener(this);
         sendFollowNotification.setOnClickListener(this);
-        readContacts.setOnClickListener(this);
 
         try {
             getData();
@@ -192,92 +182,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         } else if (viewId == R.id.button_send_like_notification) {
 
             sendLikeNotification();
-        } else if (viewId == R.id.button_read_contacts) {
-            readContacts();
-        }
-    }
-
-    private void readContacts() {
-        if (ActivityUtils.isContactsPermission(this)) {
-            getContacts();
-        }
-    }
-
-    private void getContacts() {
-
-        ProgressDialog dialog = new ProgressDialog(ChangeProfileActivity.this);
-        dialog.setCancelable(true);
-        dialog.setMessage("Reading contacts..");
-        dialog.show();
-
-        Observable.fromCallable(
-                () -> ContactsHelper.readContacts(ChangeProfileActivity.this.getContentResolver()))
-                .doOnError(throwable -> Timber.d(throwable.getMessage()))
-                .onErrorResumeNext(throwable -> {
-                    Timber.d(throwable.getMessage());
-                    return Observable.empty();
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(contacts -> {
-                    dialog.dismiss();
-                    contacts.remove(0);
-                    contacts.remove(contacts.size() - 1);
-                    try {
-                       sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                   // showContactsCompletedDialog(contacts);
-                    Timber.d("comma separated contacts array %s", contacts.toString().replace("[", "").replace("]", ""));
-                });
-    }
-
-
-
-    private void sendAllContacts(String contacts) throws Exception {
-        application.getWebService()
-                .addAllContacts(MySharedPreferences.getUserId(preferences), contacts)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<AddContactResponse>() {
-                    @Override
-                    public void onNext(AddContactResponse response) {
-                        Timber.e("Got user details " + response.getInsertedRows().toString());
-                        //     followers.setText(String.valueOf(response.size()));
-                     //   profileData(response);
-
-                    }
-                });
-    }
-
-
-
-    private void showContactsCompletedDialog(ArrayList<String> contacts) {
-        new AlertDialog.Builder(ChangeProfileActivity.this).setTitle("Contacts sync complete")
-                .setCancelable(false)
-                .setMessage("Read " + contacts.size() + " contacts from phone-book")
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel())
-                .setNegativeButton("SHOW CONTACTS", (dialogInterface, i) -> {
-                    Intent intent = new Intent(ChangeProfileActivity.this, ContactsActivity.class);
-                    intent.putStringArrayListExtra("contacts", contacts);
-                    startActivity(intent);
-                    dialogInterface.dismiss();
-                })
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show();
-    }
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (requestCode == getResources().getInteger(R.integer.contacts_request)) {
-                getContacts();
-            }
         }
     }
 

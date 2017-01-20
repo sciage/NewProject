@@ -25,6 +25,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="159dp" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_get_all_contacts"
+            android:text="Get All Contacts"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/enter_contacts_main_page"
+            android:text="Enter"/>
+
     </LinearLayout>
 
     <include layout="@layout/include_main_nav_drawer" />

@@ -17,6 +17,8 @@ public class User {
     private String userLocation;
     private boolean hasPassword;
     private boolean isLoggedIn;
+    private boolean phoneNumber;
+    private boolean allContacts;
 
     public boolean isHasPassword() {
         return hasPassword;
@@ -96,5 +98,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(boolean phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isAllContacts() {
+        return allContacts;
+    }
+
+    public void setAllContacts(boolean allContacts) {
+        this.allContacts = allContacts;
     }
 }
