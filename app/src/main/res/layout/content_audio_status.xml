@@ -133,7 +133,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="Record Audio"
                         android:textSize="24sp"
-                        android:onClick="recordAudio" />
+                        android:id="@+id/recording_start_button" />
 
                 </LinearLayout>
 

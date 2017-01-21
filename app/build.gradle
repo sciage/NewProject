@@ -69,7 +69,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //compile project(':licenseLib')
     compile project(':materialanimatedswitch')
-    compile project(':audioLib')
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }

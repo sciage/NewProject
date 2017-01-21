@@ -1,2 +1,2 @@
-include ':app', ':materialanimatedswitch', 'audioLib'
+include ':app', ':materialanimatedswitch'
 include ':licenseLib'

@@ -142,7 +142,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             messageCard.setText(message);
             username.setText(userName);
-            userImage.setImageResource(R.drawable.aar_ic_check);
+            userImage.setImageResource(R.drawable.ic_done);
         }
 
         public int getBoundPosition() {

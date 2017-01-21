@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,10 +12,6 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
-import cafe.adriel.androidaudiorecorder.model.AudioChannel;
-import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
-import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
@@ -32,11 +27,17 @@ import timber.log.Timber;
 
 public class AudioStatus extends BaseActivity {
     private static final int REQUEST_RECORD_AUDIO = 0;
-    private static final String AUDIO_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.wav";
- //   private static final String CONVERTED_AUDIO_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/" + "recorded_audio.mp3";
+    private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
+
+    public static final int REQUEST_CODE = 1;
+
+    private TextView size, path;
+    private String audio_time;
+
     private TextView textView_category;
     private TextView textView_feeling;
     private TextView textView_status;
+    private TextView textView_record_button;
     private Button post_status;
     private String audioFileUrl;
     private String category;
@@ -58,6 +59,7 @@ public class AudioStatus extends BaseActivity {
         textView_category = (TextView) findViewById(R.id.textView_category);
         textView_feeling = (TextView) findViewById(R.id.textView_feeling);
         textView_status = (TextView) findViewById(R.id.textView_status);
+        textView_record_button = (TextView) findViewById(R.id.recording_start_button);
         post_status = (Button) findViewById(R.id.button_post_audio_status);
 
      //   ffmpeg = FFmpeg.getInstance(this);
@@ -95,100 +97,36 @@ public class AudioStatus extends BaseActivity {
                 if (category == null || feeling == null || textStatus == null) {
                     Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
                 }
-                uploadFile(Uri.parse(AUDIO_FILE_PATH));
+                uploadFile(Uri.parse(filepath));
                 // network call from retrofit
 
             }
         });
 
-        // loadFFMpegBinary();
-    }
+        textView_record_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AudioStatus.this, AudioRecordingActivity.class);
+                startActivityForResult(intent,REQUEST_CODE);
+            }
+        });
 
-  /*  private void loadFFMpegBinary() {
-        try {
-            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
-                @Override
-                public void onFailure() {
-                    showUnsupportedExceptionDialog();
-                }
-            });
-        } catch (FFmpegNotSupportedException e) {
-            showUnsupportedExceptionDialog();
-        }
-    }
 
-    */
 
-   /* private void showUnsupportedExceptionDialog() {
-        new AlertDialog.Builder(AudioStatus.this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.device_not_supported))
-                .setMessage(getString(R.string.device_not_supported_message))
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AudioStatus.this.finish();
-                    }
-                })
-                .create()
-                .show();
 
     }
-    */
-
-   /* private void execFFmpegBinary(final String[] command) {
-        try {
-            ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
-                @Override
-                public void onFailure(String s) {
-                    Toast.makeText(AudioStatus.this, "Failed with Output" + s, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    //  Toast.makeText(AudioStatus.this, "Success with Output" + s, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onProgress(String s) {
-                    Timber.d("Started command : ffmpeg " + command);
-                    //    Toast.makeText(AudioStatus.this, "progress" + s, Toast.LENGTH_SHORT).show();
-                    progressDialog.setMessage("Processing\n" + s);
-                }
-
-                @Override
-                public void onStart() {
-
-                    Timber.d("Started command : ffmpeg " + command);
-                    progressDialog.setMessage("Processing...");
-                    progressDialog.show();
-                }
-
-                @Override
-                public void onFinish() {
-                    Timber.d("Finished command : ffmpeg " + command);
-                    progressDialog.dismiss();
-                }
-            });
-        } catch (FFmpegCommandAlreadyRunningException e) {
-            // do nothing for now
-        }
-    } */
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_RECORD_AUDIO) {
+        if (requestCode == REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
-                //    Toast.makeText(this, AUDIO_FILE_PATH, Toast.LENGTH_SHORT).show();
-                //     Timber.e("file location" + AUDIO_FILE_PATH);
 
-              //  getAudioFileDuration(AUDIO_FILE_PATH);
-              //  String[] command = convertAudioCommand.split(" ");
-              //  execFFmpegBinary(command);
+                audio_time = data.getExtras().getString("audioTime");
+
+                /************ Audio Received ******************** */
+                Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
@@ -215,32 +153,7 @@ public class AudioStatus extends BaseActivity {
         }
     }
 
- /*   private void getAudioFileDuration(String audioFilePath) {
-        Uri uri = Uri.parse(audioFilePath);
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(AudioStatus.this, uri);
-        String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        int millSecond = Integer.parseInt(durationStr);
-        audioDuration = millSecond;
-    } */
 
-    public void recordAudio(View v) {
-        AndroidAudioRecorder.with(this)
-                // Required
-                .setFilePath(AUDIO_FILE_PATH)
-                .setColor(ContextCompat.getColor(this, R.color.recorder_bg))
-                .setRequestCode(REQUEST_RECORD_AUDIO)
-
-                // Optional
-                .setSource(AudioSource.MIC)
-                .setChannel(AudioChannel.STEREO)
-                .setSampleRate(AudioSampleRate.HZ_8000)
-                .setAutoStart(false)
-                .setKeepDisplayOn(true)
-
-                // Start recording
-                .record();
-    }
 
     private void uploadFile(Uri fileUri) {
         File file = new File(String.valueOf(fileUri));
@@ -263,7 +176,7 @@ public class AudioStatus extends BaseActivity {
                     .subscribe(new BaseSubscriber<String>() {
                         @Override
                         public void onNext(String response) {
-                            Timber.d("file url" + response);
+                            Timber.d("file url " + response);
                             Toast.makeText(AudioStatus.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setAudioFileUrl(response);
 
