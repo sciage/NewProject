@@ -62,8 +62,7 @@
         <com.emmasuzuki.easyform.EasyForm
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="12dp"
-            app:submitButton="@+id/submit_button">
+            android:padding="12dp" >
 
             <com.emmasuzuki.easyform.EasyTextInputLayout
                 android:id="@+id/edittext_profile_username"
@@ -119,20 +118,22 @@
                 app:maxChars="50"
                 app:minChars="6" />
 
-            <Button
-                android:id="@+id/submit_button_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/edittext_profile_aboutme"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorAccent"
-                android:text="submit"
-                android:textColor="@android:color/white" />
 
 
 
         </com.emmasuzuki.easyform.EasyForm>
+
+        <Button
+            android:id="@+id/submit_button_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/edittext_profile_aboutme"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:text="submit"
+            android:textColor="@android:color/white" />
+
 
         <View
             android:layout_width="match_parent"

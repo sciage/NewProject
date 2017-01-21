@@ -27,6 +27,9 @@ import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginResponse;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -39,6 +42,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private EasyTextInputLayout userGender;
     private EasyTextInputLayout userLocation;
     private Button submitButton;
+    private String imageUrl;
+    private boolean changedImage = false;
 
     private ImageView avatarView;
     private View avatarProgressFrame;
@@ -128,12 +133,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
             } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
 
 
+                uploadFile(Uri.parse(tempOutputFile.getPath()));
+                changedImage = true;
 
                 Timber.e(String.valueOf(Uri.fromFile(tempOutputFile)));
                 avatarView.setImageResource(0);
 
                 avatarView.setImageURI(Uri.fromFile(tempOutputFile));
                 Toast.makeText(this, String.valueOf(Uri.fromFile(tempOutputFile)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, String.valueOf(tempOutputFile.getAbsolutePath()), Toast.LENGTH_SHORT).show();
 
                 // avatarProgressFrame.setVisibility(View.VISIBLE);
                 // bus.post(new Account.ChangeAvatarRequest(Uri.fromFile(tempOutputFile)));
@@ -166,11 +174,23 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         if (viewId == R.id.changeimage) {
             changeAvatar();
         } else if (viewId == R.id.submit_button_profile) {
-            try {
-                  submitData();
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            if (changedImage){
+                try {
+                    submitData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    submitDataWithoutProfile();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
+
         }
     }
 
@@ -178,7 +198,27 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .login("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
                         userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        Uri.parse("http://www.google.com"), "male", aboutme.getEditText().getText().toString(),
+                        Uri.parse(imageUrl), userGender.getEditText().getText().toString(), aboutme.getEditText().getText().toString(),
+                        username.getEditText().getText().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<LoginResponse>() {
+                    @Override
+                    public void onNext(LoginResponse response) {
+
+                        Toast.makeText(ChangeProfileActivity.this,
+                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
+                        MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
+                        //Todo add network call for uploading image file
+                        startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
+                    }
+                });
+    }
+
+    private void submitDataWithoutProfile() throws Exception {
+        application.getWebService()
+                .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
+                        userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
+                        userGender.getEditText().getText().toString(), aboutme.getEditText().getText().toString(),
                         username.getEditText().getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -214,6 +254,40 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         userAge.getEditText().setText(response.getData().getUserDateOfBirth());
         userGender.getEditText().setText(response.getData().getGender());
         userLocation.getEditText().setText(response.getData().getLocation());
+    }
+
+    private void uploadFile(Uri fileUri) {
+        File file = new File(String.valueOf(fileUri));
+
+        // create RequestBody instance from file
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        // MultipartBody.Part is used to send also the actual file name
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        // finally, execute the request
+        try {
+            application.getWebService()
+                    .uploadFile(body)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<String>() {
+                        @Override
+                        public void onNext(String response) {
+                            Timber.d("file url " + response);
+                            Toast.makeText(ChangeProfileActivity.this, "file url " + response, Toast.LENGTH_SHORT).show();
+                            setImageFileUrl(response);
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setImageFileUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override

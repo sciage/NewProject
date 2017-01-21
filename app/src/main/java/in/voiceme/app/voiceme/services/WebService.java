@@ -111,6 +111,20 @@ public interface WebService {
     );
 
     @FormUrlEncoded
+    @POST("login_new.php")
+    Observable<LoginResponse> loginWithoutProfile(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("location") String location,
+            @Field("dob") String dateOfBirth,
+            @Field("user_id") String userId,
+            @Field("gender") String gender,
+            @Field("about_me") String aboutme,
+            @Field("user_nick_name") String userNickName
+
+    );
+
+    @FormUrlEncoded
     @POST("postStatus.php")
     Observable<Response> postStatus(
             @Field("user_id") String user_id,
