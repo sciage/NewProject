@@ -10,10 +10,10 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.emmasuzuki.easyform.EasyTextInputLayout;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -33,11 +33,11 @@ import timber.log.Timber;
 public class ChangeProfileActivity extends BaseActivity implements View.OnClickListener {
     private static final int REQUEST_SELECT_IMAGE = 100;
 
-    private EditText username;
-    private EditText aboutme;
-    private EditText userAge;
-    private EditText userGender;
-    private EditText userLocation;
+    private EasyTextInputLayout username;
+    private EasyTextInputLayout aboutme;
+    private EasyTextInputLayout userAge;
+    private EasyTextInputLayout userGender;
+    private EasyTextInputLayout userLocation;
     private Button submitButton;
 
     private ImageView avatarView;
@@ -51,14 +51,12 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         getSupportActionBar().setTitle("Home");
         setNavDrawer(new MainNavDrawer(this));
 
-        submitButton = (Button) findViewById(R.id.button_audio_status);
-        username = (EditText) findViewById(R.id.edittext_profile_username);
-        aboutme = (EditText) findViewById(R.id.edittext_profile_aboutme);
-        userAge = (EditText) findViewById(R.id.edittext_profile_age);
-        userGender = (EditText) findViewById(R.id.edittext_profile_gender);
-        userLocation = (EditText) findViewById(R.id.edittext_profile_location);
-        Button sendFollowNotification = (Button) findViewById(R.id.button_send_follow_notification);
-        Button sendLikeNotification = (Button) findViewById(R.id.button_send_like_notification);
+        submitButton = (Button) findViewById(R.id.submit_button_profile);
+        username = (EasyTextInputLayout) findViewById(R.id.edittext_profile_username);
+        aboutme = (EasyTextInputLayout) findViewById(R.id.edittext_profile_aboutme);
+        userAge = (EasyTextInputLayout) findViewById(R.id.edittext_profile_age);
+        userGender = (EasyTextInputLayout) findViewById(R.id.edittext_profile_gender);
+        userLocation = (EasyTextInputLayout) findViewById(R.id.edittext_profile_location);
 
         avatarView = (ImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
@@ -66,8 +64,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
-        sendLikeNotification.setOnClickListener(this);
-        sendFollowNotification.setOnClickListener(this);
 
         try {
             getData();
@@ -169,7 +165,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (viewId == R.id.changeimage) {
             changeAvatar();
-        } else if (viewId == R.id.button_audio_status) {
+        } else if (viewId == R.id.submit_button_profile) {
             try {
                   submitData();
             } catch (Exception e) {
@@ -180,10 +176,10 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void submitData() throws Exception {
         application.getWebService()
-                .login("", MySharedPreferences.getEmail(preferences), userLocation.getText().toString(),
-                        userAge.getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        Uri.parse("http://www.google.com"), "male", aboutme.getText().toString(),
-                        username.getText().toString())
+                .login("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
+                        userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
+                        Uri.parse("http://www.google.com"), "male", aboutme.getEditText().getText().toString(),
+                        username.getEditText().getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
@@ -191,7 +187,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
                         Toast.makeText(ChangeProfileActivity.this,
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
-                        MySharedPreferences.registerUsername(preferences, username.getText().toString());
+                        MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         //Todo add network call for uploading image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
@@ -213,11 +209,11 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void profileData(ProfileUserList response) {
-        username.setText(response.getData().getUserNickName());
-        aboutme.setText(response.getData().getAboutMe());
-        userAge.setText(response.getData().getUserDateOfBirth());
-        userGender.setText(response.getData().getGender());
-        userLocation.setText(response.getData().getLocation());
+        username.getEditText().setText(response.getData().getUserNickName());
+        aboutme.getEditText().setText(response.getData().getAboutMe());
+        userAge.getEditText().setText(response.getData().getUserDateOfBirth());
+        userGender.getEditText().setText(response.getData().getGender());
+        userLocation.getEditText().setText(response.getData().getLocation());
     }
 
     @Override

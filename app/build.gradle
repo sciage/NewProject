@@ -73,6 +73,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile 'com.emmasuzuki:easyform:1.0.1'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:design:25.1.0'
@@ -87,7 +88,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.github.jd-alexander:LikeButton:0.2.0'
-    compile 'com.github.florent37:materialtextfield:1.0.5'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.jakewharton.timber:timber:4.3.1'
     compile 'com.amazonaws:aws-android-sdk-cognito:2.3.1'
