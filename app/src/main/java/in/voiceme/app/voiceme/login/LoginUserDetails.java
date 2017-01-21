@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.emmasuzuki.easyform.EasyTextInputLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
@@ -23,11 +24,19 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
     private EasyTextInputLayout username;
     private EasyTextInputLayout about_me;
+    private String token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user_details);
+
+        token = FirebaseInstanceId.getInstance().getToken();
+
+        // Log.d("Id Generated", token);
+        Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
+
         getSupportActionBar().setTitle("LoginUser Details");
         setNavDrawer(new MainNavDrawer(this));
 
@@ -52,7 +61,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     private void submitDataWithoutProfile() throws Exception {
         application.getWebService()
                 .LoginUserName(MySharedPreferences.getSocialID(preferences), username.getEditText().getText().toString(),
-                        about_me.getEditText().getText().toString())
+                        about_me.getEditText().getText().toString(), token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<AboutmeResponse>() {
                     @Override
@@ -61,7 +70,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
                         Toast.makeText(LoginUserDetails.this,
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
-                        //Todo add network call for uploading image file
+                        //Todo add network call for uploading profile_image file
                         startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
                     }
                 });

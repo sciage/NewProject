@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.emmasuzuki.easyform.EasyTextInputLayout;
+import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private ImageView avatarView;
     private View avatarProgressFrame;
-    private File tempOutputFile; //storing the image temporarily while we crop it.
+    private File tempOutputFile; //storing the profile_image temporarily while we crop it.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         avatarView = (ImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
-        tempOutputFile = new File(getExternalCacheDir(), "temp-image.jpg");
+        tempOutputFile = new File(getExternalCacheDir(), "temp-profile_image.jpg");
 
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
@@ -82,22 +83,22 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         List<Intent> otherImageCaptureIntent = new ArrayList<>();
         List<ResolveInfo> otherImageCaptureActivities =
                 getPackageManager().queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                        0); // finding all intents in apps which can handle capture image
+                        0); // finding all intents in apps which can handle capture profile_image
         // loop through all these intents and for each of these activities we need to store an intent
         for (ResolveInfo info : otherImageCaptureActivities) { // Resolve info represents an activity on the system that does our work
             Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             captureIntent.setClassName(info.activityInfo.packageName,
                     info.activityInfo.name); // declaring explicitly the class where we will go
-            // where the picture activity dump the image
+            // where the picture activity dump the profile_image
             captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempOutputFile));
             otherImageCaptureIntent.add(captureIntent);
         }
 
         // above code is only for taking picture and letting it go through another app for cropping before setting to imageview
-        // now below is for choosing the image from device
+        // now below is for choosing the profile_image from device
 
         Intent selectImageIntent = new Intent(Intent.ACTION_PICK);
-        selectImageIntent.setType("image/*");
+        selectImageIntent.setType("profile_image/*");
 
         Intent chooser = Intent.createChooser(selectImageIntent, "Choose Avatar");
         chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, otherImageCaptureIntent.toArray(
@@ -114,18 +115,18 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_SELECT_IMAGE) {
-                // user selected an image off their device. other condition they took the image and that image is in our tempoutput file
+                // user selected an profile_image off their device. other condition they took the profile_image and that profile_image is in our tempoutput file
                 Uri outputFile;
                 Uri tempFileUri = Uri.fromFile(tempOutputFile);
-                // if statement will detect if the user selected an image from the device or took an image
+                // if statement will detect if the user selected an profile_image from the device or took an profile_image
                 if (data != null && (data.getAction() == null || !data.getAction()
                         .equals(MediaStore.ACTION_IMAGE_CAPTURE))) {
-                    //then it means user selected an image off the device
-                    // so we can get the Uri of that image using data.getData
+                    //then it means user selected an profile_image off the device
+                    // so we can get the Uri of that profile_image using data.getData
                     outputFile = data.getData();
                     // Now we need to do the crop
                 } else {
-                    // image was out temp file. user took an image using camera
+                    // profile_image was out temp file. user took an profile_image using camera
                     outputFile = tempFileUri;
                     // Now we need to do the crop
                 }
@@ -209,7 +210,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
                         changedImage = false;
-                        //Todo add network call for uploading image file
+                        //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
                 });
@@ -229,7 +230,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         Toast.makeText(ChangeProfileActivity.this,
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
-                        //Todo add network call for uploading image file
+                        //Todo add network call for uploading profile_image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
                 });
@@ -255,6 +256,15 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         userAge.getEditText().setText(response.getData().getUserDateOfBirth());
         userGender.getEditText().setText(response.getData().getGender());
         userLocation.getEditText().setText(response.getData().getLocation());
+
+        if (!response.getData().getAvatarPics().equals("")) {
+            Picasso.with(this)
+                    .load(response.getData().getAvatarPics())
+                    .resize(75, 75)
+                    .centerInside()
+                    .into(avatarView);
+        }
+
     }
 
     private void uploadFile(Uri fileUri) {
@@ -279,6 +289,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                             Timber.d("file url " + response);
                             Toast.makeText(ChangeProfileActivity.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setImageFileUrl(response);
+                            MySharedPreferences.registerImageUrl(preferences, response);
 
                         }
                     });

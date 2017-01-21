@@ -107,7 +107,7 @@ public class ActivityUtils {
       Uri photoURI;
 
       ContentValues values = new ContentValues(1);
-      values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+      values.put(MediaStore.Images.Media.MIME_TYPE, "profile_image/jpg");
       photoURI = activity.getContentResolver()
           .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
@@ -133,7 +133,7 @@ public class ActivityUtils {
         activity.getResources().getInteger(R.integer.storage_request))) {
 
       Intent intent = new Intent();
-      intent.setType("image/jpeg");
+      intent.setType("profile_image/jpeg");
       intent.setAction(Intent.ACTION_GET_CONTENT);
       activity.startActivityForResult(Intent.createChooser(intent, "Select picture"),
           activity.getResources().getInteger(R.integer.pick_image_request));

@@ -67,10 +67,7 @@ public class RegisterActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        String token = FirebaseInstanceId.getInstance().getToken();
 
-        // Log.d("Id Generated", token);
-        Toast.makeText(RegisterActivity.this, token, Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_register);
 
         googleSignInBtn = (SignInButton) this.findViewById(R.id.signin_with_google_btn);
@@ -204,6 +201,7 @@ public class RegisterActivity extends BaseActivity
             try {
                 getData(result.getSignInAccount().getDisplayName(), result.getSignInAccount().getId(),
                         result.getSignInAccount().getEmail(), result.getSignInAccount().getPhotoUrl());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -218,7 +216,7 @@ public class RegisterActivity extends BaseActivity
 
     private void getData(String name, String identityID, String email, Uri profile) throws Exception {
         application.getWebService()
-                .login(name, email, "", "", identityID, profile, "gender", "", "")
+                .login(name, email, "", "", identityID, profile, "", "", "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
                     @Override
@@ -233,6 +231,7 @@ public class RegisterActivity extends BaseActivity
         MySharedPreferences.registerUserId(preferences, response.info.id);
         MySharedPreferences.registerEmail(preferences, response.info.email);
         MySharedPreferences.registerSocialID(preferences, response.info.userId);
+        MySharedPreferences.registerImageUrl(preferences, response.info.imageUrl);
 
         Timber.d("the user ID is " + response.info.id);
 
@@ -359,7 +358,7 @@ public class RegisterActivity extends BaseActivity
         Log.d("Person name: ", facebookUser.name + "");
         Log.d("Person gender: ", facebookUser.gender + "");
         Log.d("Person email: ", facebookUser.email + "");
-        Log.d("Person image: ", facebookUser.facebookID + "");
+        Log.d("Person profile_image: ", facebookUser.facebookID + "");
 
         application.getAuth().setAuthToken("token");
         application.getAuth().getUser().setLoggedIn(true);

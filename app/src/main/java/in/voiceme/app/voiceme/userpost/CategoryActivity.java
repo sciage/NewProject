@@ -53,7 +53,7 @@ public class CategoryActivity extends BaseActivity {
                 // Toast.makeText(TextActivity.this, "item clicked" + gridView.getPositionForView(v), Toast.LENGTH_SHORT).show();
                 // Send intent to SingleViewActivity
                 // Intent i = new Intent(getApplicationContext(), SecondActivity.class);
-                // Pass image index
+                // Pass profile_image index
                 //  i.putExtra("id", position);
                 // startActivity(i);
             }
