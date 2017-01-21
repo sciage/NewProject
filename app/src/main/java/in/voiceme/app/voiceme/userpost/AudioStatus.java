@@ -30,8 +30,6 @@ public class AudioStatus extends BaseActivity {
     private static final String filepath = Environment.getExternalStorageDirectory().getPath() + "/" + "currentRecording.mp3";
 
     public static final int REQUEST_CODE = 1;
-
-    private TextView size, path;
     private String audio_time;
 
     private TextView textView_category;
@@ -107,7 +105,7 @@ public class AudioStatus extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AudioStatus.this, AudioRecordingActivity.class);
-                startActivityForResult(intent,REQUEST_CODE);
+                startActivityForResult(intent,4);
             }
         });
 
@@ -119,7 +117,7 @@ public class AudioStatus extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == 4) {
             if (resultCode == RESULT_OK) {
 
                 audio_time = data.getExtras().getString("audioTime");
@@ -179,14 +177,13 @@ public class AudioStatus extends BaseActivity {
                             Timber.d("file url " + response);
                             Toast.makeText(AudioStatus.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setAudioFileUrl(response);
-
                         }
 
                         @Override
                         public void onCompleted() {
                             progressDialog.dismiss();
 
-                       //     postStatus();
+                           postStatus();
                         }
                     });
         } catch (Exception e) {
@@ -198,8 +195,9 @@ public class AudioStatus extends BaseActivity {
     private void postStatus() {
         // network call from retrofit
         try {
-            application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
-                    textStatus, category, feeling, audioFileUrl)
+            application.getWebService()
+                    .postStatus(MySharedPreferences.getUserId(preferences),
+                    textStatus, category, feeling, audioFileUrl, audio_time)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<Response>() {
                         @Override

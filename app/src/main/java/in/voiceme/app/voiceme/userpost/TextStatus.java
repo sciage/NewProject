@@ -76,7 +76,7 @@ public class TextStatus extends BaseActivity {
                 // network call from retrofit
                 try {
                     application.getWebService().postStatus(MySharedPreferences.getUserId(preferences),
-                            textStatus, category, feeling, "")
+                            textStatus, category, feeling, "", "")
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new BaseSubscriber<Response>() {
                                 @Override

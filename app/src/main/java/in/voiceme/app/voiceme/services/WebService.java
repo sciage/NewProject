@@ -117,7 +117,8 @@ public interface WebService {
             @Field("post_text") String postStatus,
             @Field("cat_id") String cat_id,
             @Field("feeling_id") String feeling_id,
-            @Field("audio") String audio
+            @Field("audio") String audio,
+            @Field("audio_duration") String audio_duration
     );
 
 

@@ -66,6 +66,14 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_recording);
+        getSupportActionBar().setTitle("LoginUser Feelings");
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mLinearLayout = (LinearLayout) findViewById(R.id.ll);
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
