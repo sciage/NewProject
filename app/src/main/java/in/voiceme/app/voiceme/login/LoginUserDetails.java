@@ -6,14 +6,23 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.emmasuzuki.easyform.EasyTextInputLayout;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
+import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class LoginUserDetails extends BaseActivity implements View.OnClickListener {
     private Button button;
+
+    private EasyTextInputLayout username;
+    private EasyTextInputLayout about_me;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +30,9 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_login_user_details);
         getSupportActionBar().setTitle("LoginUser Details");
         setNavDrawer(new MainNavDrawer(this));
+
+        username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
+        about_me = (EasyTextInputLayout) findViewById(R.id.login_start_about_me);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,12 +49,42 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
         button.setOnClickListener(this);
     }
 
+    private void submitDataWithoutProfile() throws Exception {
+        application.getWebService()
+                .LoginUserName(MySharedPreferences.getSocialID(preferences), username.getEditText().getText().toString(),
+                        about_me.getEditText().getText().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<AboutmeResponse>() {
+                    @Override
+                    public void onNext(AboutmeResponse response) {
+
+                        Toast.makeText(LoginUserDetails.this,
+                                "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
+                        MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
+                        //Todo add network call for uploading image file
+                        startActivity(new Intent(LoginUserDetails.this, MainActivity.class));
+                    }
+                });
+    }
+
     @Override
     public void onClick(View view) {
         processLoggedState(view);
         if (view.getId() == R.id.submit_user_data_button) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            if (username.getEditText().getText().toString() != null &&
+                    about_me.getEditText().getText().toString() != null){
+                try {
+                    submitDataWithoutProfile();
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        } else {
+            Toast.makeText(this, "Please Enter Username and About Yourself", Toast.LENGTH_SHORT).show();
         }
     }
 

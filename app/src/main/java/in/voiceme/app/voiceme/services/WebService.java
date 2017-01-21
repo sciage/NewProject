@@ -9,6 +9,7 @@ import in.voiceme.app.voiceme.PostsDetails.UserSuperList;
 import in.voiceme.app.voiceme.ProfilePage.FollowerUserList;
 import in.voiceme.app.voiceme.ProfilePage.ProfileUserList;
 import in.voiceme.app.voiceme.contactPage.AddContactResponse;
+import in.voiceme.app.voiceme.login.AboutmeResponse;
 import in.voiceme.app.voiceme.login.LoginResponse;
 import in.voiceme.app.voiceme.userpost.BaseResponse;
 import in.voiceme.app.voiceme.userpost.Response;
@@ -85,6 +86,13 @@ public interface WebService {
                                     @Field("hug") int hug,
                                     @Field("same") int same,
                                     @Field("listen") int listen);
+
+    @FormUrlEncoded
+    @POST("aboutme.php")
+    Observable<AboutmeResponse> LoginUserName(@Field("user_id") String userId,
+                                              @Field("username") String username,
+                                              @Field("about_me") String about_me);
+
 
     @FormUrlEncoded
     @POST("unlike.php")

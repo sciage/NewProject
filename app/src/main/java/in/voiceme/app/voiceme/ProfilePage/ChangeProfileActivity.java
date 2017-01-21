@@ -208,6 +208,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                         Toast.makeText(ChangeProfileActivity.this,
                                 "result from update profile " + response.status, Toast.LENGTH_SHORT).show();
                         MySharedPreferences.registerUsername(preferences, username.getEditText().getText().toString());
+                        changedImage = false;
                         //Todo add network call for uploading image file
                         startActivity(new Intent(ChangeProfileActivity.this, ProfileActivity.class));
                     }
@@ -278,6 +279,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
                             Timber.d("file url " + response);
                             Toast.makeText(ChangeProfileActivity.this, "file url " + response, Toast.LENGTH_SHORT).show();
                             setImageFileUrl(response);
+
                         }
                     });
         } catch (Exception e) {
