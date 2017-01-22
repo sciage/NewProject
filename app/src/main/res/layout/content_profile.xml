@@ -24,6 +24,7 @@
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 frisson:tideCount="3"
+                frisson:tintColor="#1403d4"
                 frisson:src="@drawable/ic_done"
                 frisson:tideHeight="50dp"
                 frisson:alphaValue="70"

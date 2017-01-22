@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#5c6bc0">
+        android:background="#651fff">
 
         <include layout="@layout/include_toolbar" />
 
@@ -17,7 +17,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/activity_discover_tab_layout"
-            android:background="@color/colorPrimary"
+            android:background="#651fff"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:clipToPadding="false"
@@ -39,7 +39,7 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/activity_discover_viewpager"
-            android:background="#5c6bc0"
+            android:background="#651fff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"/>

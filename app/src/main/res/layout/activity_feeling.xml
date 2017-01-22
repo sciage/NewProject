@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"
-            android:background="#5c6bc0"/>
+        <include layout="@layout/include_toolbar" />
 
         <RelativeLayout
             android:id="@+id/activity_feeling"
@@ -53,13 +52,14 @@
                 android:layout_marginTop="25dp"
                 android:layout_toRightOf="@+id/happy_emotion"
                 android:layout_toEndOf="@+id/happy_emotion"
-                app:base_release_color="@color/md_green_900"
-                app:base_press_color="@color/md_green_50"
+                app:base_release_color="@color/md_green_50"
+                app:base_press_color="@color/md_green_900"
                 app:ball_release_color="@color/md_green_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/shield_with_sword_64"
-                app:icon_press="@drawable/sword_in_vertical_position_64"
+                app:icon_release="@drawable/happy_status"
+                app:icon_press="@drawable/happy_status_after"
                 />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -81,13 +81,14 @@
                 android:layout_below="@+id/happy_switch"
                 android:layout_marginLeft="38dp"
                 android:layout_marginTop="25dp"
-                app:base_release_color="@color/md_teal_900"
-                app:base_press_color="@color/md_teal_50"
+                app:base_release_color="@color/md_teal_50"
+                app:base_press_color="@color/md_teal_900"
                 app:ball_release_color="@color/md_teal_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/ic_radio_button_off_white_36dp"
-                app:icon_press="@drawable/ic_radio_button_on_teal_500_36dp"
+                app:icon_release="@drawable/relaxed_status"
+                app:icon_press="@drawable/relaxed_status_after"
                 />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,13 +110,14 @@
                 android:layout_below="@+id/relaxed_switch"
                 android:layout_marginLeft="68dp"
                 android:layout_marginTop="25dp"
-                app:base_release_color="@color/md_deep_purple_900"
-                app:base_press_color="@color/md_deep_purple_50"
+                app:base_release_color="@color/md_deep_purple_50"
+                app:base_press_color="@color/md_deep_purple_900"
                 app:ball_release_color="@color/md_deep_purple_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/sadi"
-                app:icon_press="@drawable/happie"
+                app:icon_release="@drawable/angry_status"
+                app:icon_press="@drawable/angry_status_after"
                 />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -138,13 +140,15 @@
                 android:layout_below="@+id/angry_switch"
                 android:layout_marginLeft="98dp"
                 android:layout_marginTop="22dp"
-                app:base_release_color="@color/md_deep_orange_900"
-                app:base_press_color="@color/md_deep_orange_50"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:base_press_color="@color/md_deep_orange_900"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/ic_play_arrow_white_36dp"
-                app:icon_press="@drawable/ic_stop_deep_orange_500_36dp"
+                app:icon_release="@drawable/sad_status"
+                app:icon_press="@drawable/sad_status_after"
                 />
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,13 +171,15 @@
                 android:layout_below="@+id/sad_switch"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="22dp"
-                app:base_release_color="@color/md_deep_orange_900"
-                app:base_press_color="@color/md_deep_orange_50"
+                app:base_release_color="@color/md_deep_orange_50"
+                app:base_press_color="@color/md_deep_orange_900"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/ic_play_arrow_white_36dp"
-                app:icon_press="@drawable/ic_stop_deep_orange_500_36dp"
+                app:icon_release="@drawable/bored_status"
+                app:icon_press="@drawable/bored_status_after"
                 />
+
+
 
         </RelativeLayout>
 

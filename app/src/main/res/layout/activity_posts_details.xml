@@ -10,12 +10,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:focusable="true"
+        android:background="#651fff"
         android:layout_height="match_parent">
 
         <include
             layout="@layout/include_toolbar"
-            android:background="#5c6bc0" />
+            android:background="#651fff" />
 
 
 
@@ -297,6 +297,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
+            android:background="#fff"
             android:layout_below="@+id/detail_list_item_post_background"
             android:layout_height="wrap_content">
         <RelativeLayout

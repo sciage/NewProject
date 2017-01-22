@@ -28,15 +28,13 @@
             android:id="@+id/profile_header_banner">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/changeimage"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/intruder_shanky"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+            android:src="@drawable/intruder_shanky" />
 
         <FrameLayout
             android:layout_width="wrap_content"

@@ -8,10 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#651fff"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"
-            android:background="#5c6bc0"/>
+        <include layout="@layout/include_toolbar" />
         <android.support.v7.widget.RecyclerView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
