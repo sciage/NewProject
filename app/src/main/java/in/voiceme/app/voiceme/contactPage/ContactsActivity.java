@@ -1,10 +1,14 @@
 package in.voiceme.app.voiceme.contactPage;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,13 +17,17 @@ import com.digits.sdk.android.Digits;
 import com.digits.sdk.android.DigitsAuthButton;
 import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;
+import com.redbooth.WelcomeCoordinatorLayout;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
 import in.voiceme.app.voiceme.R;
+import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
+import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
+import in.voiceme.app.voiceme.contactPage.animators.RocketAvatarsAnimator;
+import in.voiceme.app.voiceme.contactPage.animators.RocketFlightAwayAnimator;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.userpost.BaseResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
@@ -38,6 +46,15 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private Button enterButton;
     private DigitsAuthButton digitsButton;
 
+    private boolean animationReady = false;
+    private ValueAnimator backgroundAnimator;
+
+    WelcomeCoordinatorLayout coordinatorLayout;
+    private RocketAvatarsAnimator rocketAvatarsAnimator;
+    private ChatAvatarsAnimator chatAvatarsAnimator;
+    private RocketFlightAwayAnimator rocketFlightAwayAnimator;
+    private InSyncAnimator inSyncAnimator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +63,11 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
 
         setContentView(R.layout.activity_contacts);
-        getSupportActionBar().setTitle("Home");
-        setNavDrawer(new MainNavDrawer(this));
 
+        coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.coordinator);
+        initializeListeners();
+        initializePages();
+        initializeBackgroundTransitions();
 
 
         agreeTerms = (Button) findViewById(R.id.button_user_agree);
@@ -89,6 +108,79 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         getAllContacts.setVisibility(View.GONE);
         enterButton.setBackgroundColor(getResources().getColor(R.color.material_red_500));
 
+    }
+
+    private void initializePages() {
+        final WelcomeCoordinatorLayout coordinatorLayout
+                = (WelcomeCoordinatorLayout)findViewById(R.id.coordinator);
+        coordinatorLayout.addPage(R.layout.welcome_page_1,
+                R.layout.welcome_page_2,
+                R.layout.welcome_page_3,
+                R.layout.welcome_page_4);
+    }
+
+    private void initializeListeners() {
+        coordinatorLayout.setOnPageScrollListener(new WelcomeCoordinatorLayout.OnPageScrollListener() {
+            @Override
+            public void onScrollPage(View v, float progress, float maximum) {
+                if (!animationReady) {
+                    animationReady = true;
+                    backgroundAnimator.setDuration((long) maximum);
+                }
+                backgroundAnimator.setCurrentPlayTime((long) progress);
+            }
+
+            @Override
+            public void onPageSelected(View v, int pageSelected) {
+                switch (pageSelected) {
+                    case 0:
+                        if (rocketAvatarsAnimator == null) {
+                            rocketAvatarsAnimator = new RocketAvatarsAnimator(coordinatorLayout);
+                            rocketAvatarsAnimator.play();
+                        }
+                        break;
+                    case 1:
+                        if (chatAvatarsAnimator == null) {
+                            chatAvatarsAnimator = new ChatAvatarsAnimator(coordinatorLayout);
+                            chatAvatarsAnimator.play();
+                        }
+                        break;
+                    case 2:
+                        if (inSyncAnimator == null) {
+                            inSyncAnimator = new InSyncAnimator(coordinatorLayout);
+                            inSyncAnimator.play();
+                        }
+                        break;
+                    case 3:
+                        if (rocketFlightAwayAnimator == null) {
+                            rocketFlightAwayAnimator = new RocketFlightAwayAnimator(coordinatorLayout);
+                            rocketFlightAwayAnimator.play();
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
+    private void initializeBackgroundTransitions() {
+        final Resources resources = getResources();
+        final int colorPage1 = ResourcesCompat.getColor(resources, R.color.page1, getTheme());
+        final int colorPage2 = ResourcesCompat.getColor(resources, R.color.page2, getTheme());
+        final int colorPage3 = ResourcesCompat.getColor(resources, R.color.page3, getTheme());
+        final int colorPage4 = ResourcesCompat.getColor(resources, R.color.page4, getTheme());
+        backgroundAnimator = ValueAnimator
+                .ofObject(new ArgbEvaluator(), colorPage1, colorPage2, colorPage3, colorPage4);
+        backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                coordinatorLayout.setBackgroundColor((int) animation.getAnimatedValue());
+            }
+        });
+    }
+
+  //  @OnClick(R.id.skip)
+    void skip() {
+        coordinatorLayout.setCurrentPage(coordinatorLayout.getNumOfPages() - 1, true);
     }
 
     @Override
