@@ -182,7 +182,8 @@
         <activity
             android:name=".ProfilePage.SecondProfile"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".userpost.AudioRecordingActivity"></activity>
+        <activity android:name=".userpost.AudioRecordingActivity" />
+        <activity android:name=".contactPage.BaseContact"></activity>
     </application>
 
 </manifest>

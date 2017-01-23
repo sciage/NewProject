@@ -16,25 +16,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="160dp"
             android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:layout_margin="10dp">
 
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/category_id"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/category" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Choose Category"
+                android:paddingTop="4dp"
+                android:text="Category"
                 android:id="@+id/textView_category"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/choosen_category"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -45,24 +66,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:layout_height="160dp"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/feeling_image"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/feel" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Choose Feeling"
+                android:paddingTop="4dp"
+                android:text="Feeling"
                 android:id="@+id/textView_feeling"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/choosen_feeling"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -73,25 +116,47 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="160dp"
             android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:layout_margin="10dp">
 
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:id="@+id/id_status"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/status" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Choose Status"
+                android:paddingTop="4dp"
+                android:text="Text Status"
                 android:id="@+id/textView_status"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/choosen_written"
+                    android:textSize="16sp"
+                    android:text="Choose"/>
+
+            </LinearLayout>
+
+
+
         </LinearLayout>
 
         <Button

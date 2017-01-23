@@ -29,13 +29,16 @@ public class ContactListActivity extends BaseActivity {
     private int mPage;
     private RecyclerView recyclerView;
     private TotalPostsAdapter activityInteractionAdapter;
+    private String check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_contact_list);
         getSupportActionBar().setTitle("LoginUser Feelings");
         setNavDrawer(new MainNavDrawer(this));
+
         recyclerView = (RecyclerView) findViewById(R.id.personal_contact_recyclerview);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);

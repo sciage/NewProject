@@ -38,6 +38,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private Button enterButton;
     private DigitsAuthButton digitsButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_contacts);
         getSupportActionBar().setTitle("Home");
         setNavDrawer(new MainNavDrawer(this));
+
+
 
         agreeTerms = (Button) findViewById(R.id.button_user_agree);
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
@@ -102,6 +105,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         //    if (application.getAuth().getUser().isPhoneNumber() && application.getAuth().getUser().isAllContacts()){
                 enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
+            MySharedPreferences.checkContactSent(preferences, "Sent");
                 startActivity(new Intent(this, ContactListActivity.class));
                 finish();
                 return;

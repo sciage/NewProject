@@ -254,7 +254,7 @@ class ActivityInteractionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             processLoggedState(v);
             Intent intent = new Intent(v.getContext(), UserCategoryActivity.class);
             intent.putExtra(Constants.CATEGORY, getCategory().getText().toString());
-            Toast.makeText(v.getContext(), "Category ID is " + getCategory().getText().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), "category ID is " + getCategory().getText().toString(), Toast.LENGTH_SHORT).show();
             v.getContext().startActivity(intent);
         }
 
