@@ -137,7 +137,7 @@ public class VisualizerView extends View {
 		}
 
 		mPaint.setAntiAlias(true);
-		mPaint.setColor(Color.parseColor("#E54B4C"));
+		mPaint.setColor(Color.parseColor("#1C42FF"));
 
 		mPointsList = new ArrayList<Point>();
 		timer = new Timer();
@@ -218,7 +218,7 @@ public class VisualizerView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		canvas.drawColor(Color.WHITE);
+		canvas.drawColor(Color.parseColor("#360EE8"));
 		if (mBytes == null) {
 			return;
 		}

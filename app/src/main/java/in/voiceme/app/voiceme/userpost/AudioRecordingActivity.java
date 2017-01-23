@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,10 +45,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     private LinearLayout mLinearLayout;
 
-    private Button play;
-    private Button stop;
-    private Button record;
-    private Button done;
+    private ImageView play;
+    private ImageView stop;
+    private ImageView record;
+    private ImageView done;
 
     private VisualizerView mVisualizerView;
 
@@ -79,10 +79,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
 
         timer = (TextView) findViewById(R.id.timer_tv);
-        play = (Button) findViewById(R.id.play);
-        record = (Button) findViewById(R.id.record);
-        stop = (Button) findViewById(R.id.stop);
-        done = (Button) findViewById(R.id.done);
+        play = (ImageView) findViewById(R.id.play);
+        record = (ImageView) findViewById(R.id.record);
+        stop = (ImageView) findViewById(R.id.stop);
+        done = (ImageView) findViewById(R.id.done);
 
         // Create the MediaPlayer
         mMediaPlayer = MediaPlayer.create(this, R.raw.a);
@@ -115,6 +115,9 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         handler.post(updateThread);
 
         play.setOnClickListener(this);
+        play.setVisibility(View.GONE);
+        stop.setVisibility(View.GONE);
+        done.setVisibility(View.GONE);
         record.setOnClickListener(this);
         stop.setOnClickListener(this);
         done.setOnClickListener(this);
@@ -202,8 +205,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
 
         } else if(v.getId() == R.id.record){
+            record.setVisibility(View.GONE);
+            stop.setVisibility(View.VISIBLE);
             start();
         } else if (v.getId() == R.id.stop){
+            stop.setVisibility(View.GONE);
+            play.setVisibility(View.VISIBLE);
             stopRecording();
         } else if (v.getId() == R.id.done){
             done();

@@ -37,7 +37,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        buildConfigField "String", "BASE_URL", "\"http://54.164.58.140/\""
+        buildConfigField "String", "BASE_URL", "\"http://34.193.8.53/\""
     }
     // If you want to use Java 8 syntax, you will need to first enable Retrolambda, then
     //  change these values.

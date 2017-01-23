@@ -15,6 +15,7 @@
 
         <LinearLayout
             android:id="@+id/ll"
+            android:background="@color/colorMediaBacground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -25,27 +26,31 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/record"
-                    android:text="Record"/>
-
-                <Button
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation"
                     android:id="@+id/stop"
                     android:text="stop"/>
 
-                <Button
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/play"
-                    android:text="play"/>
+                    android:src="@drawable/ic_navigation"
+                    android:id="@+id/record"
+                    android:text="stop"/>
 
-                <Button
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation"
+                    android:id="@+id/play"
+                    android:text="stop"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation"
                     android:id="@+id/done"
                     android:text="done"/>
 
@@ -68,8 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
+            android:id="@+id/audio_below_layout"
             android:layout_below="@+id/ll"
-            android:background="#E54B4C" >
+            android:background="#759d90" >
 
         </RelativeLayout>
 

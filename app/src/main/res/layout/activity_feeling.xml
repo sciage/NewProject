@@ -56,8 +56,8 @@
                 app:base_press_color="@color/md_green_900"
                 app:ball_release_color="@color/md_green_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/happy_status"
-                app:icon_press="@drawable/happy_status_after"
+                app:icon_release="@drawable/emoji_before"
+                app:icon_press="@drawable/emoji_after"
                 />
 
 
@@ -85,8 +85,8 @@
                 app:base_press_color="@color/md_teal_900"
                 app:ball_release_color="@color/md_teal_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/relaxed_status"
-                app:icon_press="@drawable/relaxed_status_after"
+                app:icon_release="@drawable/emoji_before"
+                app:icon_press="@drawable/relax_after"
                 />
 
             <TextView
@@ -114,8 +114,8 @@
                 app:base_press_color="@color/md_deep_purple_900"
                 app:ball_release_color="@color/md_deep_purple_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/angry_status"
-                app:icon_press="@drawable/angry_status_after"
+                app:icon_release="@drawable/emoji_before"
+                app:icon_press="@drawable/angry_after"
                 />
 
 
@@ -144,8 +144,8 @@
                 app:base_press_color="@color/md_deep_orange_900"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/sad_status"
-                app:icon_press="@drawable/sad_status_after"
+                app:icon_release="@drawable/emoji_before"
+                app:icon_press="@drawable/sad_after"
                 />
 
 
@@ -175,8 +175,8 @@
                 app:base_press_color="@color/md_deep_orange_900"
                 app:ball_release_color="@color/md_deep_orange_500"
                 app:ball_press_color="@color/md_white_1000"
-                app:icon_release="@drawable/bored_status"
-                app:icon_press="@drawable/bored_status_after"
+                app:icon_release="@drawable/emoji_before"
+                app:icon_press="@drawable/bored_after"
                 />
 
 
