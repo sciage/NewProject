@@ -5,18 +5,14 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.media.audiofx.Equalizer;
-import android.media.audiofx.Visualizer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -29,7 +25,6 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
     private static final float VISUALIZER_HEIGHT_DIP = 360f;
     private MediaPlayer mMediaPlayer;
-    private Visualizer mVisualizer;
     private MediaRecorder myAudioRecorder;
     private TextView timer;
     private String time;
@@ -43,17 +38,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private String timePlay;
     private boolean isListen = false;
 
-    private LinearLayout mLinearLayout;
-
     private ImageView play;
     private ImageView stop;
     private ImageView record;
     private ImageView done;
 
-    private VisualizerView mVisualizerView;
 
-
-    private Equalizer mEqualizer;
 
     Handler handler = new Handler();
     Runnable updateThread = new Runnable() {
@@ -75,7 +65,6 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             }
         });
 
-        mLinearLayout = (LinearLayout) findViewById(R.id.ll);
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
 
         timer = (TextView) findViewById(R.id.timer_tv);
@@ -90,18 +79,11 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
                 "MediaPlayer audio session ID: "
                         + mMediaPlayer.getAudioSessionId());
 
-        // VIsualisation initialisation
-        setupVisualizerFxAndUI();
 
-        mVisualizer.setEnabled(true);
-
-        mEqualizer = new Equalizer(0, 2004);
-        mEqualizer.setEnabled(true);
 
         mMediaPlayer
                 .setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mediaPlayer) {
-                        mVisualizer.setEnabled(false);
                         getWindow().clearFlags(
                                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                         setVolumeControlStream(AudioManager.STREAM_SYSTEM);
@@ -123,45 +105,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         done.setOnClickListener(this);
     }
 
-    private void setupVisualizerFxAndUI() {
-        mVisualizerView = new VisualizerView(this);
-        mVisualizerView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                (int) (VISUALIZER_HEIGHT_DIP * getResources()
-                        .getDisplayMetrics().density)));
-
-        mVisualizerView.setProgress(13);
-        mVisualizerView.setmHeight(8);
-        mLinearLayout.addView(mVisualizerView);
-
-        AnimationWaves();
-    }
-
-    private void AnimationWaves() {
-        final int maxCR = Visualizer.getMaxCaptureRate();
-        mVisualizer = new Visualizer(mMediaPlayer.getAudioSessionId());
-        mVisualizer.setCaptureSize(256);
-        mVisualizer.setDataCaptureListener(
-                new Visualizer.OnDataCaptureListener() {
-                    public void onWaveFormDataCapture(Visualizer visualizer,
-                                                      byte[] bytes, int samplingRate) {
-                        mVisualizerView.updateVisualizer(bytes);
-                    }
-
-                    public void onFftDataCapture(Visualizer visualizer,
-                                                 byte[] fft, int samplingRate) {
-                        mVisualizerView.updateVisualizer(fft);
-                    }
-                }, maxCR / 2, false, true);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
 
         if (isFinishing() && mMediaPlayer != null) {
             handler.removeCallbacks(updateThread);
-            mVisualizer.release();
             mMediaPlayer.release();
             mMediaPlayer = null;
         }
@@ -170,18 +119,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.play) {
-
-            mVisualizer.setEnabled(false);
             mMediaPlayer.stop();
             mMediaPlayer = null;
             isListen = true;
             mMediaPlayer = MediaPlayer.create(this, Uri.parse(filePath));
-
-            AnimationWaves();
-            mVisualizer.setEnabled(true);
-
-            mEqualizer = new Equalizer(0, mMediaPlayer.getAudioSessionId());
-            mEqualizer.setEnabled(true);
 
             mMediaPlayer.start();
             minute = 0;

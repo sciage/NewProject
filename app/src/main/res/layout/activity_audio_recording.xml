@@ -13,69 +13,71 @@
         <include layout="@layout/include_toolbar" />
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll"
-            android:background="@color/colorMediaBacground"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mussiic"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/timer_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:text="max recording time is 2 minute"
+                    android:visibility="visible"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_navigation"
+                    android:src="@drawable/stop_button"
+                    android:layout_below="@+id/timer_tv"
                     android:id="@+id/stop"
                     android:text="stop"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_navigation"
+                    android:src="@drawable/recorder"
+                    android:layout_marginTop="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/timer_tv"
                     android:id="@+id/record"
                     android:text="stop"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_navigation"
+                    android:src="@drawable/play_button"
+                    android:layout_below="@+id/record"
                     android:id="@+id/play"
                     android:text="stop"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_navigation"
+                    android:src="@drawable/ic_mail"
                     android:id="@+id/done"
                     android:text="done"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
-            <TextView
-                android:id="@+id/timer_tv"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:text="max recording time is 2 minute"
-                android:visibility="visible"/>
 
 
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/audio_below_layout"
-            android:layout_below="@+id/ll"
-            android:background="#759d90" >
 
         </RelativeLayout>
 
