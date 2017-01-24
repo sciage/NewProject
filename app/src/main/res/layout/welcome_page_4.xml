@@ -42,29 +42,9 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/button_user_agree"
-        android:text="I AGREE"/>
-
-    <com.digits.sdk.android.DigitsAuthButton
-        android:id="@+id/auth_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_user_agree"
-        android:layout_marginTop="25dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_get_all_contacts"
-        android:layout_below="@+id/auth_button"
-        android:text="Get All Contacts"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/button_get_all_contacts"
         android:id="@+id/enter_contacts_main_page"
+        android:layout_centerInParent="true"
         android:text="Enter"/>
 
 

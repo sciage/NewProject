@@ -14,7 +14,6 @@ import java.util.List;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
-import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
@@ -23,7 +22,7 @@ import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class ContactListActivity extends BaseActivity {
+public class ContactListActivity extends BaseContact {
 
 
     private int mPage;
@@ -32,8 +31,7 @@ public class ContactListActivity extends BaseActivity {
     private String check;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onContactCreate(Bundle savedInstanceState) {
 
         setContentView(R.layout.activity_contact_list);
         getSupportActionBar().setTitle("LoginUser Feelings");

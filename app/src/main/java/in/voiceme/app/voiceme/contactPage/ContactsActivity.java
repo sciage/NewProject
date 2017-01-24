@@ -41,7 +41,6 @@ import timber.log.Timber;
 public class ContactsActivity extends BaseActivity implements View.OnClickListener {
     private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
     private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
-    private Button agreeTerms;
     private Button getAllContacts;
     private Button enterButton;
     private DigitsAuthButton digitsButton;
@@ -70,12 +69,10 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         initializeBackgroundTransitions();
 
 
-        agreeTerms = (Button) findViewById(R.id.button_user_agree);
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
         enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
 
         enterButton.setOnClickListener(this);
-        agreeTerms.setOnClickListener(this);
         getAllContacts.setOnClickListener(this);
         // Create a digits button and callback
         digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
@@ -104,8 +101,6 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        digitsButton.setVisibility(View.GONE);
-        getAllContacts.setVisibility(View.GONE);
         enterButton.setBackgroundColor(getResources().getColor(R.color.material_red_500));
 
     }
@@ -116,6 +111,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         coordinatorLayout.addPage(R.layout.welcome_page_1,
                 R.layout.welcome_page_2,
                 R.layout.welcome_page_3,
+                R.layout.welcome_page_5,
+                R.layout.welcome_page_6,
                 R.layout.welcome_page_4);
     }
 
@@ -186,11 +183,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         processLoggedState(view);
-        if (view.getId() == R.id.button_user_agree) {
-            digitsButton.setVisibility(View.VISIBLE);
-            getAllContacts.setVisibility(View.VISIBLE);
-            // Todo add 2 Tick marks to show that the user has cleared them before going inside
-        } else if (view.getId() == R.id.button_get_all_contacts){
+         if (view.getId() == R.id.button_get_all_contacts){
             readContacts();
 
         } else if (view.getId() == R.id.enter_contacts_main_page){

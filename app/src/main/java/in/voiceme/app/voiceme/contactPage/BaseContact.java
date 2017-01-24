@@ -6,7 +6,7 @@ import android.os.Bundle;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 
-public class BaseContact extends BaseActivity {
+public abstract class BaseContact extends BaseActivity {
     protected String usedId;
 
     @Override
@@ -22,5 +22,11 @@ public class BaseContact extends BaseActivity {
             finish();
             return;
         }
+
+        onContactCreate(savedInstanceState);
     }
+
+    protected abstract void onContactCreate(Bundle savedState);
+
+
 }
