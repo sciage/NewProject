@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+
 
 
         <RelativeLayout
@@ -23,45 +23,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mussiic"/>
+                android:src="@drawable/player"/>
+
+            <include layout="@layout/include_toolbar"
+                android:background="@color/transparent" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/timer_tv"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center"
-                    android:textSize="24sp"
-                    android:text="max recording time is 2 minute"
-                    android:visibility="visible"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timer_layout"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/timer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginLeft="20dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="90dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:text="00:00"
+                        android:visibility="visible"/>
+
+                    <TextView
+                        android:id="@+id/timer_tv_second"
+                        android:layout_width="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_height="60dp"
+                        android:layout_marginRight="80dp"
+                        android:layout_marginTop="90dp"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:text="/   02 : 00"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
+
+
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/stop_button"
-                    android:layout_below="@+id/timer_tv"
+                    android:src="@drawable/stop_icon"
+                    android:layout_below="@+id/timer_layout"
+                    android:layout_marginTop="220dp"
+                    android:layout_centerHorizontal="true"
                     android:id="@+id/stop"
                     android:text="stop"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/recorder"
-                    android:layout_marginTop="140dp"
+                    android:src="@drawable/record_icon"
+                    android:layout_marginTop="220dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/timer_tv"
+                    android:layout_below="@+id/timer_layout"
                     android:id="@+id/record"
                     android:text="stop"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/play_button"
-                    android:layout_below="@+id/record"
+                    android:src="@drawable/play_icon"
+                    android:layout_below="@+id/timer_layout"
+                    android:layout_marginTop="220dp"
+                    android:layout_centerHorizontal="true"
                     android:id="@+id/play"
                     android:text="stop"/>
 
