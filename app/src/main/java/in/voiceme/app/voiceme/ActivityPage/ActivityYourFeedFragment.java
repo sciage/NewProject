@@ -13,6 +13,7 @@ import com.like.LikeButton;
 
 import java.util.List;
 
+import in.voiceme.app.voiceme.DiscoverPage.LatestListAdapter;
 import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseFragment;
@@ -29,7 +30,7 @@ public class ActivityYourFeedFragment extends BaseFragment {
 
     private int mPage;
     private RecyclerView recyclerView;
-    private ActivityYourFeedAdapter activityYourFeedAdapter;
+    private LatestListAdapter activityYourFeedAdapter;
 
     public ActivityYourFeedFragment() {
         // Required empty public constructor
@@ -88,7 +89,7 @@ public class ActivityYourFeedFragment extends BaseFragment {
     }
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
-        activityYourFeedAdapter = new ActivityYourFeedAdapter(myList, getActivity());
+        activityYourFeedAdapter = new LatestListAdapter(myList, getActivity());
         activityYourFeedAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {

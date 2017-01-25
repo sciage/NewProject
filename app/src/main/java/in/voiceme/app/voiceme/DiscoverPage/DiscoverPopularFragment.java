@@ -32,7 +32,7 @@ public class DiscoverPopularFragment extends BaseFragment {
 
     private int mPage;
     private RecyclerView recyclerView;
-    private PopularListAdapter popularListAdapter;
+    private LatestListAdapter popularListAdapter;
 
     public DiscoverPopularFragment() {
         // Required empty public constructor
@@ -94,7 +94,7 @@ public class DiscoverPopularFragment extends BaseFragment {
 
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
-        popularListAdapter = new PopularListAdapter(myList, getActivity());
+        popularListAdapter = new LatestListAdapter(myList, getActivity());
         popularListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {

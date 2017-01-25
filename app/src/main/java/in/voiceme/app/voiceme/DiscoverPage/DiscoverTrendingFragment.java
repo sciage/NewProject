@@ -28,7 +28,7 @@ public class DiscoverTrendingFragment extends BaseFragment {
 
     private int mPage;
     private RecyclerView recyclerView;
-    private TrendingListAdapter trendingListAdapter;
+    private LatestListAdapter trendingListAdapter;
 
     public DiscoverTrendingFragment() {
         // Required empty public constructor
@@ -90,7 +90,7 @@ public class DiscoverTrendingFragment extends BaseFragment {
 
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
-        trendingListAdapter = new TrendingListAdapter(myList, getActivity());
+        trendingListAdapter = new LatestListAdapter(myList, getActivity());
         trendingListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {

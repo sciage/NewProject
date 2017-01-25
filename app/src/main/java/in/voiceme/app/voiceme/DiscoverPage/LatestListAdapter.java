@@ -214,7 +214,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         protected void secondUserProfileClicked(View view){
             Intent intent = new Intent(view.getContext(), SecondProfile.class);
-            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
         }
@@ -327,7 +327,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId" + dataItem.getIdPosts()  + "_click" + "1";
+                       /* "dataItem.getIdUserName()" */ + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");

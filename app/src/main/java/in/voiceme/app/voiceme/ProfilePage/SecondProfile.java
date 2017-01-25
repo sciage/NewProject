@@ -45,6 +45,7 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         profileUserId = getIntent().getStringExtra(Constants.SECOND_PROFILE_ID);
+
         try {
             getData(profileUserId);
         } catch (Exception e) {
@@ -52,6 +53,8 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         }
         setContentView(R.layout.activity_second_profile);
         setNavDrawer(new MainNavDrawer(this));
+
+        Toast.makeText(this, "user ID: " + profileUserId, Toast.LENGTH_SHORT).show();
 
         username = (TextView) findViewById(R.id.second_name);
         followers = (TextView) findViewById(R.id.second_profile_followers);
