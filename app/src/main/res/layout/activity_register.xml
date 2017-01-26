@@ -58,16 +58,6 @@
         android:layout_marginTop="40dp"
         android:textColor="@color/colorAccent"
         android:visibility="gone"/>
-    <Button
-        android:id="@+id/try_it_btn"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:paddingTop="14dp"
-        android:text="@string/try_it"
-        android:gravity="center"
-        android:onClick="tryDemoOnClick"
-        android:paddingBottom="14dp"/>
+
 
 </LinearLayout>

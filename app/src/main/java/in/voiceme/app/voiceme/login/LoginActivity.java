@@ -1,10 +1,10 @@
 package in.voiceme.app.voiceme.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
-import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 
@@ -30,6 +30,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (view == registerButton) {
             startActivityForResult(new Intent(this, RegisterActivity.class), REQUEST_REGISTER);
         }
+    }
+
+    public void tryDemoOnClick(View viewPrm) {
+        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
+        prefsLcl.edit().putBoolean("is this demo mode", true).apply();
+        startActivity(new Intent(this, LoginUserDetails.class));
+        finish();
     }
 
     @Override

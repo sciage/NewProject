@@ -34,6 +34,19 @@
             android:layout_weight="1"
             android:id="@+id/activity_login_register"/>
 
+        <Button
+            android:id="@+id/try_it_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:paddingTop="14dp"
+            android:gravity="center"
+            android:onClick="tryDemoOnClick"
+            android:paddingBottom="14dp"/>
+
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity
     FloatingActionsMenu rightLabels;
     private AuthService authService;
     private RefreshTokenService refreshTokenService;
+    private static ImageView play_button;
     /**
      * saves and shows state: if the user in demo mode or not .
      */
@@ -77,6 +79,7 @@ public class MainActivity extends BaseActivity
         rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         textStatus = (FloatingActionButton) findViewById(R.id.action_a);
         audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
+        play_button = (ImageView) findViewById(R.id.list_item_posts_play_button);
 
         textStatus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +192,8 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
         if (refreshTokenService != null) refreshTokenService.cacelAll();
     }
+
+
 
 
     @Override

@@ -60,6 +60,8 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected ImageView sameCounterImage;
     protected ImageView commentCounterImage;
     protected ImageView listenCounterImage;
+    protected MediaPlayer mediaPlayer = new MediaPlayer();
+
 
     //animated buttons
     protected LikeButton likeButtonMain, HugButtonMain, SameButtonMain;
@@ -297,9 +299,15 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
             }
         }
 
+        if (dataItem.getAudioFileLink() == null){
+            play_button.setVisibility(View.GONE);
+        } else {
+            play_button.setVisibility(View.VISIBLE);
+        }
 
-        play_button.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
     }
+
+
 
     protected void sendLikeToServer(final VoicemeApplication application, int like, int hug, int same, int listen, final String message) {
         SharedPreferences preferences = application.getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);

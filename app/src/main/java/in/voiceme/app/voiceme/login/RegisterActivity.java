@@ -415,13 +415,7 @@ public class RegisterActivity extends BaseActivity
     public void onGoogleAuthSignInFailed() {
         Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
     }*/
-    public void tryDemoOnClick(View viewPrm) {
-        SharedPreferences prefsLcl = getSharedPreferences("Logged in or not", MODE_WORLD_WRITEABLE);
-        prefsLcl.edit().putBoolean("is this demo mode", true).apply();
-        setResult(RESULT_OK);
 
-        finish();
-    }
 
 //    @Override
 //     public boolean processLoggedState(View viewPrm) {
