@@ -23,7 +23,7 @@ public class StatusActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_status);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Enter Status");
         setNavDrawer(new MainNavDrawer(this));
 
         Button button = (Button) findViewById(R.id.btn_status);

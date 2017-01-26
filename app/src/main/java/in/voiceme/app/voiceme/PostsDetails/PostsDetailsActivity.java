@@ -1,6 +1,8 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -82,6 +85,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     private int likeCounter;
     private int hugCounter;
     private int sameCounter;
+    protected MediaPlayer mediaPlayer = new MediaPlayer();
 
 
     //animated buttons
@@ -102,7 +106,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posts_details);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Post Details");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +181,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         listenCounterImage.setOnClickListener(this);
         user_name.setOnClickListener(this);
         user_avatar.setOnClickListener(this);
+        play_button.setOnClickListener(this);
 
         try {
             if (postId != null){
@@ -249,6 +254,58 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LISTEN_FEELING, myList.get(0).getIdPosts());
             startActivity(intent);
+        } else if(view.getId() == R.id.detail_list_item_posts_play_button){
+            if (!mediaPlayer.isPlaying()){
+                if (mediaPlayer != null){
+                    try {
+                        mediaPlayer.stop();
+                    } catch (Exception e){
+
+                    }
+                    mediaPlayer = null;
+                }
+
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(myList.get(0).getAudioFileLink());
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            try {
+                                mediaPlayer.start();
+                                flipPlayPauseButton(true);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            flipPlayPauseButton(false);
+                        }
+                    });
+                    mediaPlayer.prepareAsync();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    mediaPlayer.pause();
+                    flipPlayPauseButton(false);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void flipPlayPauseButton(boolean isPlaying){
+        if (isPlaying){
+            play_button.setImageResource(R.drawable.stop_button);
+        } else  {
+            play_button.setImageResource(R.drawable.play_button);
         }
     }
 
@@ -338,7 +395,12 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
                 like_counter.setText(myList.get(0).getLikes());
                 same_counter.setText(myList.get(0).getSame());
                 hug_counter.setText(myList.get(0).getHug());
-                post_listen.setText(myList.get(0).getListen());
+
+
+        if (myList.get(0).getAudioDuration() != null){
+            post_audio_duration.setText(myList.get(0).getAudioDuration());
+            post_listen.setText(myList.get(0).getListen());
+        }
 
         likeCounter = Integer.parseInt(myList.get(0).getLikes());
         hugCounter = Integer.parseInt(myList.get(0).getHug());
@@ -374,7 +436,17 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             }
         }
 
-        play_button.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+        if (myList.get(0).getAudioFileLink() == null){
+            play_button.setVisibility(View.GONE);
+            post_audio_duration.setVisibility(View.GONE);
+            post_listen.setVisibility(View.GONE);
+            listenCounterImage.setVisibility(View.GONE);
+        } else {
+            play_button.setVisibility(View.VISIBLE);
+            post_audio_duration.setVisibility(View.VISIBLE);
+            post_listen.setVisibility(View.VISIBLE);
+            listenCounterImage.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

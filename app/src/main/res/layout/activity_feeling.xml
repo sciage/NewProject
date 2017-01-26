@@ -12,8 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
-
         <RelativeLayout
             android:id="@+id/activity_feeling"
             android:layout_width="match_parent"
@@ -23,7 +21,11 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:background="#4285F4"
-            tools:context="in.voiceme.deletestatusresult.FeelingActivity">
+            tools:context=".userpost.FeelingActivity">
+
+            <include layout="@layout/include_toolbar"
+                android:background="@color/transparent"
+                />
 
             <Button
                 android:layout_width="wrap_content"
@@ -39,7 +41,7 @@
                 android:text="Happy"
                 android:textColor="#fff"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="80dp"
                 android:id="@+id/happy_emotion"
                 android:textSize="30sp"
                 android:paddingRight="10dp"/>
@@ -49,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="75dp"
                 android:layout_toRightOf="@+id/happy_emotion"
                 android:layout_toEndOf="@+id/happy_emotion"
                 app:base_release_color="@color/md_green_50"

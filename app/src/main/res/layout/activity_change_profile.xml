@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <include layout="@layout/include_toolbar"
-            android:background="#5c6bc0"/>
+            android:background="@color/toolbar_Color" />
 
         <RelativeLayout
             android:layout_width="match_parent"

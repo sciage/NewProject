@@ -177,9 +177,6 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
         l.a(2222);
         if (itemId == R.id.activity_profile_menuEdit) {
             return true;
-        } else if (itemId == R.id.activity_profile_menuChangePassword) {
-            //  startActivity(new Intent(this, AppConfigsActivity.class));
-            return true;
         }
 
         return false;

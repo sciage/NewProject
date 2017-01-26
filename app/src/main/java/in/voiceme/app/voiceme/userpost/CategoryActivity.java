@@ -18,7 +18,7 @@ public class CategoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_category);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Choose Category");
         setNavDrawer(new MainNavDrawer(this));
 
         gridView = (GridView) findViewById(R.id.grid);

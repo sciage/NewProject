@@ -11,12 +11,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/second_profile_header_banner">
+
+            <include layout="@layout/include_toolbar" />
 
             <com.intrusoft.library.FrissonView
                 android:id="@+id/second_wave_head"

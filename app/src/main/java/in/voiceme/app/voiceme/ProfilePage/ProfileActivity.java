@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -34,6 +35,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private TextView following_counter;
     private TextView following;
     private CircleImageView image;
+    private LinearLayout followerLayout;
+    private LinearLayout followingLayout;
+    private LinearLayout totalPostLayout;
 
     private TextView age;
     private TextView gender;
@@ -43,6 +47,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_profile);
+        getSupportActionBar().setTitle("Activity");
         setNavDrawer(new MainNavDrawer(this));
 
         try {
@@ -62,6 +67,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         about = (TextView) findViewById(R.id.about);
         total_posts = (TextView) findViewById(R.id.user_profile_textview);
         total_posts_counter = (TextView) findViewById(R.id.total_posts_counter);
+        followerLayout = (LinearLayout) findViewById(R.id.follower_column);
+        followingLayout = (LinearLayout) findViewById(R.id.following_layout);
+        totalPostLayout = (LinearLayout) findViewById(R.id.total_post_layout);
 
         age = (TextView) findViewById(R.id.age_value);
         gender = (TextView) findViewById(R.id.gender_value);
@@ -75,6 +83,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         total_posts.setOnClickListener(this);
         followers_counter.setOnClickListener(this);
         following_counter.setOnClickListener(this);
+        total_posts_counter.setOnClickListener(this);
+        followerLayout.setOnClickListener(this);
 
         avatarProgressFrame.setVisibility(View.GONE);
 
@@ -90,15 +100,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             return;
         int viewId = view.getId();
 
-        if (viewId == R.id.user_profile_textview) {
+        if (viewId == R.id.total_post_layout) {
             Intent intent = new Intent(this, TotalPostsActivity.class);
             intent.putExtra(Constants.TOTAL_POST, MySharedPreferences.getUserId(preferences));
             startActivity(intent);
-        } else if (viewId == R.id.profile_followers || viewId == R.id.action_followers) {
+        } else if (viewId == R.id.follower_column) {
             Intent intent = new Intent(this, FollowersActivity.class);
             intent.putExtra(Constants.USER_FOLLOW, MySharedPreferences.getUserId(preferences));
             startActivity(intent);
-        } else if (viewId == R.id.profile_following || viewId == R.id.action_following) {
+        } else if (viewId == R.id.following_layout) {
             Intent intent = new Intent(this, FollowingActivity.class);
             intent.putExtra(Constants.USER_FOLLOWING, MySharedPreferences.getUserId(preferences));
             startActivity(intent);
@@ -123,9 +133,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         if (itemId == R.id.activity_profile_menuEdit) {
             startActivity(new Intent(this, ChangeProfileActivity.class));
-            return true;
-        } else if (itemId == R.id.activity_profile_menuChangePassword) {
-            //  startActivity(new Intent(this, AppConfigsActivity.class));
             return true;
         }
 

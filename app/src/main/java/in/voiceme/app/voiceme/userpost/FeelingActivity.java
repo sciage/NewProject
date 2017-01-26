@@ -25,7 +25,7 @@ public class FeelingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeling);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Choose Feeling");
         setNavDrawer(new MainNavDrawer(this));
 
         Button button = (Button) findViewById(R.id.btn_feeling);

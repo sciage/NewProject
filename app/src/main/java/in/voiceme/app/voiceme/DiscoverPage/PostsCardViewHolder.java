@@ -267,7 +267,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         like_counter.setText(String.valueOf(dataItem.getLikes()));
         hug_counter.setText(String.valueOf(dataItem.getHug()));
         same_counter.setText(String.valueOf(dataItem.getSame()));
-        post_listen.setText(String.valueOf(dataItem.getListen()));
+
 
         if (!dataItem.getAvatarPics().equals("")) {
             Picasso.with(itemView.getContext())
@@ -275,6 +275,11 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                     .resize(75, 75)
                     .centerInside()
                     .into(user_avatar);
+        }
+
+        if (dataItem.getAudioDuration() != null){
+            post_audio_duration.setText(String.valueOf(dataItem.getAudioDuration()));
+            post_listen.setText(String.valueOf(dataItem.getListen()));
         }
 
         if (dataItem.getUserLike() != null){
@@ -301,8 +306,14 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
         if (dataItem.getAudioFileLink() == null){
             play_button.setVisibility(View.GONE);
+            post_audio_duration.setVisibility(View.GONE);
+            post_listen.setVisibility(View.GONE);
+            listenCounterImage.setVisibility(View.GONE);
         } else {
             play_button.setVisibility(View.VISIBLE);
+            post_audio_duration.setVisibility(View.VISIBLE);
+            post_listen.setVisibility(View.VISIBLE);
+            listenCounterImage.setVisibility(View.VISIBLE);
         }
 
     }

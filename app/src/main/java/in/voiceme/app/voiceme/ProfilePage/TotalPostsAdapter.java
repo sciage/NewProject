@@ -3,6 +3,8 @@ package in.voiceme.app.voiceme.ProfilePage;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -212,6 +215,61 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Toast.makeText(view.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, dataItem.getIdUserName());
             view.getContext().startActivity(intent);
+        }
+
+        protected void playButton(View view){
+
+            if (!mediaPlayer.isPlaying()){
+                if (mediaPlayer != null){
+                    try {
+                        mediaPlayer.stop();
+                    } catch (Exception e){
+
+                    }
+                    mediaPlayer = null;
+                }
+
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(dataItem.getAudioFileLink());
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            try {
+                                mediaPlayer.start();
+                                flipPlayPauseButton(true);
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            flipPlayPauseButton(false);
+                        }
+                    });
+                    mediaPlayer.prepareAsync();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    mediaPlayer.pause();
+                    flipPlayPauseButton(false);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public void flipPlayPauseButton(boolean isPlaying){
+            if (isPlaying){
+                play_button.setImageResource(R.drawable.stop_button);
+            } else  {
+                play_button.setImageResource(R.drawable.play_button);
+            }
         }
 
         @Override

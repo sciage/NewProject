@@ -10,11 +10,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/toolbar_Color"
         android:layout_height="match_parent">
 
         <include
-            layout="@layout/include_toolbar"
-            android:background="#39baf3" />
+            layout="@layout/include_toolbar3"
+            android:background="@color/toolbar_Color" />
 
 
 
@@ -22,6 +23,7 @@
             android:id="@+id/detail_list_item_post_background"
             android:layout_width="match_parent"
             android:layout_below="@+id/include_toolbar"
+            android:background="@color/white"
             android:focusable="true"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -103,7 +105,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_play_circle_outline_black_24dp" />
+                    android:src="@drawable/play_button" />
 
                 <TextView
                     android:id="@+id/detail_list_item_posts_duration_count"
@@ -160,7 +162,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/listen" />
+                    android:src="@drawable/like_small" />
 
                 <TextView
                     android:id="@+id/detail_post_likes_counter"
@@ -174,12 +176,12 @@
 
                 <ImageView
                     android:id="@+id/detail_emoji_above_hug"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="24dp"
+                    android:layout_height="23dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/listen" />
+                    android:src="@drawable/hug_small" />
 
                 <TextView
                     android:id="@+id/detail_post_hugs_counter"
@@ -198,7 +200,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/listen" />
+                    android:src="@drawable/sad_small" />
 
                 <TextView
                     android:id="@+id/detail_post_same_counter"
@@ -217,7 +219,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/listen" />
+                    android:src="@drawable/comment_small" />
 
                 <TextView
                     android:id="@+id/detail_post_comment_counter"
@@ -257,9 +259,9 @@
                 app:circle_start_color="@android:color/holo_blue_bright"
                 app:dots_primary_color="@android:color/holo_blue_light"
                 app:dots_secondary_color="@android:color/holo_blue_dark"
-                app:icon_size="20dp"
-                app:like_drawable="@drawable/thumb_on"
-                app:unlike_drawable="@drawable/thumb_off" />
+                app:icon_size="28dp"
+                app:like_drawable="@drawable/like_after"
+                app:unlike_drawable="@drawable/like_before" />
 
             <com.like.LikeButton
                 android:id="@+id/detail_list_item_hug_button"
@@ -272,9 +274,9 @@
                 app:circle_start_color="@android:color/holo_blue_bright"
                 app:dots_primary_color="@android:color/holo_blue_light"
                 app:dots_secondary_color="@android:color/holo_blue_dark"
-                app:icon_size="20dp"
-                app:like_drawable="@drawable/thumb_on"
-                app:unlike_drawable="@drawable/thumb_off" />
+                app:icon_size="28dp"
+                app:like_drawable="@drawable/hug_after"
+                app:unlike_drawable="@drawable/status_before" />
 
             <com.like.LikeButton
                 android:id="@+id/detail_list_item_same_button"
@@ -287,16 +289,16 @@
                 app:circle_start_color="@android:color/holo_blue_bright"
                 app:dots_primary_color="@android:color/holo_blue_light"
                 app:dots_secondary_color="@android:color/holo_blue_dark"
-                app:icon_size="20dp"
-                app:like_drawable="@drawable/thumb_on"
-                app:unlike_drawable="@drawable/thumb_off" />
+                app:icon_size="28dp"
+                app:like_drawable="@drawable/sad"
+                app:unlike_drawable="@drawable/status_before" />
 
 
         </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:background="#fff"
+            android:background="@color/toolbar_Color"
             android:layout_below="@+id/detail_list_item_post_background"
             android:layout_height="wrap_content">
         <RelativeLayout
