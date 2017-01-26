@@ -2,8 +2,6 @@ package in.voiceme.app.voiceme.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -48,17 +46,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
         username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
         about_me = (EasyTextInputLayout) findViewById(R.id.login_start_about_me);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processLoggedState(view);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
 
         button = (Button) findViewById(R.id.submit_user_data_button);
         button.setOnClickListener(this);

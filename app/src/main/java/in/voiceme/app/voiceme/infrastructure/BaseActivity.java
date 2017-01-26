@@ -30,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
     protected AccountManager manager;
     protected SharedPreferences preferences;
     private boolean isRegisterdWithBus;
+    protected String givenContact;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -43,6 +44,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
         bus.register(this);
         isRegisterdWithBus = true;
 
+        givenContact = preferences.getString(Constants.GET_CONTACT_NUMBER, null);
+
         /**
          * Initialize Facebook SDK
 
@@ -50,6 +53,18 @@ public abstract class BaseActivity extends AppCompatActivity implements WasLogge
 
         /**
          * Initializes the sync client. This must be call before you can use it. */
+    }
+
+    public boolean hasContactNumber() {
+        return givenContact != null && !givenContact.isEmpty();
+    }
+
+    public void setAuthToken(String givenContact) {
+        this.givenContact = givenContact;
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constants.GET_CONTACT_NUMBER, givenContact);
+        editor.commit();
     }
 
     public ActionScheduler getScheduler() {

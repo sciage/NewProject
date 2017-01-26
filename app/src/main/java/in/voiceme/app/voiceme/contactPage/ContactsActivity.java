@@ -197,7 +197,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         });
     }
 
-  //  @OnClick(R.id.skip)
+    //  @OnClick(R.id.skip)
     void skip() {
         coordinatorLayout.setCurrentPage(coordinatorLayout.getNumOfPages() - 1, true);
     }
@@ -205,25 +205,28 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         processLoggedState(view);
-         if (view.getId() == R.id.button_get_all_contacts){
+        if (view.getId() == R.id.button_get_all_contacts){
             readContacts();
 
         } else if (view.getId() == R.id.enter_contacts_main_page){
 
-            if (givenPersonalContact) {
-                if (givenPersonalContact){
-                    enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
-                    MySharedPreferences.checkContactSent(preferences, "Sent");
-                    startActivity(new Intent(this, ContactListActivity.class));
-                    finish();
-                    return;
-                }
-            }
-        {
+            //    if (givenPersonalContact) {
+            //        if (givenAllPersonalContact){
+            enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
 
-            }
+            //  MySharedPreferences.checkContactSent(preferences, "Sent");
+            setAuthToken("token");
+            startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
+            finish();
+            return;
+        } //else {
+        // Toast.makeText(this, "You have not given your contacts", Toast.LENGTH_SHORT).show();
+        //   }
+        // } else {
+        //     Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
+        //  }
 
-        }
+        //  }
     }
 
     private void readContacts() {

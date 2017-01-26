@@ -20,6 +20,7 @@ public interface Constants {
 
     String KEY_LAST_USED_PROVIDER = "last_used_provider";
     String KEY_PROVIDER_TOKEN = "last_provider_token";
+    String GET_CONTACT_NUMBER = "GET_CONTACT_NUMBER";
 
     String HUG_FEELING = "HUG_FEELING";
     String LIKE_FEELING = "LIKE_FEELING";

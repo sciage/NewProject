@@ -29,8 +29,8 @@ public class ContactListActivity extends BaseContact {
     private TotalPostsAdapter activityInteractionAdapter;
     private String check;
 
-    @Override
-    protected void onContactCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_contact_list);
         getSupportActionBar().setTitle("Contacts Posts");
