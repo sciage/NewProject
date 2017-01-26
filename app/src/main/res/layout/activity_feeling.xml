@@ -16,24 +16,12 @@
             android:id="@+id/activity_feeling"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:background="#4285F4"
             tools:context=".userpost.FeelingActivity">
 
             <include layout="@layout/include_toolbar"
                 android:background="@color/transparent"
                 />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_feeling"
-                android:text="go back"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,7 +31,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="80dp"
                 android:id="@+id/happy_emotion"
-                android:textSize="30sp"
+                android:textSize="27sp"
                 android:paddingRight="10dp"/>
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
@@ -72,7 +60,7 @@
                 android:layout_below="@+id/happy_emotion"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
-                android:textSize="30sp" />
+                android:textSize="27sp" />
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
                 android:id="@+id/relaxed_switch"
@@ -100,7 +88,7 @@
                 android:layout_below="@+id/relaxed_emotion"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
-                android:textSize="30sp" />
+                android:textSize="27sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
@@ -130,7 +118,7 @@
                 android:layout_below="@+id/angry_emotion"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
-                android:textSize="30sp" />
+                android:textSize="27sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
@@ -161,7 +149,7 @@
                 android:layout_below="@+id/sad_emotion"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
-                android:textSize="30sp" />
+                android:textSize="27sp" />
 
 
             <com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
@@ -181,6 +169,14 @@
                 app:icon_press="@drawable/bored_after"
                 />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_feeling"
+                android:layout_marginBottom="50dp"
+                android:text="Done"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
 
 
         </RelativeLayout>

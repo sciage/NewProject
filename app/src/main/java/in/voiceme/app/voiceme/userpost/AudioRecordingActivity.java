@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -42,6 +40,8 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private ImageView stop;
     private ImageView record;
     private ImageView done;
+    private ImageView pause;
+    private ImageView cancel;
 
 
 
@@ -56,7 +56,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_recording);
-        getSupportActionBar().setTitle("LoginUser Feelings");
+        getSupportActionBar().setTitle("Audio Recoding");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,27 +72,28 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         record = (ImageView) findViewById(R.id.record);
         stop = (ImageView) findViewById(R.id.stop);
         done = (ImageView) findViewById(R.id.done);
+        pause = (ImageView) findViewById(R.id.pause);
+        cancel = (ImageView) findViewById(R.id.cancel_recording);
 
-        // Create the MediaPlayer
-        mMediaPlayer = MediaPlayer.create(this, R.raw.a);
-        Log.d(TAG,
-                "MediaPlayer audio session ID: "
-                        + mMediaPlayer.getAudioSessionId());
-
-
-
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(filePath);
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mMediaPlayer
                 .setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         getWindow().clearFlags(
                                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                         setVolumeControlStream(AudioManager.STREAM_SYSTEM);
-
+                        if (!mMediaPlayer.isPlaying()) {
+                            play.setVisibility(View.VISIBLE);
+                            pause.setVisibility(View.GONE);
+                        }
                     }
                 });
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         handler.post(updateThread);
 
@@ -100,9 +101,13 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         play.setVisibility(View.GONE);
         stop.setVisibility(View.GONE);
         done.setVisibility(View.GONE);
+        pause.setVisibility(View.GONE);
+        cancel.setVisibility(View.GONE);
         record.setOnClickListener(this);
         stop.setOnClickListener(this);
         done.setOnClickListener(this);
+        pause.setOnClickListener(this);
+        cancel.setOnClickListener(this);
     }
 
     @Override
@@ -116,35 +121,26 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private void listen() {
+        if (!mMediaPlayer.isPlaying()) {
+            play.setVisibility(View.GONE);
+            pause.setVisibility(View.VISIBLE);
+            mMediaPlayer.start();
+        } else {
+            play.setVisibility(View.VISIBLE);
+            pause.setVisibility(View.GONE);
+            mMediaPlayer.stop();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.play) {
-            mMediaPlayer.stop();
-            mMediaPlayer = null;
-            isListen = true;
-            mMediaPlayer = MediaPlayer.create(this, Uri.parse(filePath));
-
-            mMediaPlayer.start();
-            minute = 0;
-            second = 0;
-            final long start = System.currentTimeMillis();
-            final Handler handler = new Handler();
-            handler.post(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isListen) {
-                                timerHandlerPlay();
-                                if (System.currentTimeMillis() - start >= (currentDuration - 1) * 1000) {
-                                    stopListen();
-                                }
-                                handler.postDelayed(this, 1000);
-                            }
-                        }
-                    });
-
-
-
+            play.setVisibility(View.GONE);
+            done.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+            pause.setVisibility(View.VISIBLE);
+            listenPlay();
         } else if(v.getId() == R.id.record){
             record.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
@@ -155,6 +151,15 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             stopRecording();
         } else if (v.getId() == R.id.done){
             done();
+        } else if (v.getId() == R.id.pause){
+            listenStop();
+            done.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
+        } else if(v.getId() == R.id.cancel_recording){
+            Intent intent = new Intent(AudioRecordingActivity.this, AudioStatus.class);
+            setResult(Activity.RESULT_CANCELED, intent);
+            finish();
+            return;
         }
     }
 
@@ -207,6 +212,43 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         myAudioRecorder.release();
         myAudioRecorder = null;
 
+    }
+
+    private void listenPlay() {
+        isListen = true;
+        mMediaPlayer = new MediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(filePath);
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mMediaPlayer.start();
+        minute = 0;
+        second = 0;
+        final long start = System.currentTimeMillis();
+        final Handler handler = new Handler();
+        handler.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isListen) {
+                            timerHandlerPlay();
+                            if (System.currentTimeMillis() - start >= (currentDuration - 1) * 1000) {
+                                listenStop();
+                            }
+                            handler.postDelayed(this, 1000);
+                        }
+                    }
+                });
+    }
+
+    private void listenStop() {
+        isListen = false;
+        play.setVisibility(View.VISIBLE);
+        pause.setVisibility(View.GONE);
+        mMediaPlayer.stop();
+        mMediaPlayer.release();
     }
 
     private void done() {
