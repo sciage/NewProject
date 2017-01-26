@@ -4,7 +4,7 @@
     <string name="facebook_app_id">508355539363001</string>
     <string name="aws_identity_pool">us-east-1:b9755bcf-4179-40ad-8a5e-07d7baa8914c</string>
     <string name="google_server_client_id">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string>
-    <string name="digits_contact">Continue</string>
+    <string name="digits_contact">Enter Phone No.</string>
 
     <string name="device_not_supported">Device not supported</string>
     <string name="device_not_supported_message">FFmpeg is not supported on your device</string>

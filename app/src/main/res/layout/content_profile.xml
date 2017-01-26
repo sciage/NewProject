@@ -21,7 +21,7 @@
             android:id="@+id/profile_header_banner"
             tools:context=".ProfilePage.ProfileActivity">
 
-            <include layout="@layout/include_toolbar3"
+            <include layout="@layout/include_toolbar4"
                 android:background="@color/transparent"
                 />
 
@@ -30,7 +30,7 @@
                 android:id="@+id/wave_head"
                 android:layout_width="match_parent"
                 android:layout_below="@+id/include_toolbar"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 frisson:tideCount="3"
                 frisson:tintColor="#1403d4"
@@ -222,7 +222,7 @@
                 android:layout_marginTop="30dp"
                 android:drawablePadding="24dp"
                 android:gravity="center"
-                android:text="Age"
+                android:text=""
                 android:textColor="#880E4F" />
 
 
@@ -250,7 +250,7 @@
                 android:layout_marginTop="30dp"
                 android:drawablePadding="24dp"
                 android:gravity="center"
-                android:text="Age"
+                android:text=""
                 android:textColor="#880E4F" />
 
 
@@ -277,7 +277,7 @@
                 android:layout_marginTop="30dp"
                 android:drawablePadding="24dp"
                 android:gravity="center"
-                android:text="Age"
+                android:text=""
                 android:textColor="#880E4F" />
 
 

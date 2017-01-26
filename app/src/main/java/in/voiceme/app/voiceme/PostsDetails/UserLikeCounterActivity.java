@@ -22,7 +22,7 @@ public class UserLikeCounterActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_like_counter);
-        getSupportActionBar().setTitle("Like LoginUser");
+        getSupportActionBar().setTitle("Like user");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,7 @@ public class UserListenCounterActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_listen_counter);
-        getSupportActionBar().setTitle("Listen LoginUser");
+        getSupportActionBar().setTitle("Listen users");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

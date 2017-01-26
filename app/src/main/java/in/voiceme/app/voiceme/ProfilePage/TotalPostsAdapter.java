@@ -367,36 +367,47 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 like_counter.setText(NumberFormat.getIntegerInstance().format(likeCounter));
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId" + dataItem.getIdPosts()  + "_click" + "1";
+                String sendLike = "senderid@" + userId + "_contactId@" +
+                        dataItem.getIdUserName()  + "_postId@" + dataItem.getIdPosts()  + "_click@" + "1";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 1, 0, 0, 0, "clicked like button");
-                sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
-
+                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                }
 
             } else if (likeButton == HugButtonMain) {
                 hugCounter++;
                 hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId" + dataItem.getIdPosts()  + "_click" + "2";
+                String sendLike = "senderid@" + userId + "_contactId@" +
+                dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
-                sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                }
             } else if (likeButton == SameButtonMain) {
                 sameCounter++;
                 same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
 
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
-                String sendLike = "senderid@" + userId + "_contactId@" + "21"
-                       /* "dataItem.getIdUserName()" */ + "_postId" + dataItem.getIdPosts()  + "_click" + "3";
+                String sendLike = "senderid@" + userId + "_contactId@" +
+                       dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
-                sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                    Toast.makeText(itemView.getContext(), "same user", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendLikeNotification((VoicemeApplication) itemView.getContext().getApplicationContext(), sendLike);
+                }
             }
         }
 

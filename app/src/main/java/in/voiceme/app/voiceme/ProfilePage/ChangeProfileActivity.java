@@ -54,7 +54,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Edit Profile Page");
         setNavDrawer(new MainNavDrawer(this));
 
         submitButton = (Button) findViewById(R.id.submit_button_profile);

@@ -15,7 +15,6 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -31,14 +30,21 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user_details);
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        getSupportActionBar().setTitle("User Details");
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         token = FirebaseInstanceId.getInstance().getToken();
 
         // Log.d("Id Generated", token);
         Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
-
-        getSupportActionBar().setTitle("LoginUser Details");
-        setNavDrawer(new MainNavDrawer(this));
 
         username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
         about_me = (EasyTextInputLayout) findViewById(R.id.login_start_about_me);

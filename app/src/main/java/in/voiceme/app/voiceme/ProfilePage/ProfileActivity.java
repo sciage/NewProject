@@ -47,7 +47,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle("Activity");
+        getSupportActionBar().setTitle("Profile Page");
         setNavDrawer(new MainNavDrawer(this));
 
         try {

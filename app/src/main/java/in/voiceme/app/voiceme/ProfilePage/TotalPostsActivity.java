@@ -34,7 +34,7 @@ public class TotalPostsActivity extends BaseActivity {
 
         userId = getIntent().getStringExtra(Constants.TOTAL_POST);
 
-        getSupportActionBar().setTitle("LoginUser Feelings");
+        getSupportActionBar().setTitle("Total Posts");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

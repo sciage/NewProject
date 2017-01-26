@@ -23,11 +23,13 @@ public class FollowersActivity extends BaseActivity {
         setContentView(R.layout.activity_followers);
         userId = getIntent().getStringExtra(Constants.USER_FOLLOW);
 
-        getSupportActionBar().setTitle("Hugs LoginUser");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        getSupportActionBar().setTitle("Followers Details");
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                processLoggedState(v);
                 finish();
             }
         });

@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.Digits;
@@ -44,6 +45,10 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private Button getAllContacts;
     private Button enterButton;
     private DigitsAuthButton digitsButton;
+    private TextView personalContact;
+    private TextView allPersonalContact;
+    private boolean givenPersonalContact = false;
+    private boolean givenAllPersonalContact = false;
 
     private boolean animationReady = false;
     private ValueAnimator backgroundAnimator;
@@ -72,6 +77,12 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
         enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
 
+        personalContact = (TextView) findViewById(R.id.person_contact_verified);
+        allPersonalContact = (TextView) findViewById(R.id.all_person_contact_verified);
+
+        personalContact.setVisibility(View.GONE);
+        allPersonalContact.setVisibility(View.GONE);
+
         enterButton.setOnClickListener(this);
         getAllContacts.setOnClickListener(this);
         // Create a digits button and callback
@@ -86,6 +97,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 Timber.v("phone number: " + phoneNumber);
                 application.getAuth().getUser().setPhoneNumber(true);
 
+                givenPersonalContact = true;
+                personalContact.setVisibility(View.VISIBLE);
                 try {
                     sendContact(phoneNumber);
                 } catch (Exception e) {
@@ -147,8 +160,17 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                             inSyncAnimator = new InSyncAnimator(coordinatorLayout);
                             inSyncAnimator.play();
                         }
-                        break;
                     case 3:
+                        if (inSyncAnimator == null) {
+                            return;
+                        }
+                    case 4:
+                        if (inSyncAnimator == null) {
+                            return;
+                        }
+
+                        break;
+                    case 5:
                         if (rocketFlightAwayAnimator == null) {
                             rocketFlightAwayAnimator = new RocketFlightAwayAnimator(coordinatorLayout);
                             rocketFlightAwayAnimator.play();
@@ -188,13 +210,18 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         } else if (view.getId() == R.id.enter_contacts_main_page){
 
-        //    if (application.getAuth().getUser().isPhoneNumber() && application.getAuth().getUser().isAllContacts()){
-                enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
-            MySharedPreferences.checkContactSent(preferences, "Sent");
-                startActivity(new Intent(this, ContactListActivity.class));
-                finish();
-                return;
-        //    }
+            if (givenPersonalContact) {
+                if (givenPersonalContact){
+                    enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
+                    MySharedPreferences.checkContactSent(preferences, "Sent");
+                    startActivity(new Intent(this, ContactListActivity.class));
+                    finish();
+                    return;
+                }
+            }
+        {
+
+            }
 
         }
     }
@@ -244,6 +271,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                     public void onNext(AddContactResponse response) {
                         Timber.e("Got user details " + response.getInsertedRows().toString());
                         application.getAuth().getUser().setAllContacts(true);
+                        givenAllPersonalContact = true;
+                        allPersonalContact.setVisibility(View.VISIBLE);
                     }
                 });
     }

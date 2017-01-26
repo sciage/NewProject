@@ -24,7 +24,7 @@ public class FollowingActivity extends BaseActivity {
         setContentView(R.layout.activity_following);
         userId = getIntent().getStringExtra(Constants.USER_FOLLOWING);
 
-        getSupportActionBar().setTitle("Hugs LoginUser");
+        getSupportActionBar().setTitle("Following users");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

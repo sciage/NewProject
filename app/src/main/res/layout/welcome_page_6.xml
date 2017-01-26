@@ -40,35 +40,44 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         style="@style/text_subtitle_privacy"
         android:id="@+id/contact_point_01"
         android:layout_below="@+id/contact_privacy_policy"
-        android:text="We use your phone to find anonymous posts from your contacts."
-        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
-    <TextView
-        style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_02"
-        android:layout_below="@+id/contact_point_01"
-        android:text="We use your phone to find anonymous posts from your contacts."
-        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
-    <TextView
-        style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_03"
-        android:layout_below="@+id/contact_point_02"
-        android:text="We use your phone to find anonymous posts from your contacts."
+        android:gravity="center"
+        android:text="We use your contacts to find \n anonymous posts from your \n friends and family members \n who are already using our app"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
     <TextView
         style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_04"
-        android:layout_below="@+id/contact_point_03"
-        android:text="We use your phone to find anonymous posts from your contacts."
+        android:id="@+id/contact_point_02"
+        android:layout_below="@+id/contact_point_01"
+        android:gravity="center"
+        android:text="You control your identity inside\n this anonymous community. \nNo one will reveal your true identity\n to your friends or family."
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+    <TextView
+        style="@style/text_subtitle_privacy"
+        android:id="@+id/contact_point_03"
+        android:layout_below="@+id/contact_point_02"
+        android:gravity="center"
+        android:text="You will only see posts if any user\n from your contact list is using our app."
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Verified"
+        android:textColor="@color/md_green_50"
+        android:padding="5dp"
+        android:layout_below="@id/contact_point_03"
+        android:id="@+id/all_person_contact_verified"
+        android:textSize="25sp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_get_all_contacts"
-        android:layout_below="@+id/contact_point_04"
+        android:layout_below="@+id/all_person_contact_verified"
         android:layout_centerHorizontal="true"
-        android:text="Get All Contacts"/>
+        android:text="See Anonymous Posts"/>
 
 
 </com.redbooth.WelcomePageLayout>
