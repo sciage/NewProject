@@ -1,7 +1,6 @@
 package in.voiceme.app.voiceme.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -24,7 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -231,7 +228,6 @@ public class RegisterActivity extends BaseActivity
         MySharedPreferences.registerUserId(preferences, response.info.id);
         MySharedPreferences.registerEmail(preferences, response.info.email);
         MySharedPreferences.registerSocialID(preferences, response.info.userId);
-        MySharedPreferences.registerImageUrl(preferences, response.info.imageUrl);
 
         Timber.d("the user ID is " + response.info.id);
 
