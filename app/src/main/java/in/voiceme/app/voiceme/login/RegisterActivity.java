@@ -13,6 +13,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -23,6 +25,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,6 +117,7 @@ public class RegisterActivity extends BaseActivity
 
         callbackManager = CallbackManager.Factory.create();
 
+        facebookSignInBtn.setReadPermissions(Arrays.asList("email", "public_profile"));
         facebookSignInBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
             @Override
@@ -258,6 +264,45 @@ public class RegisterActivity extends BaseActivity
         final Map<String, String> logins = new HashMap<>();
         logins.put(FACEBOOK_LOGIN, AccessToken.getCurrentAccessToken().getToken());
         Log.v(TAG, String.format("Facebook token <<<\n%s\n>>>", logins.get(FACEBOOK_LOGIN)));
+
+        GraphRequest graphRequest = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject me, GraphResponse response) {
+                        if (response.getError() != null) {
+                            Log.i(TAG, response.getError().getErrorMessage());
+                        } else {
+                            String email = me.optString("email");
+                            String id = me.optString("id");
+                            String gender = me.optString("gender");
+                            String first_name = me.optString("first_name");
+                            String last_name = me.optString("last_name");
+                            String age_range = me.optString("age_range");
+
+
+                            Log.i("email", "-->" + email);
+                            Log.i("id", "-->" + id);
+                            Log.i("gender", "-->" + gender);
+                            Log.i("first_name", "-->" + first_name);
+                            Log.i("last_name", "-->" + last_name);
+                            Log.i("age_range", "-->" + age_range);
+
+                            try {
+                                getData(String.valueOf(first_name + last_name), id,
+                                        email, Uri.parse(""));
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            // send email and id to your web server
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,first_name,last_name,email,gender,age_range");
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
 
         // The identity must be created asynchronously
         new CreateIdentityTask(this).execute(logins);
