@@ -20,7 +20,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     private Button button;
 
     private EasyTextInputLayout username;
-    private EasyTextInputLayout about_me;
     private String token;
 
 
@@ -45,7 +44,6 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
         Toast.makeText(LoginUserDetails.this, token, Toast.LENGTH_SHORT).show();
 
         username = (EasyTextInputLayout) findViewById(R.id.login_start_username);
-        about_me = (EasyTextInputLayout) findViewById(R.id.login_start_about_me);
 
         button = (Button) findViewById(R.id.submit_user_data_button);
         button.setOnClickListener(this);
@@ -54,7 +52,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     private void submitDataWithoutProfile() throws Exception {
         application.getWebService()
                 .LoginUserName(MySharedPreferences.getSocialID(preferences), username.getEditText().getText().toString(),
-                        about_me.getEditText().getText().toString(), token)
+                       "", token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<AboutmeResponse>() {
                     @Override
@@ -73,8 +71,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         processLoggedState(view);
         if (view.getId() == R.id.submit_user_data_button) {
-            if (username.getEditText().getText().toString() != null &&
-                    about_me.getEditText().getText().toString() != null){
+            if (username.getEditText().getText().toString() != null){
                 try {
                     submitDataWithoutProfile();
                     startActivity(new Intent(this, MainActivity.class));
@@ -86,7 +83,7 @@ public class LoginUserDetails extends BaseActivity implements View.OnClickListen
 
 
         } else {
-            Toast.makeText(this, "Please Enter Username and About Yourself", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Enter Username", Toast.LENGTH_SHORT).show();
         }
     }
 

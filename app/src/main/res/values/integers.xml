@@ -11,4 +11,5 @@
   <integer name="storage_request">3000</integer>
   <integer name="contacts_request">4000</integer>
   <integer name="recorder_request">5000</integer>
+  <integer name="read_external_storage_request">6000</integer>
 </resources>

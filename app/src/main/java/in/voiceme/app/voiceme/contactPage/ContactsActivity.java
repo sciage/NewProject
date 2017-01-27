@@ -12,6 +12,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.Digits;
@@ -210,23 +211,22 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         } else if (view.getId() == R.id.enter_contacts_main_page){
 
-            //    if (givenPersonalContact) {
-            //        if (givenAllPersonalContact){
+            if (givenPersonalContact) {
+                   if (givenAllPersonalContact){
             enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
-
             //  MySharedPreferences.checkContactSent(preferences, "Sent");
             setAuthToken("token");
             startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
             finish();
             return;
-        } //else {
-        // Toast.makeText(this, "You have not given your contacts", Toast.LENGTH_SHORT).show();
-        //   }
-        // } else {
-        //     Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
-        //  }
+        } else {
+        Toast.makeText(this, "You have not given your contacts", Toast.LENGTH_SHORT).show();
+         }
+        } else {
+            Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
+         }
 
-        //  }
+         }
     }
 
     private void readContacts() {
@@ -252,11 +252,11 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(contacts -> {
-                    dialog.dismiss();
                     contacts.remove(0);
                     contacts.remove(contacts.size() - 1);
                     try {
                         sendAllContacts(contacts.toString().replace("[", "").replace("]", "").replace(" ", ""));
+                        dialog.dismiss();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -188,6 +188,42 @@ public class ActivityUtils {
     }
   }
 
+  public static boolean isReadStoragePermission(Activity activity) {
+
+    if (isReadStoragePermissionGranted(activity)) {
+
+      return true;
+    } else {
+      ActivityCompat.requestPermissions(activity,
+              new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+              activity.getResources().getInteger(R.integer.read_external_storage_request));
+    }
+
+    return false;
+  }
+
+
+  private static boolean isReadStoragePermissionGranted(Activity activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+              == PackageManager.PERMISSION_GRANTED) {
+        Timber.d("Permission is granted");
+        return true;
+      } else {
+
+        Timber.d("Permission is revoked");
+        ActivityCompat.requestPermissions(activity,
+                new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                activity.getResources().getInteger(R.integer.read_external_storage_request));
+        return false;
+      }
+    } else { //permission is automatically granted on sdk<23 upon installation
+      Timber.d("Permission is granted");
+      return true;
+    }
+  }
+
+
 
   private static boolean isContactsPermissionGranted(Activity activity) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

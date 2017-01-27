@@ -288,7 +288,7 @@ public class RegisterActivity extends BaseActivity
                             Log.i("age_range", "-->" + age_range);
 
                             try {
-                                getData(String.valueOf(first_name + last_name), id,
+                                getData(String.valueOf(first_name + "" +last_name), id,
                                         email, Uri.parse(""));
 
                             } catch (Exception e) {

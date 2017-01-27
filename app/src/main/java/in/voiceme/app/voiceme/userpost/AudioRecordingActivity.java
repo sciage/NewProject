@@ -117,6 +117,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private void readFromStorage() {
+        if (ActivityUtils.isReadStoragePermission(this)) {
+            listenPlay();
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -147,7 +153,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             done.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.VISIBLE);
             pause.setVisibility(View.VISIBLE);
-            listenPlay();
+            readFromStorage();
         } else if(v.getId() == R.id.record){
             record.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
@@ -202,14 +208,6 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
                         }
                     }
                 });
-    }
-
-    private void stopListen() {
-        isListen = false;
-        //	stopChange();
-        mMediaPlayer.stop();
-        mMediaPlayer.release();
-
     }
 
     private void stopRecording() {

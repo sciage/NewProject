@@ -10,8 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"
-            android:background="#5c6bc0"/>
+        <include layout="@layout/include_toolbar2" />
         <android.support.v7.widget.RecyclerView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
