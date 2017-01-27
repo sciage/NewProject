@@ -3,13 +3,13 @@ package in.voiceme.app.voiceme.NotificationsPage;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 
@@ -28,15 +28,7 @@ public class NotificationsActivity extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_home);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("Notifications");
-
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processLoggedState(v);
-                finish();
-            }
-        });
+        setNavDrawer(new MainNavDrawer(this));
 
         initUI();
 

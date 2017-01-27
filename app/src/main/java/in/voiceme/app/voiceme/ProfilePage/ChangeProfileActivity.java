@@ -24,7 +24,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.login.LoginResponse;
@@ -55,7 +54,13 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile);
         getSupportActionBar().setTitle("Edit Profile Page");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         submitButton = (Button) findViewById(R.id.submit_button_profile);
         username = (EasyTextInputLayout) findViewById(R.id.edittext_profile_username);

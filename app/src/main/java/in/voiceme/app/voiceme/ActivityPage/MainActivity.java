@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity
 //        checkAuthStatus();
 
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setTitle("Profile Page");
+        getSupportActionBar().setTitle("Activity Page");
         setNavDrawer(new MainNavDrawer(this));
 
         applicationContext = this.getApplicationContext();

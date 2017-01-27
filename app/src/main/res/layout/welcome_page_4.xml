@@ -39,10 +39,20 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Secret World"
+        android:textSize="30sp"
+        android:layout_below="@+id/rocket_page4"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/welcome"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_get_all_contacts"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/welcome"
         android:id="@+id/enter_contacts_main_page"
         android:layout_centerInParent="true"
         android:text="Enter"/>

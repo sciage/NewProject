@@ -384,7 +384,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
-                dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
+                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "2";
 
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 1, 0, 0, "clicked hug button");
@@ -400,7 +400,7 @@ public class TotalPostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SharedPreferences preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
                 String userId = MySharedPreferences.getUserId(preferences);
                 String sendLike = "senderid@" + userId + "_contactId@" +
-                       dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";
+                        dataItem.getIdUserName() + "_postId@" + dataItem.getIdPosts()  + "_click@" + "3";
 
                 sendLikeToServer((VoicemeApplication) itemView.getContext().getApplicationContext(), 0, 0, 1, 0, "clicked same button");
                 if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){

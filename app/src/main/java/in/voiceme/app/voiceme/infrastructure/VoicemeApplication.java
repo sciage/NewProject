@@ -8,7 +8,6 @@ import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
 import com.squareup.otto.Bus;
 
-import in.voiceme.app.voiceme.Module;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
@@ -49,7 +48,6 @@ public class VoicemeApplication extends Application {
         //Fabric.with(this, new Crashlytics());
         auth = new Auth(this);
         FacebookSdk.sdkInitialize(this);
-        Module.register(this);
         webService = ServiceFactory.createRetrofitService(WebService.class);
         Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG

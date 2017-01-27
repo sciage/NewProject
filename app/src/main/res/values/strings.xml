@@ -3,7 +3,10 @@
 
     <string name="facebook_app_id">508355539363001</string>
     <string name="aws_identity_pool">us-east-1:b9755bcf-4179-40ad-8a5e-07d7baa8914c</string>
-    <string name="google_server_client_id">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string>
+  <!--  <string name="google_server_client_id">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string> -->
+    <string name="google_server_client_id">345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com</string>
+
+
     <string name="digits_contact">Enter Phone No.</string>
 
     <string name="device_not_supported">Device not supported</string>
@@ -33,7 +36,7 @@
     <string name="title_activity_audio_status">AudioStatus</string>
 
     <string name="FACEBOOK_APP_ID">508355539363001</string>
-    <string name="GOOGLE_SERVER_CLIENT_ID">454460603852-giqs3geaer8jovq7br88bengkeetbfnr.apps.googleusercontent.com</string>
+    <string name="GOOGLE_SERVER_CLIENT_ID">345616717721-d1ege0ithbp2q9975fl2lsa65472prs5.apps.googleusercontent.com</string>
 
     <string name="title_activity_feeling_details">FeelingDetailsActivity</string>
     <string name="title_activity_user_hug_counter">UserHugCounterActivity</string>

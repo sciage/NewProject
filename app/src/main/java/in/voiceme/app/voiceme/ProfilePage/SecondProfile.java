@@ -15,7 +15,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.userpost.Response;
@@ -52,7 +51,13 @@ public class SecondProfile extends BaseActivity implements View.OnClickListener 
             e.printStackTrace();
         }
         setContentView(R.layout.activity_second_profile);
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Toast.makeText(this, "user ID: " + profileUserId, Toast.LENGTH_SHORT).show();
 

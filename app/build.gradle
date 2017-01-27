@@ -17,17 +17,17 @@ repositories {
 }
 
 // Uncomment if you want to use Java 8 syntax without switching to the Jack+Jill compilers
-// apply plugin: 'me.tatarka.retrolambda'
+ apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    //    signingConfigs {
-    //        config {
-    //            storeFile file('C:/Users/harish/Desktop/VoicemeKeyStore.jks')
-    //            keyAlias 'VoicemeAlias'
-    //            keyPassword 'hemlata1'
-    //            storePassword 'shambhavi12345'
-    //        }
-    //    }
+        signingConfigs {
+            config {
+                storeFile file('C:/Users/harish/Desktop/VoicemeKeyStore.jks')
+                keyAlias 'VoicemeAlias'
+                keyPassword 'hemlata1'
+                storePassword 'shambhavi12345'
+            }
+        }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -61,6 +61,7 @@ android {
             Commented for now can't find config file
              */
             //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
     }
 }

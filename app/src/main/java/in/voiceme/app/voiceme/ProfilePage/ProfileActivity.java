@@ -100,15 +100,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             return;
         int viewId = view.getId();
 
-        if (viewId == R.id.total_post_layout) {
+        if (viewId == R.id.total_post_layout || viewId == R.id.user_profile_textview || viewId == R.id.total_posts_counter) {
             Intent intent = new Intent(this, TotalPostsActivity.class);
             intent.putExtra(Constants.TOTAL_POST, MySharedPreferences.getUserId(preferences));
             startActivity(intent);
-        } else if (viewId == R.id.follower_column) {
+        } else if (viewId == R.id.follower_column || viewId == R.id.profile_followers || viewId == R.id.action_followers) {
             Intent intent = new Intent(this, FollowersActivity.class);
             intent.putExtra(Constants.USER_FOLLOW, MySharedPreferences.getUserId(preferences));
             startActivity(intent);
-        } else if (viewId == R.id.following_layout) {
+        } else if (viewId == R.id.following_layout || viewId == R.id.profile_following || viewId == R.id.action_following) {
             Intent intent = new Intent(this, FollowingActivity.class);
             intent.putExtra(Constants.USER_FOLLOWING, MySharedPreferences.getUserId(preferences));
             startActivity(intent);

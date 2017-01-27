@@ -219,7 +219,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
         if (view.getId() == R.id.detail_btn_send_message) {
             sendMessage();
         } else if (view.getId() == R.id.detail_list_item_post_userNickName ||
-                   view.getId() == R.id.detail_list_item_posts_avatar){
+                view.getId() == R.id.detail_list_item_posts_avatar){
             Intent intent = new Intent(this, SecondProfile.class);
             Toast.makeText(view.getContext(), "Post ID is " + myList.get(0).getIdUserName(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.SECOND_PROFILE_ID, myList.get(0).getIdUserName());
@@ -234,10 +234,10 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             startActivity(intent);
         } else if (view.getId() == R.id.detail_post_likes_counter){
 
-                Intent intent = new Intent(this, UserLikeCounterActivity.class);
-                Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
-                intent.putExtra(Constants.LIKE_FEELING, myList.get(0).getIdPosts());
-                startActivity(intent);
+            Intent intent = new Intent(this, UserLikeCounterActivity.class);
+            Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
+            intent.putExtra(Constants.LIKE_FEELING, myList.get(0).getIdPosts());
+            startActivity(intent);
         } else if(view.getId() == R.id.detail_post_hugs_counter){
             Intent intent = new Intent(this, UserHugCounterActivity.class);
             Toast.makeText(this, "Post ID is " + myList.get(0).getIdPosts(), Toast.LENGTH_SHORT).show();
@@ -386,15 +386,15 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         this.myList = myList;
 
-                user_name.setText(myList.get(0).getUserNicName());
-                timeStamp.setText(myList.get(0).getPostTime());
-                postMessage.setText(myList.get(0).getTextStatus());
-                feeling.setText(myList.get(0).getEmotions());
-                category.setText(myList.get(0).getCategory());
-                post_comments.setText(myList.get(0).getComments());
-                like_counter.setText(myList.get(0).getLikes());
-                same_counter.setText(myList.get(0).getSame());
-                hug_counter.setText(myList.get(0).getHug());
+        user_name.setText(myList.get(0).getUserNicName());
+        timeStamp.setText(myList.get(0).getPostTime());
+        postMessage.setText(myList.get(0).getTextStatus());
+        feeling.setText(myList.get(0).getEmotions());
+        category.setText(myList.get(0).getCategory());
+        post_comments.setText(myList.get(0).getComments());
+        like_counter.setText(myList.get(0).getLikes());
+        same_counter.setText(myList.get(0).getSame());
+        hug_counter.setText(myList.get(0).getHug());
 
 
         if (myList.get(0).getAudioDuration() != null){
@@ -497,7 +497,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             hugCounter++;
             hug_counter.setText(NumberFormat.getIntegerInstance().format(hugCounter));
             String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" + myList.get(0).getIdUserName()
-                       + "_postId@" + postId  + "_click@" + "2";
+                    + "_postId@" + postId  + "_click@" + "2";
 
             sendLikeToServer(application, 0, 1, 0, 0, "clicked hug button");
             if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
@@ -509,7 +509,7 @@ public class PostsDetailsActivity extends BaseActivity implements View.OnClickLi
             sameCounter++;
             same_counter.setText(NumberFormat.getIntegerInstance().format(sameCounter));
             String sendLike = "senderid@" + MySharedPreferences.getUserId(preferences) + "_contactId@" +
-            myList.get(0).getIdUserName() + "_postId@" + postId  + "_click@" + "3";
+                    myList.get(0).getIdUserName() + "_postId@" + postId  + "_click@" + "3";
             sendLikeToServer(application, 0, 0, 1, 0, "clicked same button");
             if (MySharedPreferences.getUserId(preferences).equals(myList.get(0).getIdUserName())){
                 Toast.makeText(this, "same user", Toast.LENGTH_SHORT).show();
