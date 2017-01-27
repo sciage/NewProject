@@ -26,7 +26,8 @@ import rx.Observable;
 
 public interface WebService {
     @GET("posts.php")
-    Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID);
+    Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
+                                               @Query("page") int page);
 
     // Todo donot know about this call
     @GET("posts.php")
@@ -51,7 +52,8 @@ public interface WebService {
 
     @GET("posts.php")
     Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
-                                                     @Query("user_id") String user_id);
+                                                     @Query("user_id") String user_id,
+                                                     @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getActivityPosts(@Query("id_user") String id_user,

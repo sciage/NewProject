@@ -71,6 +71,17 @@ public class DiscoverPopularFragment extends BaseFragment {
     private void initUiView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_discover_popular_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
     }
 
     @Override

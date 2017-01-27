@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,37 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context mContext;
     private int mLastPosition = 5;
     private double current_lat, current_long;
+    private boolean isLoadingAdded = false;
+    private boolean retryPageLoad = false;
+    private String errorMsg;
+
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        int position = dataSet.size() - 1;
+        PostsModel result = getItem(position);
+
+        if (result != null) {
+            removeItem(position);
+        }
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        applyAndAnimateMovedItems(dataSet);
+    }
+
+    public void showRetry(boolean show, @Nullable String errorMsg) {
+        retryPageLoad = show;
+        notifyItemChanged(dataSet.size() - 1);
+
+        if (errorMsg != null) this.errorMsg = errorMsg;
+    }
+
+
+
+
 
 
 
