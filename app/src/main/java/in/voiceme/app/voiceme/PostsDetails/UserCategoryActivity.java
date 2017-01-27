@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.PostsDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.like.LikeButton;
 
 import java.util.List;
@@ -20,6 +23,8 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.userpost.AudioStatus;
+import in.voiceme.app.voiceme.userpost.TextStatus;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class UserCategoryActivity extends BaseActivity {
@@ -35,6 +40,12 @@ public class UserCategoryActivity extends BaseActivity {
     private String work = "work";
     private String social = "social";
     private String others = "others";
+
+
+    FloatingActionButton textStatus;
+    FloatingActionButton audioStatus;
+    FloatingActionsMenu rightLabels;
+
 
     private String currentCategoryID;
 
@@ -71,6 +82,32 @@ public class UserCategoryActivity extends BaseActivity {
             Toast.makeText(this, "emotion ID = 5", Toast.LENGTH_SHORT).show();
             setFeeling("5");
         }
+
+        rightLabels = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        textStatus = (FloatingActionButton) findViewById(R.id.action_a);
+        audioStatus = (FloatingActionButton) findViewById(R.id.action_b);
+
+        textStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                processLoggedState(view);
+                Toast.makeText(UserCategoryActivity.this, "Button 01", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserCategoryActivity.this, TextStatus.class));
+                rightLabels.toggle();
+
+            }
+        });
+
+
+        audioStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                processLoggedState(view);
+                Toast.makeText(UserCategoryActivity.this, "button 02", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserCategoryActivity.this, AudioStatus.class));
+                rightLabels.toggle();
+            }
+        });
 
 
         LinearLayoutManager llm = new LinearLayoutManager(this);

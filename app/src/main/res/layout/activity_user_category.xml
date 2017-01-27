@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:id="@+id/user_category_recyclerview" />
     </LinearLayout>
-
+    <include layout="@layout/floating_action_bar" />
     <include layout="@layout/include_main_nav_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

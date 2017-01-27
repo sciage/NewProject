@@ -11,7 +11,6 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -25,6 +24,7 @@ public class TextStatus extends BaseActivity {
     private String category;
     private String feeling;
     private String textStatus;
+    private TextView choosen_category;
 
 
     private Button button_post_text_status;
@@ -34,7 +34,14 @@ public class TextStatus extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_text_status);
         getSupportActionBar().setTitle("Text Status");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         textView_category = (TextView) findViewById(R.id.textView_category);
         textView_feeling = (TextView) findViewById(R.id.textView_feeling);

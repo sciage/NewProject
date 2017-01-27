@@ -179,6 +179,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
+
+
     @Override
     public int getItemCount() {
         if (dataSet != null)

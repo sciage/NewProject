@@ -4,13 +4,16 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
 import com.squareup.otto.Bus;
 
+import in.voiceme.app.voiceme.ReleaseTree;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import timber.log.Timber;
@@ -49,13 +52,20 @@ public class VoicemeApplication extends Application {
         auth = new Auth(this);
         FacebookSdk.sdkInitialize(this);
         webService = ServiceFactory.createRetrofitService(WebService.class);
-        Timber.plant(new Timber.DebugTree() {
+
+        /*****************************************/
+    /*    Timber.plant(new Timber.DebugTree() {
             // Add the line number to the TAG
             @Override
             protected String createStackElementTag(StackTraceElement element) {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
-        });
+        }); */
+        /******************************************/
+        Fabric.with(this, new Crashlytics());
+        Timber.plant(new ReleaseTree());
+
+
         context = getApplicationContext();
         /**
          *Creates a periodic job to refresh token
