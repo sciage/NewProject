@@ -11,8 +11,6 @@
 
     <string name="device_not_supported">Device not supported</string>
     <string name="device_not_supported_message">FFmpeg is not supported on your device</string>
-
-
     <string name="session_expiration">Session expiration</string>
     <string name="values">Values</string>
     <string name="when">When</string>
@@ -21,7 +19,6 @@
     <string name="put_values">Put values</string>
     <string name="refresh_values">Refresh values</string>
     <string name="unset">#UNSET</string>
-
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>

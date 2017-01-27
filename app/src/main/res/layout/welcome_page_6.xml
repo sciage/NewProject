@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright Txus Ballesteros 2016 (@txusballesteros)
 This file is part of some open source application.
 Licensed to the Apache Software Foundation (ASF) under one
@@ -18,66 +17,69 @@ specific language governing permissions and limitations
 under the License.
 Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
 -->
-<com.redbooth.WelcomePageLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.redbooth.WelcomePageLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/welcome_page"
-    tools:background="@color/page3">
+    style="@style/contact_page01"
+    tools:background="@color/page1">
+
 
     <TextView
+        android:id="@+id/personal_contact_heading"
+        style="@style/text_subtitle"
+        android:text="OK You need few \npermission  to get started"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxTitleBehaviour" />
+
+
+    <ImageView
+        android:id="@+id/contact_page_02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/contact_privacy_policy"
-        android:text="Privacy Policy"
-        android:layout_alignParentTop="true"
-        android:textSize="30sp"
+        android:layout_below="@+id/personal_contact_heading"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:background="@drawable/contact_01" />
+
 
     <TextView
-        style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_01"
-        android:layout_below="@+id/contact_privacy_policy"
-        android:gravity="center"
-        android:text="We use your contacts to find \n anonymous posts from your \n friends and family members \n who are already using our app"
-        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
-
-    <TextView
-        style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_02"
-        android:layout_below="@+id/contact_point_01"
-        android:gravity="center"
-        android:text="You control your identity inside\n this anonymous community. \nNo one will reveal your true identity\n to your friends or family."
-        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
-
-    <TextView
-        style="@style/text_subtitle_privacy"
-        android:id="@+id/contact_point_03"
-        android:layout_below="@+id/contact_point_02"
-        android:gravity="center"
-        android:text="You will only see posts if any user\n from your contact list is using our app."
-        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
-
-    <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/contact_sub_heading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Verified"
-        android:textColor="@color/md_green_50"
-        android:padding="5dp"
-        android:layout_below="@id/contact_point_03"
+        android:layout_below="@+id/contact_page_02"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:paddingTop="30dp"
+        android:text="Phone Book"
+        android:textSize="20sp"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxTitleBehaviour" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/text_subtitle"
+        android:layout_below="@+id/contact_sub_heading"
+        android:text="See friend's anonymous posts"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+
+    <TextView
         android:id="@+id/all_person_contact_verified"
-        android:textSize="25sp"/>
+        style="@style/text_subtitle"
+        android:layout_below="@+id/subtitle"
+        android:text="Privacy policy"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
+<TextView
+        android:id="@+id/privacy_policy"
+        style="@style/text_subtitle"
+        android:layout_below="@+id/all_person_contact_verified"
+        android:text="Privacy policy"
+        app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_get_all_contacts"
-        android:layout_below="@+id/all_person_contact_verified"
+        android:layout_below="@+id/privacy_policy"
         android:layout_centerHorizontal="true"
-        android:text="See Anonymous Posts"/>
-
+        android:text="Allow Access 2 of 2"/>
 
 </com.redbooth.WelcomePageLayout>
+
+

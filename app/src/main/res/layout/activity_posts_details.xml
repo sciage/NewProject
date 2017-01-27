@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <include
-            layout="@layout/include_toolbar2"
+            layout="@layout/include_toolbar3"
             android:background="@color/toolbar_Color" />
 
 
