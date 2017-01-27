@@ -203,7 +203,7 @@ public class RegisterActivity extends BaseActivity
 
             try {
                 getData(result.getSignInAccount().getDisplayName(), result.getSignInAccount().getId(),
-                        result.getSignInAccount().getEmail(), result.getSignInAccount().getPhotoUrl());
+                        result.getSignInAccount().getEmail(), Uri.parse(""));
 
             } catch (Exception e) {
                 e.printStackTrace();

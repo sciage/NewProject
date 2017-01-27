@@ -196,7 +196,7 @@ public class ActivityUtils {
     } else {
       ActivityCompat.requestPermissions(activity,
               new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-              activity.getResources().getInteger(R.integer.read_external_storage_request));
+              activity.getResources().getInteger(R.integer.recorder_request));
     }
 
     return false;
@@ -244,6 +244,7 @@ public class ActivityUtils {
       return true;
     }
   }
+
 
   public static boolean isStoragePermissionGranted(Activity activity, int storageRequestId) {
 

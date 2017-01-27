@@ -123,6 +123,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private void readAudioFileStorage() {
+        if (ActivityUtils.isReadStoragePermission(this)) {
+            done();
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -163,7 +169,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
             play.setVisibility(View.VISIBLE);
             stopRecording();
         } else if (v.getId() == R.id.done){
-            done();
+            readAudioFileStorage();
         } else if (v.getId() == R.id.pause){
             listenStop();
             done.setVisibility(View.VISIBLE);

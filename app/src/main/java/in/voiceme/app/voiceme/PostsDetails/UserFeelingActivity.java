@@ -42,7 +42,7 @@ public class UserFeelingActivity extends BaseActivity {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setContentView(R.layout.activity_user_feeling);
-        getSupportActionBar().setTitle("LoginUser Feelings");
+        getSupportActionBar().setTitle("Feelings Posts");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

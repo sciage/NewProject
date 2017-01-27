@@ -43,7 +43,7 @@ public class UserCategoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_category);
-        getSupportActionBar().setTitle("LoginUser Feelings");
+        getSupportActionBar().setTitle("Category Posts");
         toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

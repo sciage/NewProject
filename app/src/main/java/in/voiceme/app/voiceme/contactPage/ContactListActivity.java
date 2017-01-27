@@ -15,6 +15,7 @@ import in.voiceme.app.voiceme.DiscoverPage.LikeUnlikeClickListener;
 import in.voiceme.app.voiceme.ProfilePage.TotalPostsAdapter;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
+import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
@@ -34,14 +35,7 @@ public class ContactListActivity extends BaseContact {
 
         setContentView(R.layout.activity_contact_list);
         getSupportActionBar().setTitle("Contacts Posts");
-        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processLoggedState(v);
-                finish();
-            }
-        });
+        setNavDrawer(new MainNavDrawer(this));
 
         recyclerView = (RecyclerView) findViewById(R.id.personal_contact_recyclerview);
 

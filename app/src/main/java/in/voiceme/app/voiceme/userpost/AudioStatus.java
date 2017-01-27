@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
+import in.voiceme.app.voiceme.utils.ActivityUtils;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -95,9 +96,9 @@ public class AudioStatus extends BaseActivity {
                 if (category == null || feeling == null || textStatus == null) {
                     Toast.makeText(AudioStatus.this, "Please select all categories to Post Status", Toast.LENGTH_SHORT).show();
                 }
-                uploadFile(Uri.parse(filepath));
-                // network call from retrofit
 
+                // network call from retrofit
+                readAudioFileStorage();
             }
         });
 
@@ -151,6 +152,11 @@ public class AudioStatus extends BaseActivity {
         }
     }
 
+    private void readAudioFileStorage() {
+        if (ActivityUtils.isReadStoragePermission(this)) {
+            uploadFile(Uri.parse(filepath));
+        }
+    }
 
 
     private void uploadFile(Uri fileUri) {

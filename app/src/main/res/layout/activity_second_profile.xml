@@ -18,11 +18,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/second_profile_header_banner">
 
-            <include layout="@layout/include_toolbar" />
+            <include layout="@layout/include_toolbar4" />
 
             <com.intrusoft.library.FrissonView
                 android:id="@+id/second_wave_head"
                 android:layout_width="match_parent"
+                android:layout_below="@+id/include_toolbar"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
                 frisson:tideCount="3"
@@ -38,7 +39,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="120dp"
                 android:src="@drawable/intruder_shanky"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>

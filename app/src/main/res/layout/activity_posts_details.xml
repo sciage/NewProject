@@ -10,12 +10,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/toolbar_Color"
         android:layout_height="match_parent">
 
         <include
-            layout="@layout/include_toolbar3"
-            android:background="@color/toolbar_Color" />
+            layout="@layout/include_toolbar3" />
 
 
 

@@ -1,20 +1,8 @@
 package in.voiceme.app.voiceme;
 
-import android.app.Application;
-
-import com.crashlytics.android.Crashlytics;
-import com.facebook.FacebookSdk;
-import com.squareup.otto.Bus;
-
-import in.voiceme.app.voiceme.infrastructure.Auth;
-import in.voiceme.app.voiceme.services.ServiceFactory;
-import in.voiceme.app.voiceme.services.WebService;
-import io.fabric.sdk.android.Fabric;
-import timber.log.Timber;
-
 /**
  * Created by Harish on 7/20/2016.
- */
+
 public class VoicemeApplication extends Application {
     private Auth auth;
     private Bus bus;
@@ -48,3 +36,4 @@ public class VoicemeApplication extends Application {
         return bus;
     }
 }
+ */
