@@ -10,4 +10,5 @@
   <integer name="camera_request">2000</integer>
   <integer name="storage_request">3000</integer>
   <integer name="contacts_request">4000</integer>
+  <integer name="recorder_request">5000</integer>
 </resources>

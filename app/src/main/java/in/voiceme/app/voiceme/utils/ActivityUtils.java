@@ -154,6 +154,41 @@ public class ActivityUtils {
     return false;
   }
 
+  public static boolean isAudioRecordingPermission(Activity activity) {
+
+    if (isAudioPermissionGranted(activity)) {
+
+      return true;
+    } else {
+      ActivityCompat.requestPermissions(activity,
+          new String[] { Manifest.permission.RECORD_AUDIO },
+          activity.getResources().getInteger(R.integer.recorder_request));
+    }
+
+    return false;
+  }
+
+  private static boolean isAudioPermissionGranted(Activity activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+              == PackageManager.PERMISSION_GRANTED) {
+        Timber.d("Permission is granted");
+        return true;
+      } else {
+
+        Timber.d("Permission is revoked");
+        ActivityCompat.requestPermissions(activity,
+                new String[] { Manifest.permission.RECORD_AUDIO },
+                activity.getResources().getInteger(R.integer.recorder_request));
+        return false;
+      }
+    } else { //permission is automatically granted on sdk<23 upon installation
+      Timber.d("Permission is granted");
+      return true;
+    }
+  }
+
+
   private static boolean isContactsPermissionGranted(Activity activity) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       if (activity.checkSelfPermission(Manifest.permission.READ_CONTACTS)

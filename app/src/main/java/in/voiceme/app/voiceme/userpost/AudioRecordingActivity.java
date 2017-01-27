@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
+import in.voiceme.app.voiceme.utils.ActivityUtils;
 
 public class AudioRecordingActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "AudioFxActivity";
@@ -110,6 +111,12 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         cancel.setOnClickListener(this);
     }
 
+    private void recordActivity() {
+        if (ActivityUtils.isAudioRecordingPermission(this)) {
+            start();
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -144,7 +151,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         } else if(v.getId() == R.id.record){
             record.setVisibility(View.GONE);
             stop.setVisibility(View.VISIBLE);
-            start();
+            recordActivity();
         } else if (v.getId() == R.id.stop){
             stop.setVisibility(View.GONE);
             play.setVisibility(View.VISIBLE);
