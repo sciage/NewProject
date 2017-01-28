@@ -79,11 +79,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-
-
-
-
-
     public LatestListAdapter(List<PostsModel> productLists, Context mContext) {
         this.mContext = mContext;
         this.dataSet = productLists;
@@ -175,9 +170,18 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    @Override
+    public int getItemCount() {
+        if (dataSet != null)
+            return dataSet.size();
+        //       return 25;
+        else
+            return 0;
+    }
 
     @Override
     public int getItemViewType(int position) {
+     //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
         return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
@@ -213,13 +217,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    @Override
-    public int getItemCount() {
-        if (dataSet != null)
-            return dataSet.size();
-        else
-            return 0;
-    }
+
 
 
     // Provide a reference to the views for each data item
