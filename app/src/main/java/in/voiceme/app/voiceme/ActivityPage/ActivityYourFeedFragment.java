@@ -205,14 +205,20 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         hideErrorView();
-                        activityYourFeedAdapter.removeLoadingFooter();
-                        isLoading = false;
+
 
                         currentResults = response.size();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
-                        if (currentPage != TOTAL_PAGES) activityYourFeedAdapter.addLoadingFooter();
-                        else isLastPage = true;
+                        if (response.size() == 0){
+                            return;
+                        } else {
+                            showRecycleWithDataFilled(response);
+                            activityYourFeedAdapter.removeLoadingFooter();
+                            isLoading = false;
+                            if (currentPage != TOTAL_PAGES) activityYourFeedAdapter.addLoadingFooter();
+                            else isLastPage = true;
+                        }
+
                     }
                     @Override
                     public void onError(Throwable e){

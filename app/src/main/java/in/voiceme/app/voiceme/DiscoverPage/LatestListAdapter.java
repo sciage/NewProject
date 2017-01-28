@@ -172,17 +172,21 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if (dataSet != null)
-            return dataSet.size();
-        //       return 25;
-        else
+        if (dataSet.size() == 0){
             return 0;
+        }else {
+            return dataSet.size();
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
      //   return (position == dataSet.size() - 1) ? VIEW_ITEM : VIEW_PROG;
-        return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+     // current   return dataSet.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        if (dataSet.size() == 0){
+            return 0;
+        }
+        return dataSet.get((dataSet.size() - 1)) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     @Override
@@ -206,6 +210,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof EventViewHolder) {
+            position = (dataSet.size() - 1);
             PostsModel dataItem = dataSet.get(position);
             ((EventViewHolder) holder).bind(dataItem);
         } else {
