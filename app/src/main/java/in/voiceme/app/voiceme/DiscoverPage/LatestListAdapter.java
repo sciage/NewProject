@@ -68,7 +68,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        applyAndAnimateMovedItems(dataSet);
+        applyAndAnimateAdditions(dataSet);
     }
 
     public void showRetry(boolean show, @Nullable String errorMsg) {
@@ -200,7 +200,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             throw new IllegalStateException("Invalid type, this type ot items " + viewType + " can't be handled");
         }
-
         return vh;
     }
 
@@ -261,6 +260,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     if (mediaPlayer != null){
                         try {
                             mediaPlayer.stop();
+                            mediaPlayer.reset();
+                            mediaPlayer.release();
                         } catch (Exception e){
 
                         }
@@ -286,6 +287,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 flipPlayPauseButton(false);
+                                mediaPlayer.stop();
                             }
                         });
                         mediaPlayer.prepareAsync();

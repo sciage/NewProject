@@ -28,8 +28,6 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     protected int likeCounter;
     protected int hugCounter;
     protected int sameCounter;
-
-    protected MediaPlayer player;
     //Imageview for avatar and play pause button
 
     protected ImageView user_avatar;

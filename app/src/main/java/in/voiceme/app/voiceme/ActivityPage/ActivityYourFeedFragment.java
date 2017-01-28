@@ -44,6 +44,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
     // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
     private int TOTAL_PAGES = 5;
     private int currentPage = PAGE_START;
+    private int currentResults;
 
     private int mPage;
     private RecyclerView recyclerView;
@@ -98,7 +99,12 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                 isLoading = true;
                 currentPage += 1;
 
-                loadNextPage();
+                if (currentResults < 25){
+                    return;
+                } else {
+                    loadNextPage();
+                }
+
             }
 
             @Override
@@ -170,6 +176,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
+                        currentResults = response.size();
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showRecycleWithDataFilled(response);
@@ -201,7 +208,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         activityYourFeedAdapter.removeLoadingFooter();
                         isLoading = false;
 
-
+                        currentResults = response.size();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) activityYourFeedAdapter.addLoadingFooter();
