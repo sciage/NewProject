@@ -42,7 +42,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Secret World"
+        android:text="Welcome"
         android:textSize="30sp"
         android:layout_below="@+id/rocket_page4"
         android:layout_centerHorizontal="true"

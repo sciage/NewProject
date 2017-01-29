@@ -76,6 +76,25 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         pause = (ImageView) findViewById(R.id.pause);
         cancel = (ImageView) findViewById(R.id.cancel_recording);
 
+        initialiseAudio();  // IOException=- set data source failed.
+
+        handler.post(updateThread);
+
+        play.setOnClickListener(this);
+        play.setVisibility(View.GONE);
+        stop.setVisibility(View.GONE);
+        done.setVisibility(View.GONE);
+        pause.setVisibility(View.GONE);
+        cancel.setVisibility(View.GONE);
+        record.setOnClickListener(this);
+        stop.setOnClickListener(this);
+        done.setOnClickListener(this);
+        pause.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+    }
+
+    private void initialiseAudio() {
+
         mMediaPlayer = new MediaPlayer();
         try {
             mMediaPlayer.setDataSource(filePath);
@@ -95,24 +114,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
                         }
                     }
                 });
-
-        handler.post(updateThread);
-
-        play.setOnClickListener(this);
-        play.setVisibility(View.GONE);
-        stop.setVisibility(View.GONE);
-        done.setVisibility(View.GONE);
-        pause.setVisibility(View.GONE);
-        cancel.setVisibility(View.GONE);
-        record.setOnClickListener(this);
-        stop.setOnClickListener(this);
-        done.setOnClickListener(this);
-        pause.setOnClickListener(this);
-        cancel.setOnClickListener(this);
     }
 
     private void recordActivity() {
-        if (ActivityUtils.isAudioRecordingPermission(this)) {
+        if (ActivityUtils.recordPermissionGranted(this)) {
             start();
         }
     }

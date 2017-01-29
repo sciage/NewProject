@@ -96,7 +96,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             public void success(DigitsSession session, String phoneNumber) {
                 Timber.v("DIGITS SUCCESSFUL authentication");
                 Timber.v("phone number: " + phoneNumber);
-                application.getAuth().getUser().setPhoneNumber(true);
+               // application.getAuth().getUser().setPhoneNumber(true);
 
                 givenPersonalContact = true;
                 personalContact.setVisibility(View.VISIBLE);

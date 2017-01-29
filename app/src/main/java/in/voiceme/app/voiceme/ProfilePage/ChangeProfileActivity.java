@@ -86,7 +86,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void changeProfileRequest() {
-        ActivityUtils.openGallery(this);
+      //  ActivityUtils.openGallery(this);
+        ActivityUtils.cameraPermissionGranted(this);
         changeAvatar();
     }
 
