@@ -37,19 +37,6 @@ tools:showIn="@layout/activity_login_user_details">
                 app:maxChars="20"
                 app:minChars="5" />
 
-            <com.emmasuzuki.easyform.EasyTextInputLayout
-                android:id="@+id/login_start_about_me"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_below="@+id/login_start_username"
-                android:layout_marginTop="8dp"
-                android:gravity="top"
-                android:hint="Tell Us About Yourself"
-                app:errorMessage="About me should not be more than 50 chars"
-                app:maxChars="50"
-                app:minChars="6" />
-
-
         </com.emmasuzuki.easyform.EasyForm>
 
     <Button

@@ -3,6 +3,7 @@ package in.voiceme.app.voiceme.ActivityPage;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,7 +49,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
     private int mPage;
     private RecyclerView recyclerView;
-    private LatestListAdapter activityYourFeedAdapter;
+    private LatestListAdapter latestListAdapter;
     ProgressBar progressBar;
     LinearLayout errorLayout;
     TextView txtError;
@@ -124,6 +125,12 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
         });
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
     private void showErrorView(Throwable throwable) {
 
         if (errorLayout.getVisibility() == View.GONE) {
@@ -176,11 +183,10 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         progressBar.setVisibility(View.GONE);
-                        currentResults = response.size();
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
                         showRecycleWithDataFilled(response);
-                        if (currentPage <= TOTAL_PAGES) activityYourFeedAdapter.addLoadingFooter();
+                        if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
                     @Override
@@ -190,7 +196,6 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     }
                 });
     }
-
 
     private void loadNextPage() {
         Log.d(TAG, "loadNextPage: " + currentPage);
@@ -205,29 +210,25 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                     @Override
                     public void onNext(List<PostsModel> response) {
                         hideErrorView();
+                        latestListAdapter.removeLoadingFooter();
+                        isLoading = false;
 
 
-                        currentResults = response.size();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        if (response.size() == 0){
-                            return;
-                        } else {
-                            showRecycleWithDataFilled(response);
-                            activityYourFeedAdapter.removeLoadingFooter();
-                            isLoading = false;
-                            if (currentPage != TOTAL_PAGES) activityYourFeedAdapter.addLoadingFooter();
-                            else isLastPage = true;
-                        }
-
+                        showRecycleWithDataFilled(response);
+                        if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
+                        else isLastPage = true;
                     }
                     @Override
                     public void onError(Throwable e){
                         e.printStackTrace();
-                        activityYourFeedAdapter.showRetry(true, fetchErrorMessage(e));
+                        latestListAdapter.showRetry(true, fetchErrorMessage(e));
                     }
                 });
 
     }
+
+
 
     @Override
     public String toString() {
@@ -236,8 +237,8 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
 
     private void showRecycleWithDataFilled(final List<PostsModel> myList) {
-        activityYourFeedAdapter = new LatestListAdapter(myList, getActivity());
-        activityYourFeedAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
+        latestListAdapter = new LatestListAdapter(myList, getActivity());
+        latestListAdapter.setOnItemClickListener(new LikeUnlikeClickListener() {
             @Override
             public void onItemClick(PostsModel model, View v) {
                 String name = model.getIdUserName();
@@ -248,7 +249,7 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
 
             }
         });
-        recyclerView.setAdapter(activityYourFeedAdapter);
+        recyclerView.setAdapter(latestListAdapter);
     }
 
     @Override

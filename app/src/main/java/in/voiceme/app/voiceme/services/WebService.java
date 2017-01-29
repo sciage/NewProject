@@ -36,11 +36,13 @@ public interface WebService {
 
     @GET("posts.php")
     Observable<List<PostsModel>> getPopulars(@Query("user_id") String userID,
-                                             @Query("popular") String booleann);
+                                             @Query("popular") String booleann,
+                                             @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getTrending(@Query("user_id") String userID,
-                                             @Query("trending") String booleann);
+                                             @Query("trending") String booleann,
+                                             @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getSinglePost(@Query("id_posts") String booleann,
@@ -48,7 +50,8 @@ public interface WebService {
 
     @GET("posts.php")
     Observable<List<PostsModel>> getSingleUserPosts(@Query("id_user") String id_user,
-                                                    @Query("user_id") String user_id);
+                                                    @Query("user_id") String user_id,
+                                                    @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
@@ -58,7 +61,8 @@ public interface WebService {
     @GET("posts.php")
     Observable<List<PostsModel>> getActivityPosts(@Query("id_user") String id_user,
                                                   @Query("filtered") String filtered,
-                                                  @Query("user_id") String user_id);
+                                                  @Query("user_id") String user_id,
+                                                  @Query("page") int page);
 
     @GET("posts.php")
     Observable<List<PostsModel>> getContactPosts(@Query("id_user_name") String id_user_name,

@@ -62,7 +62,7 @@ public class TotalPostsActivity extends BaseActivity {
 
     private void getData() throws Exception {
         ((VoicemeApplication) getApplication()).getWebService()
-                .getSingleUserPosts(userId, userId)
+                .getSingleUserPosts(userId, userId, 1)  // add pagination
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<List<PostsModel>>() {
                     @Override
