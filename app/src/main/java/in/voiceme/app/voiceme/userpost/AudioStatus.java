@@ -16,7 +16,6 @@ import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
@@ -53,7 +52,15 @@ public class AudioStatus extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_audio_status);
         getSupportActionBar().setTitle("Audio Status");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         textView_category = (TextView) findViewById(R.id.textView_category);
         textView_feeling = (TextView) findViewById(R.id.textView_feeling);

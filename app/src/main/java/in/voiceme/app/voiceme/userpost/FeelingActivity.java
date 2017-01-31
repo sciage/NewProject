@@ -10,7 +10,6 @@ import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 
 public class FeelingActivity extends BaseActivity {
     private MaterialAnimatedSwitch happy_switch_button;
@@ -26,7 +25,15 @@ public class FeelingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeling);
         getSupportActionBar().setTitle("Choose Feeling");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         Button button = (Button) findViewById(R.id.btn_feeling);
 

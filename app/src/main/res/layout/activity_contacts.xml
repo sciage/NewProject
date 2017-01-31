@@ -14,11 +14,12 @@
         app:indicatorUnselected="#99b7b7b7"
         app:indicatorSelected="#bfb7b7b7" />
 
-    <Button
+    <ImageView
         style="?attr/borderlessButtonStyle"
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@mipmap/ic_ab_close"
         android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"/>

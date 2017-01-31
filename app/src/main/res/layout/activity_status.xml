@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_status"
-                    android:text="go back"/>
+                    android:text="Done"/>
 
 
 

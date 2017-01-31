@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
 
+import in.voiceme.app.voiceme.ActivityPage.MainActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
 import in.voiceme.app.voiceme.contactPage.animators.InSyncAnimator;
@@ -38,19 +40,19 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ContactsActivity extends BaseActivity implements View.OnClickListener {
- //   private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
- //   private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
+    //   private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
+    //   private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
     private Button getAllContacts;
     private Button enterButton;
     // private DigitsAuthButton digitsButton;
 
-  //  private AuthCallback callback;
-  //  private Button digitsAuthButton;
+    //  private AuthCallback callback;
+    //  private Button digitsAuthButton;
     // private TextView personalContact;
     private TextView allPersonalContact;
     private boolean givenPersonalContact = false;
     private boolean givenAllPersonalContact = false;
-    private Button skip;
+    private ImageView skip;
 
     private boolean animationReady = false;
     private ValueAnimator backgroundAnimator;
@@ -65,8 +67,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  //      TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-  //      Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
+        //      TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        //      Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
 
         setContentView(R.layout.activity_contacts);
 
@@ -76,7 +78,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         initializePages();
         initializeBackgroundTransitions();
 
-        skip = (Button) findViewById(R.id.skip);
+        skip = (ImageView) findViewById(R.id.skip);
 
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
         enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
@@ -84,7 +86,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 //        personalContact = (TextView) findViewById(R.id.person_contact_verified);
         allPersonalContact = (TextView) findViewById(R.id.all_person_contact_verified);
 
-  //      personalContact.setVisibility(View.GONE);
+        //      personalContact.setVisibility(View.GONE);
         allPersonalContact.setVisibility(View.GONE);
 
         enterButton.setOnClickListener(this);
@@ -102,9 +104,9 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
                 givenPersonalContact = true;
 
-               String newPhoneNumber = removeSpecialCharacters(phoneNumber);
-   //             personalContact.setVisibility(View.VISIBLE);
-             //   phoneNumber.toString().replace("+", "");
+                String newPhoneNumber = removeSpecialCharacters(phoneNumber);
+                //             personalContact.setVisibility(View.VISIBLE);
+                //   phoneNumber.toString().replace("+", "");
 
                 try {
                     sendContact(newPhoneNumber);
@@ -236,25 +238,27 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
             readContacts();
 
         } else if (view.getId() == R.id.skip){
-
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
         } else if (view.getId() == R.id.enter_contacts_main_page){
 
             if (givenPersonalContact) {
-                   if (givenAllPersonalContact){
-            enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
-            //  MySharedPreferences.checkContactSent(preferences, "Sent");
-            setAuthToken("token");
-            startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
-            finish();
-            return;
-        } else {
-        Toast.makeText(this, "You have not given your contacts", Toast.LENGTH_SHORT).show();
-         }
-        } else {
-            Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
-         }
+                if (givenAllPersonalContact){
+                    enterButton.setBackgroundColor(getResources().getColor(R.color.contacts_green_button));
+                    //  MySharedPreferences.checkContactSent(preferences, "Sent");
+                    setAuthToken("token");
+                    startActivity(new Intent(ContactsActivity.this, ContactListActivity.class));
+                    finish();
+                    return;
+                } else {
+                    Toast.makeText(this, "You have not given your contacts", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "You have not given your phone number", Toast.LENGTH_SHORT).show();
+            }
 
-         }
+        }
     }
 
     private void readContacts() {

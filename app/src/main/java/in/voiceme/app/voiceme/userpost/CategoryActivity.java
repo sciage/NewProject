@@ -9,7 +9,6 @@ import android.widget.GridView;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 
 public class CategoryActivity extends BaseActivity {
     private GridView gridView = null;
@@ -19,7 +18,15 @@ public class CategoryActivity extends BaseActivity {
         super.onCreate(savedState);
         setContentView(R.layout.activity_category);
         getSupportActionBar().setTitle("Choose Category");
-        setNavDrawer(new MainNavDrawer(this));
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         gridView = (GridView) findViewById(R.id.grid);
         gridView.setAdapter(new GridAdapter(getBaseContext()));
