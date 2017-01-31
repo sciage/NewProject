@@ -38,6 +38,8 @@ public interface Constants {
     String TOTAL_POST = "TOTAL_POST";
 
     String SENT_CONTACT = "SENT_CONTACT";
+    String IDUSERNAME = "IDUSERNAME";
+    String IDPOST = "IDPOST";
 
     String ADD = "add";
     String REMOVE = "remove";

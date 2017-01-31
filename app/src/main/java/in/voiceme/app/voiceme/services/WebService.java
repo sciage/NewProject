@@ -236,11 +236,18 @@ public interface WebService {
     );
 
     @FormUrlEncoded
-    @POST("report_abuse.php")
-    Observable<Response> EditProfile(
-            @Field("id_user_name") String user_id,
-            @Field("id_posts") String id_posts,
-            @Field("abuse_message") String message
+    @POST("updatePosts.php")
+    Observable<Response> EditPosts(
+            @Field("id_posts") String user_id,
+            @Field("text_status") String id_posts,
+            @Field("audio_file_link") String audio_file_link
+    );
+
+    @FormUrlEncoded
+    @POST("updatePostWithoutAudio.php")
+    Observable<Response> updatePostWithoutAudio(
+            @Field("id_posts") String user_id,
+            @Field("text_status") String id_posts
     );
 
 }

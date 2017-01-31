@@ -379,10 +379,10 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.edit_post:
-                            Toast.makeText(itemView.getContext(), "Clicked post edit", Toast.LENGTH_SHORT).show();
+
                             Intent editIntent = new Intent(itemView.getContext(), EditPost.class);
-                            Toast.makeText(itemView.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
-                            editIntent.putExtra(Constants.SAME_FEELING, dataItem.getIdPosts());
+                            editIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
+                            editIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
                             itemView.getContext().startActivity(editIntent);
                             return true;
 
@@ -390,8 +390,8 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
 
                             Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
-                            Toast.makeText(itemView.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
-                            reportIntent.putExtra(Constants.SAME_FEELING, dataItem.getIdPosts());
+                            reportIntent.putExtra(Constants.IDPOST, dataItem.getIdPosts());
+                            reportIntent.putExtra(Constants.IDUSERNAME, dataItem.getIdUserName());
                             itemView.getContext().startActivity(reportIntent);
                             return true;
 
