@@ -193,10 +193,16 @@
         <activity
             android:name=".ProfilePage.SecondProfile"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".userpost.AudioRecordingActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userpost.AudioRecordingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".userpost.PrivacyPolicy"
+            android:screenOrientation="portrait" />
         <activity android:name=".contactPage.BaseContact" />
-        <activity android:name=".login.AnonymousLogin"></activity>
+        <activity android:name=".login.AnonymousLogin" />
+        <activity android:name=".userpost.EditPost" />
+        <activity android:name=".userpost.ReportAbuseActivity"></activity>
     </application>
 
 </manifest>

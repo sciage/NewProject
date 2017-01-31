@@ -68,6 +68,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
 
         // filePath = Environment.getExternalStorageDirectory() + "/currentRecording.mp3";
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         timer = (TextView) findViewById(R.id.timer_tv);
         play = (ImageView) findViewById(R.id.play);
         record = (ImageView) findViewById(R.id.record);
@@ -108,7 +109,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
                         getWindow().clearFlags(
                                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                         setVolumeControlStream(AudioManager.STREAM_SYSTEM);
-                        if (!mMediaPlayer.isPlaying()) {
+                        if (mMediaPlayer.isPlaying()) {
                             play.setVisibility(View.VISIBLE);
                             pause.setVisibility(View.GONE);
                         }
@@ -224,6 +225,10 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
     private void stopRecording() {
         isContinue = false;
         //	stopChange();
+        done.setVisibility(View.VISIBLE);
+        play.setVisibility(View.VISIBLE);
+        pause.setVisibility(View.GONE);
+        stop.setVisibility(View.GONE);
         myAudioRecorder.stop();
         myAudioRecorder.release();
         myAudioRecorder = null;
