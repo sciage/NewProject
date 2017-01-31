@@ -18,19 +18,34 @@
             android:layout_height="wrap_content"
             android:id="@+id/second_profile_header_banner">
 
-            <include layout="@layout/include_toolbar4" />
+            <include layout="@layout/include_toolbar" />
 
             <com.intrusoft.library.FrissonView
                 android:id="@+id/second_wave_head"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/include_toolbar"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 frisson:tideCount="3"
+                frisson:tintColor="#1403d4"
                 frisson:src="@drawable/ic_done"
                 frisson:tideHeight="50dp"
                 frisson:alphaValue="70"
                 frisson:autoTint="true"/>
+
+            <View
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/ic_navigation" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/ic_edit" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -73,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/second_about"
                 android:layout_marginLeft="28dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/second_profile_follow_me"
                 android:layout_toRightOf="@+id/second_image"
                 android:background="@drawable/border"
@@ -181,92 +196,111 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/second_profile_user_name_section">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/second_age"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_age"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Age"
+                    android:textColor="#880E4F" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_age_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/second_age_value"
-                android:layout_toRightOf="@+id/second_age"
-                android:layout_marginLeft="180dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_gender"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Gender"
+                    android:textColor="#880E4F" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_gender_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
 
 
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/second_gender"
-                android:layout_below="@+id/second_age"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Gender"
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/second_gender_value"
-                android:layout_toRightOf="@+id/second_gender"
-                android:layout_below="@+id/second_age_value"
-                android:layout_marginLeft="160dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#880E4F" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_location"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Location"
+                    android:textColor="#880E4F" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/second_location"
-                android:layout_below="@+id/second_gender"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_public"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Location"
-                android:textColor="#880E4F" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/second_location_value"
-                android:layout_toRightOf="@+id/second_location"
-                android:layout_below="@+id/second_gender_value"
-                android:layout_marginLeft="152dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#880E4F" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/second_location_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
 
 
-        </RelativeLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

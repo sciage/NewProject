@@ -210,92 +210,110 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/profile_user_name_section">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/age"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Age"
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="80dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/age"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Age"
+                    android:textColor="#880E4F" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/age_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/age_value"
-                android:layout_toRightOf="@+id/age"
-                android:layout_marginLeft="140dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gender"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Gender"
+                    android:textColor="#880E4F" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gender_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
 
 
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:weightSum="2"
                 android:layout_height="wrap_content"
-                android:id="@+id/gender"
-                android:layout_below="@+id/age"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_mail"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Gender"
-                android:textColor="#880E4F" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/gender_value"
-                android:layout_toRightOf="@+id/gender"
-                android:layout_below="@+id/age_value"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#880E4F" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Location"
+                    android:textColor="#880E4F" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/location"
-                android:layout_below="@+id/gender"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="26dp"
-                android:drawableLeft="@drawable/ic_public"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text="Location"
-                android:textColor="#880E4F" />
-
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/location_value"
-                android:layout_toRightOf="@+id/location"
-                android:layout_below="@+id/gender_value"
-                android:layout_marginLeft="92dp"
-                android:layout_marginTop="30dp"
-                android:drawablePadding="24dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#880E4F" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location_value"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
 
 
-        </RelativeLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
