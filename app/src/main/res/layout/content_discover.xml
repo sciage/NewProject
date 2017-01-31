@@ -9,21 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/body_Color">
+        android:background="@color/md_blue_grey_50">
 
-        <include layout="@layout/include_toolbar" />
+        <include layout="@layout/include_toolbar2" />
 
       <com.ogaclejapan.smarttablayout.SmartTabLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/activity_discover_tab_layout"
-            android:background="@color/body_Color"
+            android:background="@color/md_blue_grey_50"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:clipToPadding="false"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            app:stl_defaultTabTextColor="@color/white"
+            app:stl_defaultTabTextColor="@color/black_semi_transparent"
             app:stl_defaultTabTextHorizontalPadding="18dp"
             app:stl_dividerColor="@color/transparent"
             app:stl_dividerThickness="0dp"
@@ -39,7 +39,7 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/activity_discover_viewpager"
-            android:background="@color/body_Color"
+            android:background="@color/md_blue_grey_50"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"/>

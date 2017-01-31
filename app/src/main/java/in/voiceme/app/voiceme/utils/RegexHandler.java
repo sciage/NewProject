@@ -2,9 +2,9 @@ package in.voiceme.app.voiceme.utils;
 
 import java.util.regex.Pattern;
 
-class RegexHandler {
+public class RegexHandler {
 
-  static String removeSpecialCharacters(String string) {
+  public static String removeSpecialCharacters(String string) {
     string = string.replaceAll("[^\\dA-Za-z ]", "").replaceAll("\\s+", "+");
     string = string.replaceAll("[-+^)(]*", "");
     string = string.replaceAll(" ", "");

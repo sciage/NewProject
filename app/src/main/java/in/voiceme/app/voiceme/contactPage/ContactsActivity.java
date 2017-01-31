@@ -50,6 +50,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     private TextView allPersonalContact;
     private boolean givenPersonalContact = false;
     private boolean givenAllPersonalContact = false;
+    private Button skip;
 
     private boolean animationReady = false;
     private ValueAnimator backgroundAnimator;
@@ -69,11 +70,13 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         setContentView(R.layout.activity_contacts);
 
+
         coordinatorLayout = (WelcomeCoordinatorLayout) findViewById(R.id.coordinator);
         initializeListeners();
         initializePages();
         initializeBackgroundTransitions();
 
+        skip = (Button) findViewById(R.id.skip);
 
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
         enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
@@ -86,6 +89,7 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         enterButton.setOnClickListener(this);
         getAllContacts.setOnClickListener(this);
+        skip.setOnClickListener(this);
         // Create a digits button and callback
 
 
@@ -97,9 +101,13 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
                 // application.getAuth().getUser().setPhoneNumber(true);
 
                 givenPersonalContact = true;
+
+               String newPhoneNumber = removeSpecialCharacters(phoneNumber);
    //             personalContact.setVisibility(View.VISIBLE);
+             //   phoneNumber.toString().replace("+", "");
+
                 try {
-                    sendContact(phoneNumber);
+                    sendContact(newPhoneNumber);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -128,6 +136,13 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
 
         enterButton.setBackgroundColor(getResources().getColor(R.color.material_red_500));
 
+    }
+
+    public String removeSpecialCharacters(String string) {
+        string = string.replaceAll("[^\\dA-Za-z ]", "").replaceAll("\\s+", "+");
+        string = string.replaceAll("[-+^)(]*", "");
+        string = string.replaceAll(" ", "");
+        return string;
     }
 
     private void initializePages() {
@@ -219,6 +234,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         processLoggedState(view);
         if (view.getId() == R.id.button_get_all_contacts){
             readContacts();
+
+        } else if (view.getId() == R.id.skip){
 
         } else if (view.getId() == R.id.enter_contacts_main_page){
 

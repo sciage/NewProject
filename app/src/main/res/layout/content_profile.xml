@@ -14,6 +14,7 @@
 
 
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +22,7 @@
             android:id="@+id/profile_header_banner"
             tools:context=".ProfilePage.ProfileActivity">
 
-            <include layout="@layout/include_toolbar4"
+            <include layout="@layout/include_toolbar"
                 android:background="@color/transparent"
                 />
 
@@ -29,8 +30,7 @@
             <com.intrusoft.library.FrissonView
                 android:id="@+id/wave_head"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/include_toolbar"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 frisson:tideCount="3"
                 frisson:tintColor="#1403d4"
@@ -39,6 +39,20 @@
                 frisson:alphaValue="70"
                 frisson:autoTint="true"/>
 
+            <View
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/ic_navigation" />
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/ic_edit" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -46,7 +60,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="140dp"
                 android:src="@drawable/intruder_shanky"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>

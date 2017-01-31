@@ -148,41 +148,53 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".userpost.CategoryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".userpost.FeelingActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".userpost.StatusActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".PostsDetails.UserCategoryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfilePage.TotalPostsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfilePage.FollowersActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfilePage.FollowingActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".PostsDetails.PostsDetailsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".contactPage.ContactsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfilePage.ChangeProfileActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".contactPage.ContactListActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ProfilePage.SecondProfile"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".userpost.AudioRecordingActivity" />
+        <activity android:name=".userpost.AudioRecordingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".contactPage.BaseContact" />
         <activity android:name=".login.AnonymousLogin"></activity>
     </application>
