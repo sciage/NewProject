@@ -12,7 +12,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -27,8 +26,16 @@ public class ReportAbuseActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_abuse);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Notifications");
-        setNavDrawer(new MainNavDrawer(this));
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Report Abuse Page");
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
 
         Intent intent = getIntent();

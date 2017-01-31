@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import in.voiceme.app.voiceme.ActivityPage.MainActivity;
@@ -12,7 +13,6 @@ import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.infrastructure.BaseActivity;
 import in.voiceme.app.voiceme.infrastructure.BaseSubscriber;
 import in.voiceme.app.voiceme.infrastructure.Constants;
-import in.voiceme.app.voiceme.infrastructure.MainNavDrawer;
 import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
@@ -24,16 +24,27 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
     private String doNothingToAudio = "doNothingToAudio";
     private String id_username;
     private String id_posts;
+    private TextView confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Notifications");
-        setNavDrawer(new MainNavDrawer(this));
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Edit Post");
+        toolbar.setNavigationIcon(R.mipmap.ic_ab_close);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processLoggedState(v);
+                finish();
+            }
+        });
 
         remove_edit_posts = (EditText) findViewById(R.id.remove_edit_posts);
         remove_audio = (Button) findViewById(R.id.remove_audio);
+        confirm = (TextView) findViewById(R.id.remove_audio_confirm);
+
 
         Intent intent = getIntent();
         id_username = intent.getStringExtra(Constants.IDUSERNAME);
@@ -43,6 +54,7 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
         remove_edit_posts.setOnClickListener(this);
         remove_audio.setOnClickListener(this);
 
+        confirm.setVisibility(View.GONE);
     }
 
     @Override
@@ -65,6 +77,7 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                                         Timber.e("Response " + response.getStatus() + "===" + response.getMsg());
                                         if (response.getMsg() == "true") {
                                             Toast.makeText(EditPost.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
+                                            confirm.setVisibility(View.VISIBLE);
                                             startActivity(new Intent(EditPost.this, MainActivity.class));
                                         }
                                     }
@@ -84,6 +97,7 @@ public class EditPost extends BaseActivity implements View.OnClickListener {
                                         if (response.getMsg() == "true") {
                                             Toast.makeText(EditPost.this, "Successfully posted status", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(EditPost.this, MainActivity.class));
+                                            confirm.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 });

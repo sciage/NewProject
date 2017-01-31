@@ -45,6 +45,13 @@
 
                 android:text="remove audio"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/remove_audio_confirm"
+                android:layout_height="wrap_content"
+                android:text="Audio will be removed after clicking the submit button"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
