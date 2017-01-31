@@ -227,4 +227,20 @@ public interface WebService {
             @Field("message") String message
     );
 
+    @FormUrlEncoded
+    @POST("report_abuse.php")
+    Observable<Response> reportAbuse(
+            @Field("id_user_name") String user_id,
+            @Field("id_posts") String id_posts,
+            @Field("abuse_message") String message
+    );
+
+    @FormUrlEncoded
+    @POST("report_abuse.php")
+    Observable<Response> EditProfile(
+            @Field("id_user_name") String user_id,
+            @Field("id_posts") String id_posts,
+            @Field("abuse_message") String message
+    );
+
 }

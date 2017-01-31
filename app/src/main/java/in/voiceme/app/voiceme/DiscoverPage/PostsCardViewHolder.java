@@ -31,6 +31,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
     //Imageview for avatar and play pause button
 
     protected ImageView user_avatar;
+    protected ImageView more_button;
     protected ImageView play_button;
 
     //username, feeling and category
@@ -73,6 +74,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         //Imageview for avatar and play pause button
         user_avatar = (ImageView) itemView.findViewById(R.id.list_item_posts_avatar);
         play_button = (ImageView) itemView.findViewById(R.id.list_item_posts_play_button);
+        more_button = (ImageView) itemView.findViewById(R.id.status_more);
 
         //username, feeling and category
         user_name = (TextView) itemView.findViewById(R.id.list_item_post_userNickName);
@@ -212,6 +214,17 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
                 cardBackground(view);
             }
         });
+
+        more_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moreClick(view);
+            }
+        });
+    }
+
+    protected void moreClick(View view){
+
     }
 
     protected void secondUserProfileClicked(View view){

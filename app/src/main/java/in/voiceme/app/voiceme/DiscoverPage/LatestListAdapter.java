@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -35,6 +38,8 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.l;
 import in.voiceme.app.voiceme.services.PostsModel;
+import in.voiceme.app.voiceme.userpost.EditPost;
+import in.voiceme.app.voiceme.userpost.ReportAbuseActivity;
 
 import static in.voiceme.app.voiceme.infrastructure.Constants.CONSTANT_PREF_FILE;
 
@@ -53,6 +58,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
     private String errorMsg;
+   // private static PostMoreButton postMoreButton;
 
 
     public void removeLoadingFooter() {
@@ -231,6 +237,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         boolean isPlaying = false;
         private boolean doDislike;
+        private PopupMenu popupMenu;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -249,7 +256,6 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Toast.makeText(view.getContext(), "Click Event Null Ex", Toast.LENGTH_SHORT).show();
             }
         }
-
 
 
         protected void secondUserProfileClicked(View view){
@@ -362,6 +368,40 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Toast.makeText(v.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
             intent.putExtra(Constants.LIKE_FEELING, dataItem.getIdPosts());
             v.getContext().startActivity(intent);
+        }
+
+        protected void moreClick(View view){
+            popupMenu = new PopupMenu(view.getContext(), view);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.edit_post:
+                            Toast.makeText(itemView.getContext(), "Clicked post edit", Toast.LENGTH_SHORT).show();
+                            Intent editIntent = new Intent(itemView.getContext(), EditPost.class);
+                            Toast.makeText(itemView.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
+                            editIntent.putExtra(Constants.SAME_FEELING, dataItem.getIdPosts());
+                            itemView.getContext().startActivity(editIntent);
+                            return true;
+
+                        case R.id.report_post:
+                            Toast.makeText(itemView.getContext(), "Clicked report edit", Toast.LENGTH_SHORT).show();
+
+                            Intent reportIntent = new Intent(itemView.getContext(), ReportAbuseActivity.class);
+                            Toast.makeText(itemView.getContext(), "Post ID is " + dataItem.getIdPosts(), Toast.LENGTH_SHORT).show();
+                            reportIntent.putExtra(Constants.SAME_FEELING, dataItem.getIdPosts());
+                            itemView.getContext().startActivity(reportIntent);
+                            return true;
+
+                        default:
+                            return false;
+
+                    }
+                }
+            });
+            popupMenu.show();
         }
 
         @Override
@@ -517,6 +557,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
 
         }
+
     }
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {

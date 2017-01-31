@@ -282,6 +282,17 @@
             app:like_drawable="@drawable/sad"
             app:unlike_drawable="@drawable/status_before" />
 
+        <ImageView
+            android:id="@+id/status_more"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toRightOf="@+id/list_item_same_button"
+            android:layout_below="@id/number_of_likes"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/list_item_same_button"
+            android:src="@drawable/ic_more_grey" />
+
 
     </RelativeLayout>
 
