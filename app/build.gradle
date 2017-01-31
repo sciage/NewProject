@@ -12,6 +12,15 @@ apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
 apply plugin: 'me.tatarka.retrolambda'
 
+//Load API Key information in from property file
+Properties props = new Properties()
+try {
+    props.load(file('fabric.properties.sample').newDataInputStream())
+} catch (Exception ex) {
+    throw new GradleException("Missing fabric.properties, check the fabric.properties.sample file.");
+}
+
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -49,6 +58,9 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CONSUMER_KEY", "\"${props.getProperty("twitterConsumerKey")}\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"${props.getProperty("twitterConsumerSecret")}\""
+            buildConfigField "String", "PARTNER_KEY", "\"${props.getProperty("twitterPartnerKey")}\""
             /*
             Commented for now can't find config file
              */
@@ -57,11 +69,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "CONSUMER_KEY", "\"${props.getProperty("twitterConsumerKey")}\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"${props.getProperty("twitterConsumerSecret")}\""
+            buildConfigField "String", "PARTNER_KEY", "\"${props.getProperty("twitterPartnerKey")}\""
             /*
             Commented for now can't find config file
              */
             //signingConfig signingConfigs.config
             signingConfig signingConfigs.config
+        }
+
+        packagingOptions {
+            exclude 'LICENSE.txt'
         }
     }
 }

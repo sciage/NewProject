@@ -2,13 +2,19 @@ package in.voiceme.app.voiceme.infrastructure;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.digits.sdk.android.Digits;
 import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
 import com.squareup.otto.Bus;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 
+import in.voiceme.app.voiceme.BuildConfig;
 import in.voiceme.app.voiceme.loginV2.RefreshTokenJobCreator;
 import in.voiceme.app.voiceme.services.ServiceFactory;
 import in.voiceme.app.voiceme.services.WebService;
@@ -16,6 +22,8 @@ import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import timber.log.Timber;
+
+import static com.facebook.GraphRequest.TAG;
 
 /**
  * Created by Harish on 7/20/2016.
@@ -61,7 +69,7 @@ public class VoicemeApplication extends Application {
             }
         });
         /******************************************/
-        Fabric.with(this, new Crashlytics());
+   //     Fabric.with(this, new Crashlytics());
      //   Timber.plant(new ReleaseTree());
 
 
@@ -70,6 +78,29 @@ public class VoicemeApplication extends Application {
          *Creates a periodic job to refresh token
          */
         JobManager.create(this).addJobCreator(new RefreshTokenJobCreator());
+
+     //   LeakCanary.install(this);
+
+        Log.d(TAG, "Setting up StrictMode policy checking.");
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
+
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
+
+        final TwitterAuthConfig authConfig = new TwitterAuthConfig(BuildConfig.CONSUMER_KEY,
+                BuildConfig.CONSUMER_SECRET);
+
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Answers(), new TwitterCore(authConfig), new Digits.Builder().build())
+                .debuggable(true)
+                .build();
+
+        Fabric.with(fabric);
 
         initDatabase();
     }

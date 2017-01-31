@@ -15,13 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.digits.sdk.android.AuthCallback;
+import com.digits.sdk.android.AuthConfig;
 import com.digits.sdk.android.Digits;
-import com.digits.sdk.android.DigitsAuthButton;
 import com.digits.sdk.android.DigitsException;
 import com.digits.sdk.android.DigitsSession;
 import com.redbooth.WelcomeCoordinatorLayout;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.contactPage.animators.ChatAvatarsAnimator;
@@ -34,19 +32,21 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.userpost.BaseResponse;
 import in.voiceme.app.voiceme.utils.ActivityUtils;
 import in.voiceme.app.voiceme.utils.ContactsHelper;
-import io.fabric.sdk.android.Fabric;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ContactsActivity extends BaseActivity implements View.OnClickListener {
-    private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
-    private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
+ //   private static final String TWITTER_KEY = "I6Zt8s6wSZzMtnPqun18Raw0T";
+ //   private static final String TWITTER_SECRET = "Jb92MdEm2GmK40RMqZvoxmjTFR4aUipanCOYr3BHloy43cvOsA";
     private Button getAllContacts;
     private Button enterButton;
-    private DigitsAuthButton digitsButton;
-    private TextView personalContact;
+    // private DigitsAuthButton digitsButton;
+
+  //  private AuthCallback callback;
+  //  private Button digitsAuthButton;
+    // private TextView personalContact;
     private TextView allPersonalContact;
     private boolean givenPersonalContact = false;
     private boolean givenAllPersonalContact = false;
@@ -64,8 +64,8 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
+  //      TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+  //      Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
 
         setContentView(R.layout.activity_contacts);
 
@@ -78,40 +78,51 @@ public class ContactsActivity extends BaseActivity implements View.OnClickListen
         getAllContacts = (Button) findViewById(R.id.button_get_all_contacts);
         enterButton = (Button) findViewById(R.id.enter_contacts_main_page);
 
-        personalContact = (TextView) findViewById(R.id.person_contact_verified);
+//        personalContact = (TextView) findViewById(R.id.person_contact_verified);
         allPersonalContact = (TextView) findViewById(R.id.all_person_contact_verified);
 
-        personalContact.setVisibility(View.GONE);
+  //      personalContact.setVisibility(View.GONE);
         allPersonalContact.setVisibility(View.GONE);
 
         enterButton.setOnClickListener(this);
         getAllContacts.setOnClickListener(this);
         // Create a digits button and callback
-        digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
 
-        digitsButton.setText(R.string.digits_contact);
-        digitsButton.setCallback(new AuthCallback() {
 
+        final AuthCallback callback = new AuthCallback() {
             @Override
             public void success(DigitsSession session, String phoneNumber) {
                 Timber.v("DIGITS SUCCESSFUL authentication");
                 Timber.v("phone number: " + phoneNumber);
-               // application.getAuth().getUser().setPhoneNumber(true);
+                // application.getAuth().getUser().setPhoneNumber(true);
 
                 givenPersonalContact = true;
-                personalContact.setVisibility(View.VISIBLE);
+   //             personalContact.setVisibility(View.VISIBLE);
                 try {
                     sendContact(phoneNumber);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
-            public void failure(DigitsException exception) {
-                // Do something on failure
+            public void failure(DigitsException error) {
                 Timber.d("Oops Digits issue");
+            }
+        };
+
+
+        final Button digitsAuthButton = (Button) findViewById(R.id.auth_button);
+
+        digitsAuthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AuthConfig.Builder digitsAuthConfigBuilder = new AuthConfig.Builder()
+                        .withAuthCallBack(callback)
+                        .withPhoneNumber("");
+
+                Digits.authenticate(digitsAuthConfigBuilder.build());
             }
         });
 

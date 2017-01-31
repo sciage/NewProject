@@ -75,7 +75,7 @@ Contact: Txus Ballesteros <txus.ballesteros@gmail.com>
         android:text="Privacy policy"
         app:view_behavior="in.voiceme.app.voiceme.contactPage.ParallaxSubtitleBehaviour" />
 
-    <com.digits.sdk.android.DigitsAuthButton
+    <Button
         android:id="@+id/auth_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
