@@ -27,6 +27,8 @@ import timber.log.Timber;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.SET_TIME;
+import static android.Manifest.permission.SET_TIME_ZONE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.google.gdata.util.common.base.Preconditions.checkNotNull;
 
@@ -39,7 +41,7 @@ public class ActivityUtils {
     // 1. For taking [picture and storing inside the external storage
     private static final String[] TAKE_PICTURE_PERM = {CAMERA, WRITE_EXTERNAL_STORAGE};
     // 2. recording audio and storing inside internal storage
-    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE};
+    private static final String[] RECORD_AUDIO_PERM = {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, SET_TIME, SET_TIME_ZONE};
 
 
 

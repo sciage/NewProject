@@ -43,8 +43,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private EasyTextInputLayout username;
     private EasyTextInputLayout aboutme;
     private EasyTextInputLayout userAge;
-    private EasyTextInputLayout userLocation;
     private TextView genderSelection;
+    private TextView genderSelectionTitle;
     private Button submitButton;
     private String imageUrl;
     private boolean changedImage = false;
@@ -73,8 +73,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         username = (EasyTextInputLayout) findViewById(R.id.edittext_profile_username);
         aboutme = (EasyTextInputLayout) findViewById(R.id.edittext_profile_aboutme);
         userAge = (EasyTextInputLayout) findViewById(R.id.edittext_profile_age);
-        userLocation = (EasyTextInputLayout) findViewById(R.id.edittext_profile_location);
         genderSelection = (TextView) findViewById(R.id.user_gender_text_box);
+        genderSelectionTitle = (TextView) findViewById(R.id.user_gender);
 
         avatarView = (CircleImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
@@ -83,6 +83,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
         genderSelection.setOnClickListener(this);
+        genderSelectionTitle.setOnClickListener(this);
 
         try {
             getData();
@@ -211,8 +212,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
             }
 
-        } else if(viewId == R.id.user_gender_text_box){
-
+        } else if(viewId == R.id.user_gender_text_box || viewId == R.id.user_gender){
+            CreateAlertDialogWithRadioButtonGroup();
         }
     }
 
@@ -264,7 +265,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void submitData() throws Exception {
         application.getWebService()
-                .login("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
+                .login("", MySharedPreferences.getEmail(preferences), "",
                         userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
                         Uri.parse(imageUrl), this.currentGender, aboutme.getEditText().getText().toString(),
                         username.getEditText().getText().toString())
@@ -285,7 +286,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
     private void submitDataWithoutProfile() throws Exception {
         application.getWebService()
-                .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
+                .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), "",
                         userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
                         this.currentGender, aboutme.getEditText().getText().toString(),
                         username.getEditText().getText().toString())
@@ -322,7 +323,6 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         aboutme.getEditText().setText(response.getData().getAboutMe());
         userAge.getEditText().setText(response.getData().getUserDateOfBirth());
         genderSelection.setText(response.getData().getGender());
-        userLocation.getEditText().setText(response.getData().getLocation());
 
         if (!response.getData().getAvatarPics().equals("")) {
             Picasso.with(this)

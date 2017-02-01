@@ -226,6 +226,7 @@ public class AudioRecordingActivity extends BaseActivity implements View.OnClick
         isContinue = false;
         //	stopChange();
         done.setVisibility(View.VISIBLE);
+        cancel.setVisibility(View.VISIBLE);
         play.setVisibility(View.VISIBLE);
         pause.setVisibility(View.GONE);
         stop.setVisibility(View.GONE);
