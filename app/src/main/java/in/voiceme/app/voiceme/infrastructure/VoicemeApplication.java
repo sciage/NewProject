@@ -10,6 +10,8 @@ import com.crashlytics.android.answers.Answers;
 import com.digits.sdk.android.Digits;
 import com.evernote.android.job.JobManager;
 import com.facebook.FacebookSdk;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Bus;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
@@ -34,6 +36,8 @@ public class VoicemeApplication extends Application {
     private static Context context;
     private WebService webService;
     private VoicemeApplication instance;
+    private static GoogleAnalytics sAnalytics;
+    private static Tracker sTracker;
 
     public VoicemeApplication() {
         bus = new Bus();
@@ -68,6 +72,8 @@ public class VoicemeApplication extends Application {
                 return super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+
+        sAnalytics = GoogleAnalytics.getInstance(this);
         /******************************************/
    //     Fabric.with(this, new Crashlytics());
      //   Timber.plant(new ReleaseTree());
@@ -103,6 +109,15 @@ public class VoicemeApplication extends Application {
         Fabric.with(fabric);
 
         initDatabase();
+    }
+
+    synchronized public Tracker getDefaultTracker() {
+        if (sTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+        //    sTracker = analytics.newTracker(R.xml.global_tracker);
+        }
+        return sTracker;
     }
 
     public WebService getWebService() {

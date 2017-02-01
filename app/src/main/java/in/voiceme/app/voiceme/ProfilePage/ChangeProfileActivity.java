@@ -1,5 +1,6 @@
 package in.voiceme.app.voiceme.ProfilePage;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emmasuzuki.easyform.EasyTextInputLayout;
@@ -40,11 +43,14 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
     private EasyTextInputLayout username;
     private EasyTextInputLayout aboutme;
     private EasyTextInputLayout userAge;
-    private EasyTextInputLayout userGender;
     private EasyTextInputLayout userLocation;
+    private TextView genderSelection;
     private Button submitButton;
     private String imageUrl;
     private boolean changedImage = false;
+    AlertDialog alertDialog1;
+    private String currentGender;
+    CharSequence[] values = {" Male "," Female "," Transgender "};
 
     private CircleImageView avatarView;
     private View avatarProgressFrame;
@@ -67,8 +73,8 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         username = (EasyTextInputLayout) findViewById(R.id.edittext_profile_username);
         aboutme = (EasyTextInputLayout) findViewById(R.id.edittext_profile_aboutme);
         userAge = (EasyTextInputLayout) findViewById(R.id.edittext_profile_age);
-        userGender = (EasyTextInputLayout) findViewById(R.id.edittext_profile_gender);
         userLocation = (EasyTextInputLayout) findViewById(R.id.edittext_profile_location);
+        genderSelection = (TextView) findViewById(R.id.user_gender_text_box);
 
         avatarView = (CircleImageView) findViewById(R.id.changeimage);
         avatarProgressFrame = findViewById(R.id.activity_profilechange_avatarProgressFrame);
@@ -76,6 +82,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
         avatarView.setOnClickListener(this);
         submitButton.setOnClickListener(this);
+        genderSelection.setOnClickListener(this);
 
         try {
             getData();
@@ -204,14 +211,62 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
 
             }
 
+        } else if(viewId == R.id.user_gender_text_box){
+
         }
     }
+
+    public void CreateAlertDialogWithRadioButtonGroup(){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ChangeProfileActivity.this);
+
+        builder.setTitle("Choose Your Gender");
+
+        builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+
+                switch(item)
+                {
+                    case 0:
+
+                        Toast.makeText(ChangeProfileActivity.this, "Male clicked", Toast.LENGTH_LONG).show();
+                        setCurrentGender("Male");
+                        genderSelection.setText("Male");
+                        break;
+                    case 1:
+
+                        Toast.makeText(ChangeProfileActivity.this, "Female Clicked", Toast.LENGTH_LONG).show();
+                        setCurrentGender("Female");
+                        genderSelection.setText("Female");
+                        break;
+                    case 2:
+
+                        Toast.makeText(ChangeProfileActivity.this, "Transgender Clicked", Toast.LENGTH_LONG).show();
+                        setCurrentGender("Transgender");
+                        genderSelection.setText("Transgender");
+                        break;
+                }
+                alertDialog1.dismiss();
+            }
+        });
+        alertDialog1 = builder.create();
+        alertDialog1.show();
+
+    }
+
+    private void setCurrentGender(String gender){
+        this.currentGender = gender;
+    }
+
+
 
     private void submitData() throws Exception {
         application.getWebService()
                 .login("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
                         userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        Uri.parse(imageUrl), userGender.getEditText().getText().toString(), aboutme.getEditText().getText().toString(),
+                        Uri.parse(imageUrl), this.currentGender, aboutme.getEditText().getText().toString(),
                         username.getEditText().getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -232,7 +287,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         application.getWebService()
                 .loginWithoutProfile("", MySharedPreferences.getEmail(preferences), userLocation.getEditText().getText().toString(),
                         userAge.getEditText().getText().toString(), MySharedPreferences.getSocialID(preferences),
-                        userGender.getEditText().getText().toString(), aboutme.getEditText().getText().toString(),
+                        this.currentGender, aboutme.getEditText().getText().toString(),
                         username.getEditText().getText().toString())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<LoginResponse>() {
@@ -266,7 +321,7 @@ public class ChangeProfileActivity extends BaseActivity implements View.OnClickL
         username.getEditText().setText(response.getData().getUserNickName());
         aboutme.getEditText().setText(response.getData().getAboutMe());
         userAge.getEditText().setText(response.getData().getUserDateOfBirth());
-        userGender.getEditText().setText(response.getData().getGender());
+        genderSelection.setText(response.getData().getGender());
         userLocation.getEditText().setText(response.getData().getLocation());
 
         if (!response.getData().getAvatarPics().equals("")) {

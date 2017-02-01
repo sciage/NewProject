@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -238,6 +239,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean isPlaying = false;
         private boolean doDislike;
         private PopupMenu popupMenu;
+        private Menu menu;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -374,6 +376,18 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             popupMenu = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popupMenu.getMenuInflater();
             inflater.inflate(R.menu.pop_menu, popupMenu.getMenu());
+        //    this.menu = popupMenu.getMenu();
+
+            SharedPreferences preferences;
+            preferences = ((VoicemeApplication) itemView.getContext().getApplicationContext()).getSharedPreferences(CONSTANT_PREF_FILE, Context.MODE_WORLD_WRITEABLE);
+
+            if (MySharedPreferences.getUserId(preferences).equals(dataItem.getIdUserName())){
+                if(popupMenu.getMenu() == null)
+                   return;
+                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, true);
+            } else {
+                popupMenu.getMenu().setGroupVisible(R.id.main_menu_group, false);
+            }
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

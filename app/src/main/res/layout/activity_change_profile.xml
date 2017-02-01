@@ -82,22 +82,45 @@
                 app:minValue="12"
                 app:maxValue="100" />
 
-            <com.emmasuzuki.easyform.EasyTextInputLayout
-                android:id="@+id/edittext_profile_gender"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:weightSum="2"
                 android:layout_below="@+id/edittext_profile_age"
-                android:layout_marginTop="8dp"
-                android:hint="Gender"
-                app:errorMessage="Gender should not be more than 10 chars"
-                app:maxChars="10"
-                app:minChars="4" />
+                android:id="@+id/gender_change_profile"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_gender"
+                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawablePadding="24dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Gender"
+                    android:textColor="#880E4F" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_margin="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_gender_text_box"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="#880E4F" />
+
+
+            </LinearLayout>
 
             <com.emmasuzuki.easyform.EasyTextInputLayout
                 android:id="@+id/edittext_profile_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/edittext_profile_gender"
+                android:layout_below="@+id/gender_change_profile"
                 android:layout_marginTop="8dp"
                 android:hint="Location"
                 app:errorMessage="Location should not be more than 50 chars"

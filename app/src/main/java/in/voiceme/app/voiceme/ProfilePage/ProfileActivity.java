@@ -85,6 +85,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         following_counter.setOnClickListener(this);
         total_posts_counter.setOnClickListener(this);
         followerLayout.setOnClickListener(this);
+        totalPostLayout.setOnClickListener(this);
 
         avatarProgressFrame.setVisibility(View.GONE);
 
