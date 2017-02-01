@@ -52,7 +52,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyViewHolder> implem
         holder.postMessage.setText(userDetails.get(position).getPostMessage());
         holder.postReadMore.setText(userDetails.get(position).getReadMore());
         holder.user_avatar.setImageResource(userDetails.get(position).getAvatarUrl());
-        holder.play_button.setImageResource(userDetails.get(position).getPlayButton());
 
         likeButton.setOnLikeListener(this);
         HugButton.setOnLikeListener(this);

@@ -283,6 +283,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     mediaPlayer = new MediaPlayer();
                     mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    play_button.showProgress(true);
                     try {
                         mediaPlayer.setDataSource(dataItem.getAudioFileLink());
                         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -290,6 +291,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             public void onPrepared(MediaPlayer mediaPlayer) {
                                 try {
                                     mediaPlayer.start();
+                                    play_button.showProgress(false);
                                     flipPlayPauseButton(true);
                                 } catch (Exception e){
                                     e.printStackTrace();
@@ -299,6 +301,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
+                                play_button.showProgress(false);
                                 flipPlayPauseButton(false);
                                 mediaPlayer.stop();
                             }
@@ -310,6 +313,7 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 } else {
                     try {
                         mediaPlayer.pause();
+                        play_button.showProgress(false);
                         flipPlayPauseButton(false);
                     } catch (Exception e){
                         e.printStackTrace();
@@ -319,9 +323,9 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public void flipPlayPauseButton(boolean isPlaying){
             if (isPlaying){
-                play_button.setImageResource(R.drawable.stop_button);
+                play_button.setIcon(R.drawable.stop_button, R.drawable.play_button);
             } else  {
-                play_button.setImageResource(R.drawable.play_button);
+                play_button.setIcon(R.drawable.play_button, R.drawable.stop_button);
             }
         }
 

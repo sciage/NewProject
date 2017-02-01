@@ -19,6 +19,7 @@ import in.voiceme.app.voiceme.infrastructure.MySharedPreferences;
 import in.voiceme.app.voiceme.infrastructure.VoicemeApplication;
 import in.voiceme.app.voiceme.services.LikesResponse;
 import in.voiceme.app.voiceme.services.PostsModel;
+import mbanje.kurt.fabbutton.FabButton;
 import rx.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
@@ -32,7 +33,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
 
     protected ImageView user_avatar;
     protected ImageView more_button;
-    protected ImageView play_button;
+    protected FabButton play_button;
 
     //username, feeling and category
     protected TextView user_name;
@@ -73,7 +74,7 @@ public abstract class PostsCardViewHolder extends RecyclerView.ViewHolder implem
         super(itemView);
         //Imageview for avatar and play pause button
         user_avatar = (ImageView) itemView.findViewById(R.id.list_item_posts_avatar);
-        play_button = (ImageView) itemView.findViewById(R.id.list_item_posts_play_button);
+        play_button = (FabButton) itemView.findViewById(R.id.list_item_posts_play_button);
         more_button = (ImageView) itemView.findViewById(R.id.status_more);
 
         //username, feeling and category

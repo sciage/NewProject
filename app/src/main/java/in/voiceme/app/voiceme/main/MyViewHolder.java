@@ -14,6 +14,7 @@ import in.voiceme.app.voiceme.PostsDetails.UserSameCounterActivity;
 import in.voiceme.app.voiceme.R;
 import in.voiceme.app.voiceme.WasLoggedInInterface;
 import in.voiceme.app.voiceme.l;
+import mbanje.kurt.fabbutton.FabButton;
 
 
 /**
@@ -22,7 +23,7 @@ import in.voiceme.app.voiceme.l;
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, WasLoggedInInterface {
 
     ImageView user_avatar;
-    ImageView play_button;
+    FabButton play_button;
     TextView user_name;
     TextView isPost;
     TextView feeling;
@@ -64,7 +65,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         postMessage = (TextView) itemView.findViewById(R.id.list_item_posts_message);
         postReadMore = (TextView) itemView.findViewById(R.id.list_item_posts_read_more);
         user_avatar = (ImageView) itemView.findViewById(R.id.list_item_posts_avatar);
-        play_button = (ImageView) itemView.findViewById(R.id.list_item_posts_play_button);
+        play_button = (FabButton) itemView.findViewById(R.id.list_item_posts_play_button);
 
         itemView.setOnClickListener(this);
         likeCounterImage.setOnClickListener(this);
