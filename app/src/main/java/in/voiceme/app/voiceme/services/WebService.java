@@ -29,7 +29,7 @@ public interface WebService {
     Observable<List<PostsModel>> getLatestFeed(@Query("user_id") String userID,
                                                @Query("page") int page);
 
-    // Todo donot know about this call
+    // Todo donot know about this call new method added
     @GET("posts.php")
     Observable<List<PostsModel>> getFollowers(@Query("user_id") String userID,
                                               @Query("follower") String user_id);
