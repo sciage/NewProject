@@ -69,13 +69,25 @@ public class LatestListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         PostsModel result = getItem(position);
 
         if (result != null) {
-            removeItem(position);
+            dataSet.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void add(PostsModel r) {
+        dataSet.add(r);
+        notifyItemInserted(dataSet.size() - 1);
+    }
+
+    public void addAll(List<PostsModel> moveResults) {
+        for (PostsModel result : moveResults) {
+            add(result);
         }
     }
 
     public void addLoadingFooter() {
         isLoadingAdded = true;
-        applyAndAnimateAdditions(dataSet);
+        addItem(dataSet.size(), new PostsModel() );
     }
 
     public void showRetry(boolean show, @Nullable String errorMsg) {

@@ -54,7 +54,7 @@ public interface WebService {
                                                     @Query("page") int page);
 
     @GET("posts.php")
-    Observable<List<PostsModel>> getUserFollowerPost(@Query("follower") String follower,
+    Observable<PostsModel> getUserFollowerPost(@Query("follower") String follower,
                                                      @Query("user_id") String user_id,
                                                      @Query("page") int page);
 

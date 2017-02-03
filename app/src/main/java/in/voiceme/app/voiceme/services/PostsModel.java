@@ -1,24 +1,10 @@
 package in.voiceme.app.voiceme.services;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
-public class PostsModel implements Parcelable {
-    public static final Creator<PostsModel> CREATOR = new Creator<PostsModel>() {
-        @Override
-        public PostsModel createFromParcel(Parcel in) {
-            return new PostsModel(in);
-        }
-
-        @Override
-        public PostsModel[] newArray(int size) {
-            return new PostsModel[size];
-        }
-    };
+public class PostsModel {
     @SerializedName("id_posts") @Expose private String idPosts;
     @SerializedName("id_user_name") @Expose private String idUserName;
     @SerializedName("post_time") @Expose private String postTime;
@@ -38,24 +24,6 @@ public class PostsModel implements Parcelable {
     @SerializedName("user_Same") @Expose private Boolean userSame;
     @SerializedName("user_Huge") @Expose private Boolean userHuge;
     @SerializedName("user_Listen") @Expose private Boolean userListen;
-
-    private PostsModel(Parcel in) {
-        idPosts = in.readString();
-        idUserName = in.readString();
-        postTime = in.readString();
-        textStatus = in.readString();
-        audioDuration = in.readString();
-        audioFileLink = in.readString();
-        userNicName = in.readString();
-        avatarPics = in.readString();
-        emotions = in.readString();
-        category = in.readString();
-        likes = in.readString();
-        same = in.readString();
-        hug = in.readString();
-        listen = in.readString();
-        comments = in.readString();
-    }
 
     /**
      * @return The idPosts
@@ -176,29 +144,5 @@ public class PostsModel implements Parcelable {
 
     public Boolean getUserListen() {
         return userListen;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(idPosts);
-        parcel.writeString(idUserName);
-        parcel.writeString(postTime);
-        parcel.writeString(textStatus);
-        parcel.writeString(audioDuration);
-        parcel.writeString(audioFileLink);
-        parcel.writeString(userNicName);
-        parcel.writeString(avatarPics);
-        parcel.writeString(emotions);
-        parcel.writeString(category);
-        parcel.writeString(likes);
-        parcel.writeString(same);
-        parcel.writeString(hug);
-        parcel.writeString(listen);
-        parcel.writeString(comments);
     }
 }

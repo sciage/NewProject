@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by harish on 1/3/2017.
  */
 
-public class Response {
+public class UserResponse {
 
     @SerializedName("status") @Expose private Integer status;
     @SerializedName("msg") @Expose private String msg;

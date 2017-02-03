@@ -183,7 +183,8 @@ public class ActivityInteractionFragment extends BaseFragment implements Paginat
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
+                        //showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }

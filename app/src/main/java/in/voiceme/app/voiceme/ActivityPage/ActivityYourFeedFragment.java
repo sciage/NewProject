@@ -179,13 +179,16 @@ public class ActivityYourFeedFragment extends BaseFragment implements Pagination
                         MySharedPreferences.getUserId(preferences),
                         currentPage)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<List<PostsModel>>() {
+                .subscribe(new BaseSubscriber<PostsModel>() {
                     @Override
-                    public void onNext(List<PostsModel> response) {
+                    public void onNext(PostsModel response) {
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                       List<PostsModel> results = fetchResults(response);
+                        latestListAdapter.addAll(results);
+
+                   //     showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }

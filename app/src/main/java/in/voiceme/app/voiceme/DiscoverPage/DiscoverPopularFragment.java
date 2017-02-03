@@ -185,7 +185,8 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
                         progressBar.setVisibility(View.GONE);
                         hideErrorView();
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
+                      //  showRecycleWithDataFilled(response);
                         if (currentPage <= TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
@@ -213,7 +214,8 @@ public class DiscoverPopularFragment extends BaseFragment implements PaginationA
 
 
                         Log.e("RESPONSE:::", "Size===" + response.size());
-                        showRecycleWithDataFilled(response);
+                        latestListAdapter.addAll(response);
+                       // showRecycleWithDataFilled(response);
                         if (currentPage != TOTAL_PAGES) latestListAdapter.addLoadingFooter();
                         else isLastPage = true;
                     }
